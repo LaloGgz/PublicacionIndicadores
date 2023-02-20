@@ -1,0 +1,56 @@
+﻿@model Indicadores.Models.PostgresSql.Catalogos.BitacoraErrorModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>BitacoraErrorModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ErroMessage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ErroMessage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.query)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.query)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdError)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdError)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

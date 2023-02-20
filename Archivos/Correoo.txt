@@ -1,0 +1,185 @@
+<div>
+    <div>
+        <div style="background-color:#EEEEEE;margin:0;"><font face="Times New Roman,serif" size="3"><span style="font-size:12pt;background-color:#EEEEEE;"><font face="Helvetica,sans-serif" size="1" color="#FEFEFE"><span style="font-size:1pt;">R_Folio </span></font></span></font></div>
+    </div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+        <tbody>
+            <tr>
+                <td style="background-color:#EEEEEE;padding:0;">
+                    <span style="background-color:#EEEEEE;">
+                        <div align="center" style="text-align:center;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td valign="top" style="background-color:#141A26;padding:26.25pt;">
+                                            <span style="background-color:#141A26;">
+                                                <table width="100%" align="left" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td valign="top" style="padding:0;">
+                                                                <div align="center" style="text-align:center;margin:0;">
+                                                                    <font face="Times New Roman,serif" size="6">
+                                                                        <span style="font-size:24pt;">
+                                                                            <b>
+                                                                                <font face="Helvetica,sans-serif" size="5" color="white">
+                                                                                    <span style="font-size:19.5pt;">
+                                                                                        Secretría de Seguridad y Protección
+                                                                                        a la Ciudadanía
+                                                                                    </span>
+                                                                                </font>
+                                                                            </b>
+                                                                        </span>
+                                                                    </font>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table width="100%" align="left" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td valign="top" style="padding:0;">
+                                            <table align="right" border="0" cellspacing="0" cellpadding="0"></table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div align="center" style="text-align:center;">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+            <tbody>
+                <tr>
+                    <td style="padding:18.75pt 0 0 0;">
+                        <div align="center" style="text-align:center;margin:0;"><font face="Times New Roman,serif" size="5"><span style="font-size:18pt;"><b><font face="Helvetica,sans-serif" size="6" color="#333333"><span style="font-size:22.5pt;">Registro validado </span></font></b></span></font></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:7.5pt 0 0 0;">
+                        <div style="margin-right:0;margin-left:0;">
+                            <font face="Times New Roman,serif" size="3">
+                                <span style="font-size:12pt;">
+                                    <font face="Helvetica,sans-serif">
+                                        Favor de acudir a las oficinas de la Secretaría de Seguridad y Protección a la Ciudadanía - Dirección de Transito
+                                        de Monterrey el próximo día hábil.
+                                    </font>
+                                </span>
+                            </font>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:15pt 0 0 0;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding:7.5pt 0 0 0;">
+                                        <div align="center" style="text-align:center;margin-right:0;margin-left:36pt;">
+                                            <font face="Times New Roman,serif" size="3">
+                                                <span style="font-size:12pt;">
+                                                    <font face="Helvetica,sans-serif">
+                                                        <b>
+                                                            Dirección: Lincoln #300, cruz con Refugio Velazquez Col. Nueva Morelos,
+                                                            64330
+                                                        </b>
+                                                    </font>
+                                                </span>
+                                            </font>
+                                        </div>
+                                        <div align="center" style="text-align:center;margin:14pt 0 14pt 36pt;"><font face="Times New Roman,serif" size="3"><span style="font-size:12pt;"><font face="Helvetica,sans-serif"><b>Horario: Lunes a Viernes de 9:00 am a 5:00 pm, Sábados de 9:00 pm a 12:00 pm</b></font></span></font></div>
+                                        <div align="center" style="text-align:center;margin:14pt 0 14pt 36pt;">
+                                            <font face="Times New Roman,serif" size="3">
+                                                <span style="font-size:12pt;">
+                                                    <font face="Helvetica,sans-serif">
+                                                        <b>
+                                                            Favor de llevar impresa la orden de pago y realizarlo en las cajas para la
+                                                            obtención de su permiso.
+                                                        </b>
+                                                    </font>
+                                                </span>
+                                            </font>
+                                        </div>
+                                        <div align="center" style="text-align:center;margin:14pt 0 14pt 36pt;">
+                                            <font face="Times New Roman,serif" size="3">
+                                                <span style="font-size:12pt;">
+                                                    <font face="Helvetica,sans-serif"><b>Comentarios:</b></font><font face="Helvetica,sans-serif">
+                                                        <b>
+                                                            <br>
+                                                            listo
+                                                        </b>
+                                                    </font>
+                                                </span>
+                                            </font>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:15pt 0 0 0;">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding:7.5pt 0 0 0;">
+                                                        <div align="center" style="text-align:center;margin-right:0;margin-left:36pt;"><font face="Times New Roman,serif" size="3"><span style="font-size:12pt;"><font face="Helvetica,sans-serif" color="red"><b>Este documento no es un permiso.</b></font></span></font></div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="width:100%;background-color:white;padding:0 26.25pt 26.25pt 26.25pt;">
+                        <span style="background-color:white;"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background-color:white;padding:26.25pt;">
+                        <span style="background-color:white;">
+                            <div align="center" style="text-align:center;">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="padding:0;">
+                                                <div align="center" style="text-align:center;margin:0;"><font face="Times New Roman,serif" size="3"><span style="font-size:12pt;"><img src="http://servicios.monterrey.gob.mx/cargapesada/archivos/logo.png" width="249" height="249" border="0"></span></font></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:3.75pt 0 7.5pt 0;">
+                                                <div align="center" style="text-align:center;margin-right:0;margin-left:0;">
+                                                    <font face="Times New Roman,serif" size="3">
+                                                        <span style="font-size:12pt;">
+                                                            <font face="Helvetica,sans-serif" size="2" color="#333333">
+                                                                <span style="font-size:10.5pt;">
+                                                                    <b>
+                                                                        Lincoln #300,
+                                                                        cruz con Refugio Velazquez Col. Nueva Morelos, 64330
+                                                                    </b>
+                                                                </span>
+                                                            </font>
+                                                        </span>
+                                                    </font>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

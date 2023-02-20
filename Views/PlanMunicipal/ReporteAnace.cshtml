@@ -1,0 +1,267 @@
+﻿@model Indicadores.Models.PDM.Tb_Indicador
+
+<script src="~/Scripts/PMD/ReportaAvance.js"></script>
+<input type="hidden" id="idindicador" value="@Model.idindicador" />
+<div class="row">
+    <div class="col-md-10 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Plan Municipal de Desarrollo <small> Indicador</small></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form class="form-label-left input_mask">
+                    <div class="form-group row">
+                        <input type="hidden" value="@Model.idsecretaria" id="cargasecre" />
+                        <label class="col-form-label col-md-2 col-sm-2 ">Unidad responsable</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <select id="idsecretaria" class="form-control" disabled></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <input type="hidden" value="@Model.ideje" id="cargaeje" />
+                        <label class="col-form-label col-md-2 col-sm-2 ">Eje</label>
+                        <div class="col-md-3 col-sm-3 ">
+                            <select id="Eje" class="form-control" disabled></select>
+                        </div>
+                        <input type="hidden" value="@Model.idobjetiv" id="cargaobjt" />
+                        <label class="col-form-label col-md-2 col-sm-2 ">Objetivo</label>
+                        <div class="col-md-4 col-sm-4 ">
+                            <select id="idobjetiv" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Indicador</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <input id="indicador" class="form-control" type="text" readonly="readonly" value="@Model.nombreindicador">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4 form-group has-feedback">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr class="form-group">
+                                        <th colspan="2">
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Línea Base</label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Valor</label>
+                                        </td>
+                                        <td>
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Año</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control has-feedback-left variacion" readonly="readonly" value="@Model.lineabase" onkeypress="return Numeros(event);" id="lineabase" placeholder="">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="aniobase" readonly="readonly" value="@Model.aniobase" onkeypress="return anio(event);" maxlength="4" placeholder="">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-7 col-sm-7  form-group has-feedback">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr class="form-group">
+                                        <th style="width:40%">
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Meta</label>
+                                        </th>
+                                        <th style="width:60%">
+                                            <input type="hidden" id="cargasentido" value="@Model.idsentido" />
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Sentido del indicador</label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control has-feedback-left" readonly="readonly" value="@Model.meta" onkeypress="return Numeros(event);" id="meta" placeholder="">
+                                        </td>
+                                        <td>
+                                            <select id="idsentido" disabled class="form-control"></select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <input type="hidden" value="@Model.idfrecuencia" id="cargafrecuencia" />
+                        <label class="col-form-label col-md-2 col-sm-2 ">Frecuencia</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <select id="idfrecuencia" class="form-control" disabled></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Medios de Verificación</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <textarea class="form-control " readonly="readonly" rows="3" id="medioverificacion" placeholder="">@Model.medioverificacion</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-5 col-sm-5  form-group has-feedback">
+                            <label class="col-form-label col-md-6 col-sm-6 ">Resultado</label>
+                            <input type="text" class="form-control has-feedback-left" value="@Model.resultado" onkeypress="return Numeros(event);" id="resultado" placeholder="">
+                        </div>
+                        <div class="col-md-4 col-sm-4  form-group has-feedback">
+                            <label class="col-form-label col-md-6 col-sm-6 ">Variación</label>
+                            <input type="text" class="form-control" id="variacion" readonly="readonly" value="@Model.resulvariacion" maxlength="4" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Observaciones</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <textarea class="form-control " rows="4" id="observaciones" placeholder="">@Model.observaciones</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Semaforización</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <table class="table">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col" style="background-color:#77dd77;">Óptimo</th>
+                                        <th scope="col" style="background-color:#fdfd96;">En progreso</th>
+                                        <th scope="col" style="background-color:#ff6961;">En riesgo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            <input type="text" class="form-control" id="verde" readonly="" style="font-size:10px;text-align:center;cursor:no-drop;" value=">=80%">
+                                        </th>
+                                        <td>
+                                            <input type="text" class="form-control" id="amarillo" readonly="" style="font-size:10px;text-align:center;cursor:no-drop;" value=">50% &amp; <80%">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="rojo" readonly="" style="font-size:10px;text-align:center;cursor:no-drop;" value="<=50%">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <div class="col-md-5 col-sm-5">
+                            <button type="button" onclick="Back();" class="btn  btn-secondary btn-block mb-4 w-100">Regresar</button>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-5 col-sm-5">
+                            <button type="button" onclick="Valida(0);" class="btn btn-primary w-100">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="text-align:center;">
+                <h5 class="modal-title text-center" id="exampleModalLabel" style="text-align:center;">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="list">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:100%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .my_second_class {
+        width: 1%;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    .form-control {
+        border-radius: 5px;
+    }
+</style>
+
+<div class="modal fade bd-example-modal-lg" id="spiner" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-5x"></span>
+        </div>
+    </div>
+</div> 
+
+<style>
+    .label-align {
+        text-align: left;
+    }
+
+    .has-feedback {
+        background-color: transparent;
+    }
+
+    .col-form-label {
+        background-color: transparent;
+    }
+
+    .col-sm-12 {
+        background-color: transparent;
+    }
+</style>
+
+<script>
+    $(document).ready(function ()
+    {
+        Catalogos();
+        $("#resultado").keyup(function ()
+        {
+            var lineabase = $("#lineabase").val();
+            var resultado = $("#resultado").val();
+            var total = "0"; 
+ 
+            if (Number.isNaN(lineabase) || lineabase == "NaN" || lineabase == "" || lineabase == "0" || lineabase == "Infinity")
+            {
+                lineabase = parseFloat("0");
+            }
+            if (Number.isNaN(resultado) || resultado == "NaN" || resultado == "" || resultado == "0" || resultado == "Infinity")
+            {
+                resultado = parseFloat("0");
+            }
+            if (lineabase > 0 && resultado > 0) {
+                total = (resultado - lineabase) / lineabase * 100;
+                var mySubString = total.toString().indexOf(".") + 1;
+                $("#variacion").val(total.toString().substring(0, mySubString) + total.toString().substring(mySubString, mySubString + 2 ));                
+            }
+            else {
+                $("#variacion").val("");
+            } 
+        });
+    });
+</script>

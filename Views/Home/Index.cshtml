@@ -1,0 +1,330 @@
+﻿@using Indicadores.Models.Extensions
+<div class="container bg-white">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 text-center  form-group has-feedback ml-2 pt-2">
+            <input type="hidden" id="idSecretaria" value="@User.Identity.GetIdSecretaria()" />
+            <label class="label">Secretaría</label>
+            <div class="form-group">
+                <select class="form-control" id="idsecretaria" onchange="ChangeSecre()"></select>
+            </div>
+        </div> 
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-left" style="font-size:20px;font-weight:bold;">
+            Resultados - Programas Presupuestarios - <span id="NameSecretariapp">  </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <div class="x_panel">
+                <div class="x_content">
+                    <table class="table" id="tablepp" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th style="display: none; width: 1%;"> id</th>
+                                <th style="width:49%;">Programa</th>
+                                <th style="width: 10%; text-align: center;">Aceptable</th>
+                                <th style="width: 10%; text-align: center;">En progreso</th>
+                                <th style="width: 10%; text-align: center;">En riesgo</th>
+                                <th style="font-size: 8px; width: 10%;">
+                                    No se programa
+                                    <br />
+                                    ejecución a este periodo
+                                </th>
+                                <th style="width:10%;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbpp">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6  tile_stats_count" style="text-align: center; background-color: white;">
+            <span style="font-size:11px;top:10%;">
+                Ejemplo (3,15%). El primer número indica la cantidad de indicadores por parámetro <br> y el segundo número  indica el % que representa ese parámetro sobre total.
+            </span>
+            <div id="chart_pp" style="width:95%;max-width:95%"></div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-md-12 text-left" style="font-size:20px;font-weight:bold;">
+            Resultados - Programas Operativos Anuales - <span id="NameSecretariapoa">  </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6  ">
+            <div class="x_panel">
+                <div class="x_content">
+                    <table class="table" id="tablepoa" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th style="display: none; width: 1%;"> id</th>
+                                <th style="width:49%;">Dirección</th>
+                                <th style="width: 10%; text-align: center;">Aceptable</th>
+                                <th style="width:10%; text-align:center;">En progreso</th>
+                                <th style="width: 10%; text-align: center;">En riesgo</th>
+                                <th style="font-size: 8px; width: 10%;">
+                                    No se programa
+                                    <br />
+                                    ejecución a este periodo
+                                </th>
+                                <th style="width:10%;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbpoa">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6  tile_stats_count" style="text-align: center; background-color: white;">
+            <span style="font-size:11px;top:10%;">
+                Ejemplo (3,15%). El primer número indica la cantidad de indicadores por parámetro <br> y el segundo número  indica el % que representa ese parámetro sobre total.
+            </span>
+            <div id="chart_poa" style="width:95%;max-width:95%;background-color:transparent"></div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+@section Scripts
+{ 
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        //$("#idsecretaria").change();
+        $("#tablepoa").on('dblclick', 'tr', function () {
+            // get the current row
+            var currentRow = $(this).closest("tr");
+
+            var col1 = currentRow.find("td:eq(0)").text();
+
+            //if (col1 == "0") {
+
+            //}
+            //else {
+                drawChartPoa(col1);
+            //}
+        });
+        $("#tablepp").on('dblclick', 'tr', function () {
+            // get the current row
+            var currentRow = $(this).closest("tr");
+
+            var col1 = currentRow.find("td:eq(0)").text();
+
+            //if (col1 == "0") {
+
+            //}
+            //else {
+            drawChartPp(col1);
+            //}
+        });
+    }); 
+    var pathserver = window.location.pathname;
+    if (pathserver.includes("Indicadores"))
+    {
+        pathserver = "/Indicadores";
+    }
+    else
+    {
+        pathserver = "";
+    } 
+    $.ajax({
+        type: 'POST',
+        url: pathserver + "/Ficha/GetSecretarias",
+        dataType: 'json',
+        data: {
+            idsecretaria: $("#idSecretaria").val()
+        },
+        success: function (states)
+        {
+
+            if (@User.Identity.GetIdGrupo()==1)
+            {
+                $("#idsecretaria").append('<option  value="" selected  >Secretaría</option>');
+            }
+            $.each(states, function (i, state)
+            {
+                $("#idsecretaria").append('<option value="' + state.Value + '">' +
+                    state.Text + '</option>');
+            });
+
+            $("#idsecretaria").val($("#idSecretaria").val());
+
+            $("#NameSecretariapoa").html($("#idsecretaria option:selected").text());
+            $("#NameSecretariapp").html($("#idsecretaria option:selected").text());
+            ChangeSecre();
+
+        },
+        error: function (ex) {
+
+        }
+    }); 
+    function ChangeSecre()
+    { 
+        //$("#idsecretaria").val($("#idSecretaria").val());
+        
+        $("#chart_poa").html("");
+        $("#chart_pp").html("");
+        $("#NameSecretariapoa").html($("#idsecretaria option:selected").text());
+        $("#NameSecretariapp").html($("#idsecretaria option:selected").text());
+        $("#idsecretaria").val();
+        load();
+    }
+    function load()
+    {
+        drawTable();
+        drawTablePoa();
+    }
+    function drawChartPp(a)
+    {
+        var iddire = a;
+        var id = document.getElementById("idsecretaria").value;
+        if (id == "")
+        {
+            id = @User.Identity.GetIdSecretaria();
+        }
+        $.post(pathserver + '/Home/GetPieChartDataPp?iddireccion=' + iddire + '&idsecretaria=' + id,
+            {
+            },
+            function (data)
+            {
+                var xArray = [];
+                var yArray = [];
+                for (var i = 0; i < data.length; i++) {
+                    xArray.push(data[i].Name);
+                    yArray.push(data[i].Value);
+                }
+                pie_chart = {
+                    'data': [{
+                        'labels': xArray,
+                        'values': yArray,
+                        'marker': {
+                            'colors': [
+                                'rgb(193, 69, 69)',
+                                'rgb(253, 253, 150)',
+                                'rgb(109, 177, 147)',
+                                'rgb(155, 155, 155)'
+                            ]
+                        },
+                        'type': 'pie',
+                        'name': "",
+                        'hoverinfo': 'label+percent+value',
+                        'texttemplate': "%{label}:(%{value},%{percent})",
+                    }],
+                    'layout':
+                    {
+                        'title': '',
+                        'autosize': true,
+                        'margin': {
+                            l: 130,
+                            r: 50,
+                            b: 100,
+                            t: 150,
+                            pad: 4
+                        },
+                    }
+                }
+
+                Plotly.newPlot('chart_pp', pie_chart.data, pie_chart.layout);
+        });
+    }
+    function drawChartPoa(a)
+    {
+
+        var iddire = a;
+        var id = document.getElementById("idsecretaria").value;
+        if (id == "")
+        {
+            id = @User.Identity.GetIdSecretaria();
+        }
+        $.post(pathserver + '/Home/GetPieChartDataPoa?iddireccion=' + iddire + '&idsecretaria=' + id,
+            {
+            },
+            function (data)
+            {
+                var xArray = [];
+                var yArray = [];
+                for (var i = 0; i < data.length; i++)
+                {
+                    xArray.push(data[i].Name);
+                    yArray.push(data[i].Value);
+                }
+                pie_chart = {
+                    'data': [{
+                        'labels': xArray,
+                        'values': yArray,
+                        'otro':'1',
+                        'marker': {
+                            'colors': [
+                                'rgb(193, 69, 69)',
+                                'rgb(253, 253, 150)',
+                                'rgb(109, 177, 147)',
+                                'rgb(155, 155, 155)'
+                            ]
+                        },
+                        'type': 'pie',
+                        'name': "",
+                        'hoverinfo': 'label+percent+value',
+                        'texttemplate': "%{label}:(%{value},%{percent})",
+                    }],
+                    'layout':
+                    {
+                        'title': '',
+                        'autosize': true,
+                        'margin': {
+                            l: 130,
+                            r: 50,
+                            b: 100,
+                            t: 150,
+                            pad: 4
+                        },
+                    }
+                }
+
+                Plotly.newPlot('chart_poa', pie_chart.data, pie_chart.layout);
+        });
+    }
+    function drawTable()
+    {
+        $("#tbpp").html("");
+        var id = document.getElementById("idsecretaria").value;
+        @*if (id == "")
+        {
+            id = @User.Identity.GetIdSecretaria();
+        }*@
+        $.post(pathserver + '/Home/GetTablePp?idsecretaria=' + id + '&iddireccion=', {},
+        function (data)
+        {
+            for (var i = 0; i < data.length; i++)
+            {
+                $("#tbpp").append('<tr> <td style="display:none">' + [data[i].iddireccion + '</td><td style="font-size:10px">' + data[i].Direccion + '</td><td style="text-align:center;">' + data[i].Aceptable + '</td><td style="text-align:center;">' + data[i].Progreso + '</td><td style="text-align:center;">' + data[i].Riesgo + '</td><td style="text-align:center;">' + data[i].Na + '</td><td style="text-align:center;">' + data[i].Total] + '</td></tr>')
+            }
+        });
+    }
+    function drawTablePoa()
+    {
+        $("#tbpoa").html("");
+        var id = document.getElementById("idsecretaria").value;
+        @*if (id == "")
+        {
+            id = @User.Identity.GetIdSecretaria();
+        }*@
+        $.post(pathserver + '/Home/GetTablePoa?idsecretaria=' + id + '&iddireccion=' , {},
+        function (data)
+        {
+            for (var i = 0; i < data.length; i++)
+            {
+                $("#tbpoa").append('<tr> <td style="display:none">' + [data[i].iddireccion + '</td><td style="font-size:10px;">' + data[i].Direccion + '</td><td style="text-align:center;">' + data[i].Aceptable + '</td><td style="text-align:center;">' + data[i].Progreso + '</td><td style="text-align:center;">' + data[i].Riesgo + '</td><td style="text-align:center;">' + data[i].Na + '</td><td style="text-align:center;">' + data[i].Total] + '</td></tr>')
+            }
+        });
+
+    }
+</script>
+} 
+<style>
+    #symbol {
+    display:none;} 
+</style>

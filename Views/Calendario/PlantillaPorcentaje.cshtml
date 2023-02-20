@@ -1,0 +1,3297 @@
+﻿@model Indicadores.Tb_Calendario
+@using Indicadores.Models.Extensions
+<script src="~/Scripts/Indicadores/Calendario.js"></script>
+
+
+<div class="container">
+    <input type="hidden" id="idficha"><div class="col-lg-12">
+        <input type="hidden" id="idcalendario">
+        <div class="card" style="background-color:#F7F7F7">
+            <div class="card-header text-center " style="background-color:#5086c1;color:white;">
+                @*<h1>Ficha</h1>*@
+            </div>
+            <div class="card-body" style="font-size:11px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#5086c1;color:white;font-weight:bold;">
+                                <label class="label">Dirección</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9  form-group has-feedback">
+                                <input type="text" class="form-control" value="@Model.Tb_Ficha.Cat_Direcciones.descripcion" readonly style="font-size:10px;text-align:center;" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#5086c1;color:white;font-weight:bold; text-align:center;">
+                                <label class="label">Nombre del Indicador</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9  form-group has-feedback">
+                                <textarea class="form-control" style="text-align:center;" readonly id="indicador">@Model.Tb_Ficha.nombindi</textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#5086c1;color:white;font-weight:bold;">
+                                <label class="label">Meta Anual</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9  form-group has-feedback">
+                                <input type="text" class="form-control" id="Meta" value="@Model.meta" readonly style="font-size:10px;text-align:center;" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="tabs" style="overflow:scroll;">
+                                <div class="tab-button-outer">
+                                    <ul id="tab-button">
+                                        <li class="lista" id="listaEn"><a id="AEn" href="#tab01">Enero</a></li>
+                                        <li class="lista" id="listaFb"><a id="AFb" href="#tab02">Febrero</a></li>
+                                        <li class="lista" id="listaMz"><a id="AMz" href="#tab03">Marzo</a></li>
+                                        <li class="lista" id="listaAb"><a id="AAb" href="#tab04">Abril</a></li>
+                                        <li class="lista" id="listaMy"><a id="AMy" href="#tab05">Mayo</a></li>
+                                        <li class="lista" id="listaJn"><a id="AJn" href="#tab06">Junio</a></li>
+                                        <li class="lista" id="listaJl"><a id="AJl" href="#tab07">Julio</a></li>
+                                        <li class="lista" id="listaAg"><a id="AAg" href="#tab08">Agosto</a></li>
+                                        <li class="lista" id="listaSp"><a id="ASp" href="#tab09">Septiembre</a></li>
+                                        <li class="lista" id="listaOc"><a id="AOc" href="#tab10">Octubre</a></li>
+                                        <li class="lista" id="listaNv"><a id="ANv" href="#tab11">Noviembre</a></li>
+                                        <li class="lista" id="listaDc"><a id="ADc" href="#tab12">Diciembre</a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-select-outer">
+                                    <select id="tab-select">
+                                        <option value="#tab01">Enero</option>
+                                        <option value="#tab02">Febrero</option>
+                                        <option value="#tab03">Marzo</option>
+                                        <option value="#tab04">Abril</option>
+                                        <option value="#tab05">Mayo</option>
+                                        <option value="#tab06">Junio</option>
+                                        <option value="#tab07">Julio</option>
+                                        <option value="#tab08">Agosto</option>
+                                        <option value="#tab09">Septiembre</option>
+                                        <option value="#tab10">Octubre</option>
+                                        <option value="#tab11">Noviembre</option>
+                                        <option value="#tab12">Diciembre</option>
+                                    </select>
+                                </div>
+                                <div id="tab01" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Enero</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado CalculaEnero" id="Env1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado CalculaEnero"  id="Env2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="EnAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="EnAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Enmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="EnRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Enanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="En" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab02" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Febrero</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Fbv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Fbv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="FbAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="FbAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Fbmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="FbRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Fbanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Fb" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab03" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Marzo</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white; ">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Mzv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Mzv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MzAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MzAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Mzmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MzRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Mzanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Mz" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab04" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Abril</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Abv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Abv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AbAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AbAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Abmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AbRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Abanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Ab" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab05" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Mayo</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Myv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Myv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MyAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MyAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Mymes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MyRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Myanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="My" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab06" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Junio</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Jnv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Jnv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JnAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JnAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jnmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JnRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jnanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Jn" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab07" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Julio</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Jlv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Jlv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JlAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JlAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jlmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JlRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jlanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Jl" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab08" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Agosto</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white; ">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Agv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Agv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AgAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AgAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Agmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AgRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Aganio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Ag" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab09" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Septiembre</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Spv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula"  id="Spv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="SpAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="SpAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Spmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="SpRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Spanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Sp" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab10" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Octubre</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Ocv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Ocv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="OcAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="OcAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Ocmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="OcRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Ocanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Oc" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab11" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Noviembre</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Nvv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Nvv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="NvAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="NvAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Nvmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="NvRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Nvanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Nv" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab12" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Diciembre</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Dcv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control realizado calcula" id="Dcv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="DcAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="DcAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Dcmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="DcRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Dcanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Dc" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4 text-center">
+                </div>
+                <div class="col-md-4 col-sm-4 text-center">
+                    <a href="@Url.Action("Lista", "Calendario")">
+                        <button type="button" class="btn btn-secondary w-100">
+                            Regresar
+                        </button>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-4 text-center">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="Enhid" />
+<input type="hidden" id="Fbhid" />
+<input type="hidden" id="Mzhid" />
+<input type="hidden" id="Abhid" />
+<input type="hidden" id="Myhid" />
+<input type="hidden" id="Jnhid" />
+<input type="hidden" id="Jlhid" />
+<input type="hidden" id="Aghid" />
+<input type="hidden" id="Sphid" />
+<input type="hidden" id="Ochid" />
+<input type="hidden" id="Nvhid" />
+<input type="hidden" id="Dchid" />
+<input type="hidden" id="aniohide" />
+<input type="hidden" id="iddetallecal" value="@Model.idcalendario" />
+ 
+
+<script>
+    $(function ()
+    {
+        var $tabButtonItem = $('#tab-button li'),
+            $tabSelect = $('#tab-select'),
+            $tabContents = $('.tab-contents'),
+            activeClass = 'is-active';
+
+        $tabButtonItem.first().addClass(activeClass);
+        $tabContents.not(':first').hide();
+
+        $tabButtonItem.find('a').on('click', function (e)
+        {
+            var target = $(this).attr('href');
+
+            $tabButtonItem.removeClass(activeClass);
+            $(this).parent().addClass(activeClass);
+            $tabSelect.val(target);
+            $tabContents.hide();
+            $(target).show();
+            e.preventDefault();
+        });
+
+        $tabSelect.on('change', function ()
+        {
+            var target = $(this).val(),
+                targetSelectNum = $(this).prop('selectedIndex');
+
+            $tabButtonItem.removeClass(activeClass);
+            $tabButtonItem.eq(targetSelectNum).addClass(activeClass);
+            $tabContents.hide();
+            $(target).show();
+        });
+
+        const monthNames = ["En", "Fb", "Mz", "Ab", "My", "Jn", "Jl", "Ag", "Sp", "Oc", "Nv", "Dc"];
+
+        const d = new Date();
+
+        var idlista = "lista" + monthNames[d.getMonth()];
+        var ida = "A" + monthNames[d.getMonth()];
+
+        var target = $("#" + ida).attr('href');
+        $(".lista").removeClass("is-active");
+        $("#" + idlista).addClass("is-active");
+        $tabContents.hide();
+        $(target).show();
+
+        if (@User.Identity.GetIdGrupo()!=1)
+        {
+            $(".realizado").prop("readonly", true);
+            $(".realizado").css({ "cursor": "no-drop" });
+            $(".realizadomes").hide();
+            $("#"+monthNames[d.getMonth()]+"").show();
+
+            $("#" + monthNames[d.getMonth()] + "v1r").prop("readonly", false);
+            $("#" + monthNames[d.getMonth()] + "v1r").css({ "cursor": "text" });
+            $("#" + monthNames[d.getMonth()] + "v2p").prop("readonly", false);
+            $("#" + monthNames[d.getMonth()] + "v2p").css({ "cursor": "text" });
+
+        }
+    });
+</script>
+<script>
+    $(document).ready(function ()
+    {
+        var textbox = @Model.meta; 
+        var options = ['En','Fb','Mz','Ab','My','Jn','Jl','Ag','Sp','Oc','Nv','Dc'];
+        $("#Meta").val(textbox+"%");
+
+     
+         
+        var idcal = @Model.idcalendario;
+    $.ajax({
+        type: 'POST',
+        url:pathserver+ "/Calendario/GetDetalleCalendario",
+        dataType: 'json',
+        data:
+            {
+                idcalendario : idcal
+            },
+        success: function (data)
+        {
+            $.each(data, function (i, dat)
+            {
+                var v1r = dat.descmes + "v1r";
+                var v2p = dat.descmes + "v2p";
+                var Av1r = dat.descmes + "Av1r";
+                var Av2p = dat.descmes + "Av2p";
+                var mes = dat.descmes + "mes";
+                var Rmes = dat.descmes + "Rmes";
+                var anio = dat.descmes + "anio";
+                var hid = dat.descmes + "hid";
+
+                if (dat.v1r=="" || dat.v1r ==null || dat.v1r=="null")
+                {
+                    $("#" + v1r).val("0");
+                }
+                else
+                {
+                    $("#" + v1r).val(parseFloat(dat.v1r.replace(/,/g, "")).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                }
+
+                if (dat.Av1r=="" || dat.Av1r ==null || dat.Av1r=="null")
+                {
+                    $("#" + Av1r).val("0");
+                }
+                else
+                {
+                    $("#" + Av1r).val(parseFloat(dat.Av1r.replace(/,/g, "")).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                }
+
+                if (dat.v2p=="" || dat.v2p ==null || dat.v2p=="null")
+                {
+                    $("#" + v2p).val("0");
+                }
+                else
+                {
+                    $("#" + v2p).val(parseFloat(dat.v2p.replace(/,/g, "")).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                }
+
+
+                if (dat.Av2p=="" || dat.Av2p ==null || dat.Av2p=="null")
+                {
+                    $("#" + Av2p).val("0");
+                }
+                else
+                {
+                    $("#" + Av2p).val(parseFloat(dat.Av2p.replace(/,/g, "")).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                }
+                if (dat.Avance=="" || dat.Avance ==null || dat.Avance=="null")
+                {
+                    $("#" + mes).val(dat.Avance);
+                }
+                else
+                {
+                    $("#" + mes).val(parseFloat(dat.Avance.replace(/,/g, "")).toString()+"%");
+                }
+                if (dat.AvanceMesRep=="" || dat.AvanceMesRep ==null || dat.AvanceMesRep=="null")
+                {
+                    $("#" + Rmes).val(dat.AvanceMesRep);
+                }
+                else
+                {
+                    $("#" + Rmes).val(parseFloat(dat.AvanceMesRep.replace(/,/g, "")).toString()+"%");
+                }
+                if (dat.Avanceanio=="" || dat.Avanceanio ==null || dat.Avanceanio=="null")
+                {
+                    $("#" + anio).val(dat.Avanceanio);
+                }
+                else
+                {
+                    $("#" + anio).val(parseFloat(dat.Avanceanio.replace(/,/g, "")).toString()+"%");
+                }
+                $("#" + hid).val(dat.iddetcalen);
+                $("#aniohide").val(dat.anio);
+            });
+
+        },
+        error: function (ex) {
+            alert(ex.message);
+        }
+    });
+    $(".btnmes").click(function ()
+    {
+
+        
+        var btn = this.id;
+        var v1r = btn + "v1r";
+        var v2p = btn + "v2p";
+        var Av1r = btn + "Av1r";
+        var Av2p = btn + "Av2p";
+        var mes = btn + "mes";
+        var Rmes = btn + "Rmes";
+        var anio = btn + "anio";
+        var hid = btn + "hid";
+        var formData = new FormData();
+
+        formData.append("v1r", $("#" + v1r).val().replace(/,/g, ""));
+        formData.append("v2p", $("#" + v2p).val().replace(/,/g, ""));
+        formData.append("Av1r", $("#" + Av1r).val().replace(/,/g, ""));
+        formData.append("Av2p", $("#" + Av2p).val().replace(/,/g, ""));
+        formData.append("Avance", $("#" + mes).val().replace(/,/g, "").replace("%", ""));
+        formData.append("AvanceMesRep", $("#" + Rmes).val().replace(/,/g, "").replace("%", ""));
+        formData.append("Avanceanio", $("#" + anio).val().replace(/,/g, "").replace("%", ""));
+        formData.append("iddetcalen", $("#" + hid).val());
+
+        $.ajax(
+        {
+            type: 'POST',
+            url: pathserver+"/Calendario/UpdateDetalleCalendario",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.activo == true || data.activo == "true") {
+                    setTimeout(function () { $('#spiner').modal('hide'); }, 500);
+                    $("#list").append('<p style="text-align:center;">Se guardo la información correctamente');
+                    $("#exampleModal").modal("show");
+                    setTimeout(function () { window.location.reload()}, 500);
+                }
+                else {
+                    setTimeout(function () {
+                        $('#spiner').modal('hide');
+                    }, 500);
+                    $("#list").append("<p>Ocurrió un error al ingresar el registro, favor de volver a intentarlo</p>");
+                    $("#exampleModal").modal("show");
+                }
+                setTimeout(function () {
+                    $('#spiner').modal('hide');
+                }, 1000);
+            }
+        });
+    });
+
+    var meta = parseFloat($("#Meta").val().replace("%", ""));
+
+
+    $("#Env2p").keyup(function ()
+    {
+        var Env2p = $("#Env2p").val().replace(/,/g, ""); 
+        if (Number.isNaN(Env2p)||Env2p =="NaN"||Env2p =="" || Env2p =="0")
+        { 
+            Env2p="0"; 
+            $("#Env2p").val(Env2p); 
+            $("#EnAv2p").val(Env2p);  
+            $("#Enmes").val(Env2p+"%")
+            $("#EnRmes").val(Env2p+"%")
+            $("#Enanio").val(Env2p+"%")
+        }
+        else 
+        {  
+            Env2p = parseFloat($("#Env2p").val().replace(/,/g, ""));
+            $("#Env2p").val(Env2p);
+            $("#EnAv2p").val(Env2p); 
+           
+            var Env1r = parseFloat($("#Env1r").val().replace(/,/g, ""));   
+            var Env2p = parseFloat($("#Env2p").val().replace(/,/g, ""));  
+            var total = (Env1r / Env2p) * 100;  
+            if (Number.isNaN(total)||total =="NaN"||total =="")
+            {
+                total="0";
+                $("#Enmes").val(total +"%"); 
+            }
+            else
+            { 
+                $("#Enmes").val(total.toFixed(1) +"%");
+            }
+
+            var EnAv1r = parseFloat($("#EnAv1r").val().replace(/,/g, ""));
+            var EnAv2p = parseFloat($("#EnAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (EnAv1r / EnAv2p) * 100;
+            if (Number.isNaN(totalmesac)||total =="NaN"||totalmesac =="")
+            {
+                totalmesac="0";
+                $("#EnRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#EnRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+
+            var EnRmes = parseFloat($("#EnRmes").val().replace("%", "")); 
+ 
+            var Enanio = (EnRmes * 100) /meta;
+ 
+            if (Number.isNaN(Enanio)||total =="NaN"||totalmesac =="")
+            {
+                Enanio="0";
+                $("#Enanio").val(Enanio +"%");
+            }
+            else
+            {
+                $("#Enanio").val(Enanio.toFixed(1) +"%");
+            }
+             
+            var valor = Env2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Env2p").val(valor);
+            $("#EnAv2p").val(valor); 
+        }  
+    }); 
+    $("#Env1r").keyup(function ()
+    { 
+        var Env1r = $("#Env1r").val().replace(/,/g, ""); 
+        if (Number.isNaN(Env1r)||Env1r =="NaN"||Env1r =="" || Env1r =="0")
+        {
+            Env1r="0";
+            $("#Env1r").val(Env1r);
+            $("#EnAv1r").val(Env1r);            
+            $("#Enmes").val(Env1r+"%")
+            $("#EnRmes").val(Env1r+"%")
+            $("#Enanio").val(Env1r+"%")
+        }
+        else 
+        { 
+            Env1r = parseFloat($("#Env1r").val().replace(/,/g, ""));
+            $("#Env1r").val(Env1r);
+            $("#EnAv1r").val(Env1r); 
+
+            var Env1r = parseFloat($("#Env1r").val().replace(/,/g, ""));
+            var Env2p = $("#Env2p").val();
+            if (Number.isNaN(Env2p)||Env2p =="NaN"||Env2p =="" || Env2p =="0")
+            {
+                Env2p="0";
+            }
+            else
+            { 
+                Env2p = parseFloat($("#Env2p").val().replace(/,/g, ""));
+            }
+            
+            var total = (Env1r / Env2p) * 100;
+             
+            if (Number.isNaN(total)||total =="NaN"||total =="" || total=="Infinity")
+            {
+                total="0";
+                $("#Enmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Enmes").val(total.toFixed(1) +"%");
+            }
+             
+            var EnAv1r = parseFloat($("#EnAv1r").val().replace(/,/g, ""));
+            var EnAv2p = parseFloat($("#EnAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (EnAv1r / EnAv2p) * 100;
+            if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac =="" || totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#EnRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#EnRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+
+            var EnRmes = parseFloat($("#EnRmes").val().replace("%", "")); 
+        
+            var Enanio = (EnRmes * 100) / meta;
+     
+            if (Number.isNaN(Enanio)||Enanio =="NaN"||Enanio ==""||Enanio=="Infinity")
+            {
+                Enanio="0";
+                $("#Enanio").val(Enanio +"%");
+            }
+            else
+            {
+                $("#Enanio").val(Enanio.toFixed(1) +"%");
+            }
+
+
+            var valor = Env1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Env1r").val(valor);
+            $("#EnAv1r").val(valor); 
+        } 
+    }); 
+    $("#Fbv1r").keyup(function ()
+    { 
+        var Fbv1r = $("#Fbv1r").val();
+        if (Number.isNaN(Fbv1r)||Fbv1r =="NaN"||Fbv1r ==""||Fbv1r ==" " || Fbv1r =="0")
+        {
+            Fbv1r="0";
+            $("#Fbv1r").val(Fbv1r); 
+            $("#FbAv1r").val($("#EnAv1r").val());            
+            $("#Fbmes").val(Fbv1r+"%")
+            $("#FbRmes").val(Fbv1r+"%")
+            $("#Fbanio").val(Fbv1r+"%")
+        }
+        else 
+        { 
+            
+            var EnAv1r = parseFloat($("#EnAv1r").val().replace(/,/g, ""));  
+            
+            Fbv1r =  parseFloat(Fbv1r.replace(/,/g, ""));
+           
+            FbAv1r = parseFloat(Fbv1r)+parseFloat(EnAv1r);
+         
+             
+            var valor = Fbv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorFbAv1r = FbAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Fbv1r").val(valor); 
+            $("#FbAv1r").val(valorFbAv1r);
+            
+            Fbv2p= $("#Fbv2p").val().replace(/,/g, "");
+        
+            var total = (Fbv1r / Fbv2p) * 100;
+            if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Fbmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Fbmes").val(total.toFixed(1) +"%");
+            }
+
+            var FbAv1r = parseFloat($("#FbAv1r").val().replace(/,/g, ""));
+            var FbAv2p = parseFloat($("#FbAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (FbAv1r / FbAv2p) * 100;
+            if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#FbRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#FbRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var FbRmes = parseFloat($("#FbRmes").val().replace("%", "")); 
+
+            var Fbanio = (FbRmes * 100) /meta;
+            if (Number.isNaN(Fbanio)||total =="NaN"||Fbanio ==""||Fbanio=="Infinity")
+            {
+                Fbanio="0";
+                $("#Fbanio").val(Fbanio +"%");
+            }
+            else
+            {
+                $("#Fbanio").val(Fbanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Fbv2p").keyup(function ()
+    { 
+        var Fbv2p = $("#Fbv2p").val();
+        if (Number.isNaN(Fbv2p)||Fbv2p =="NaN"||Fbv2p ==""||Fbv2p ==" " || Fbv2p =="0")
+        {
+            Fbv2p="0";
+            $("#Fbv2p").val(Fbv2p);
+            $("#FbAv2p").val($("#EnAv2p").val());            
+            $("#Fbmes").val(Fbv2p+"%")
+            $("#FbRmes").val(Fbv2p+"%")
+            $("#Fbanio").val(Fbv2p+"%")
+        }
+        else 
+        {  
+            Fbv2p = parseFloat(Fbv2p.replace(/,/g, ""));
+            
+            var EnAv2p = parseFloat($("#EnAv2p").val().replace(/,/g, "")); 
+            
+            var FbAv2p= parseFloat(Fbv2p)+parseFloat(EnAv2p);
+            
+             
+            var valor = Fbv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorFbAv2p = FbAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Fbv2p").val(valor);          
+            $("#FbAv2p").val(valorFbAv2p); 
+
+            Fbv1r= $("#Fbv1r").val().replace(/,/g, "");
+        
+            var total = (Fbv1r / Fbv2p) * 100;
+            if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Fbmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Fbmes").val(total.toFixed(1) +"%");
+            }
+            var FbAv1r = parseFloat($("#FbAv1r").val().replace(/,/g, ""));
+            var FbAv2p = parseFloat($("#FbAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (FbAv1r / FbAv2p) * 100;
+            if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#FbRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#FbRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var FbRmes = parseFloat($("#FbRmes").val().replace("%", "")); 
+
+            var Fbanio = (FbRmes * 100) /meta;
+            if (Number.isNaN(Fbanio)||Fbanio =="NaN"||Fbanio ==""||Fbanio=="Infinity")
+            {
+                Fbanio="0";
+                $("#Fbanio").val(Fbanio +"%");
+            }
+            else
+            {
+                $("#Fbanio").val(Fbanio.toFixed(1) +"%");
+            }
+        } 
+    }); 
+    $("#Mzv1r").keyup(function ()
+    { 
+        var Mzv1r = $("#Mzv1r").val();
+        if (Number.isNaN(Mzv1r)||Mzv1r =="NaN"||Mzv1r ==""||Mzv1r ==" " || Mzv1r =="0")
+        {
+            Mzv1r="0";
+            $("#Mzv1r").val(Mzv1r); 
+            $("#MzAv1r").val($("#FbAv1r").val());            
+            $("#Mzmes").val(Mzv1r+"%")
+            $("#MzRmes").val(Mzv1r+"%")
+            $("#Mzanio").val(Mzv1r+"%")
+        }
+        else 
+        { 
+            
+            var FbAv1r = parseFloat($("#FbAv1r").val().replace(/,/g, ""));  
+            
+            Mzv1r =  parseFloat(Mzv1r.replace(/,/g, ""));
+           
+            MzAv1r = parseFloat(Mzv1r)+parseFloat(FbAv1r);
+         
+             
+            var valor = Mzv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorMzAv1r = MzAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Mzv1r").val(valor); 
+            $("#MzAv1r").val(valorMzAv1r);
+            
+            Mzv2p= $("#Mzv2p").val().replace(/,/g, "");
+        
+            var total = (Mzv1r / Mzv2p) * 100;
+            if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Mzmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Mzmes").val(total.toFixed(1) +"%");
+            }
+
+            var MzAv1r = parseFloat($("#MzAv1r").val().replace(/,/g, ""));
+            var MzAv2p = parseFloat($("#MzAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (MzAv1r / MzAv2p) * 100;
+            if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#MzRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#MzRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var MzRmes = parseFloat($("#MzRmes").val().replace("%", "")); 
+
+            var Mzanio = (MzRmes * 100) /meta;
+            if (Number.isNaN(Mzanio)||Mzanio =="NaN"||Mzanio ==""||Mzanio=="Infinity")
+            {
+                Mzanio="0";
+                $("#Mzanio").val(Mzanio +"%");
+            }
+            else
+            {
+                $("#Mzanio").val(Mzanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Mzv2p").keyup(function ()
+    { 
+        var Mzv2p = $("#Mzv2p").val();
+        if (Number.isNaN(Mzv2p)||Mzv2p =="NaN"||Mzv2p ==""||Mzv2p ==" " || Mzv2p =="0")
+        {
+            Mzv2p="0";
+            $("#Mzv2p").val(Mzv2p);
+            $("#MzAv2p").val($("#FbAv2p").val());            
+            $("#Mzmes").val(Mzv2p+"%")
+            $("#MzRmes").val(Mzv2p+"%")
+            $("#Mzanio").val(Mzv2p+"%")
+        }
+        else 
+        {  
+            Mzv2p = parseFloat(Mzv2p.replace(/,/g, ""));
+            
+            var FbAv2p = parseFloat($("#FbAv2p").val().replace(/,/g, "")); 
+            
+            var MzAv2p= parseFloat(Mzv2p)+parseFloat(FbAv2p);
+            
+             
+            var valor = Mzv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorMzAv2p = MzAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Mzv2p").val(valor);          
+            $("#MzAv2p").val(valorMzAv2p); 
+
+            Mzv1r= $("#Mzv1r").val().replace(/,/g, "");
+        
+            var total = (Mzv1r / Mzv2p) * 100;
+            if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Mzmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Mzmes").val(total.toFixed(1) +"%");
+            }
+            var MzAv1r = parseFloat($("#MzAv1r").val().replace(/,/g, ""));
+            var MzAv2p = parseFloat($("#MzAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (MzAv1r / MzAv2p) * 100;
+            if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#MzRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#MzRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var MzRmes = parseFloat($("#MzRmes").val().replace("%", "")); 
+
+            var Mzanio = (MzRmes * 100) /meta;
+            if (Number.isNaN(Mzanio)||Mzanio =="NaN"||Mzanio ==""||Mzanio=="Infinity")
+            {
+                Mzanio="0";
+                $("#Mzanio").val(Mzanio +"%");
+            }
+            else
+            {
+                $("#Mzanio").val(Mzanio.toFixed(1) +"%");
+            }
+        } 
+    });   
+    $("#Abv1r").keyup(function ()
+    { 
+        var Abv1r = $("#Abv1r").val();
+        if (Number.isNaN(Abv1r)||Abv1r =="NaN"||Abv1r ==""||Abv1r ==" " || Abv1r =="0")
+        {
+            Abv1r="0";
+            $("#Abv1r").val(Abv1r); 
+            $("#AbAv1r").val($("#MzAv1r").val());            
+            $("#Abmes").val(Abv1r+"%")
+            $("#AbRmes").val(Abv1r+"%")
+            $("#Abanio").val(Abv1r+"%")
+        }
+        else 
+        { 
+            
+            var MzAv1r = parseFloat($("#MzAv1r").val().replace(/,/g, ""));  
+            
+            Abv1r =  parseFloat(Abv1r.replace(/,/g, ""));
+           
+            AbAv1r = parseFloat(Abv1r)+parseFloat(MzAv1r);
+         
+             
+            var valor = Abv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorAbAv1r = AbAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Abv1r").val(valor); 
+            $("#AbAv1r").val(valorAbAv1r);
+            
+            Abv2p= $("#Abv2p").val().replace(/,/g, "");
+        
+            var total = (Abv1r / Abv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Abmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Abmes").val(total.toFixed(1) +"%");
+            }
+
+            var AbAv1r = parseFloat($("#AbAv1r").val().replace(/,/g, ""));
+            var AbAv2p = parseFloat($("#AbAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (AbAv1r / AbAv2p) * 100;
+            if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#AbRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#AbRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var AbRmes = parseFloat($("#AbRmes").val().replace("%", "")); 
+
+            var Abanio = (AbRmes * 100) /meta;
+            if (Number.isNaN(Abanio)||Abanio =="NaN"||Abanio ==""||Abanio=="Infinity")
+            {
+                Abanio="0";
+                $("#Abanio").val(Abanio +"%");
+            }
+            else
+            {
+                $("#Abanio").val(Abanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Abv2p").keyup(function ()
+    { 
+        var Abv2p = $("#Abv2p").val();
+        if (Number.isNaN(Abv2p)||Abv2p =="NaN"||Abv2p ==""||Abv2p ==" " || Abv2p =="0")
+        {
+            Abv2p="0";
+            $("#Abv2p").val(Abv2p);
+            $("#AbAv2p").val($("#MzAv2p").val());            
+            $("#Abmes").val(Abv2p+"%")
+            $("#AbRmes").val(Abv2p+"%")
+            $("#Abanio").val(Abv2p+"%")
+        }
+        else 
+        {  
+            Abv2p = parseFloat(Abv2p.replace(/,/g, ""));
+            
+            var MzAv2p = parseFloat($("#MzAv2p").val().replace(/,/g, "")); 
+            
+            var AbAv2p= parseFloat(Abv2p)+parseFloat(MzAv2p);
+            
+             
+            var valor = Abv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorAbAv2p = AbAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Abv2p").val(valor);          
+            $("#AbAv2p").val(valorAbAv2p); 
+
+            Abv1r= $("#Abv1r").val().replace(/,/g, "");
+        
+            var total = (Abv1r / Abv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Abmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Abmes").val(total.toFixed(1) +"%");
+            }
+            var AbAv1r = parseFloat($("#AbAv1r").val().replace(/,/g, ""));
+            var AbAv2p = parseFloat($("#AbAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (AbAv1r / AbAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#AbRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#AbRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var AbRmes = parseFloat($("#AbRmes").val().replace("%", "")); 
+
+            var Abanio = (AbRmes * 100) /meta;
+            if (Number.isNaN(Abanio)||Abanio =="NaN"||Abanio ==""||Abanio=="Infinity")
+            {
+                Abanio="0";
+                $("#Abanio").val(Abanio +"%");
+            }
+            else
+            {
+                $("#Abanio").val(Abanio.toFixed(1) +"%");
+            }
+        } 
+    });  
+    $("#Myv1r").keyup(function ()
+    { 
+        var Myv1r = $("#Myv1r").val();
+        if (Number.isNaN(Myv1r)||Myv1r =="NaN"||Myv1r ==""||Myv1r ==" " || Myv1r =="0")
+        {
+            Myv1r="0";
+            $("#Myv1r").val(Myv1r); 
+            $("#MyAv1r").val($("#AbAv1r").val());            
+            $("#Mymes").val(Myv1r+"%")
+            $("#MyRmes").val(Myv1r+"%")
+            $("#Myanio").val(Myv1r+"%")
+        }
+        else 
+        { 
+            
+            var AbAv1r = parseFloat($("#AbAv1r").val().replace(/,/g, ""));  
+            
+            Myv1r =  parseFloat(Myv1r.replace(/,/g, ""));
+           
+            MyAv1r = parseFloat(Myv1r)+parseFloat(AbAv1r);
+         
+             
+            var valor = Myv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorMyAv1r = MyAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Myv1r").val(valor); 
+            $("#MyAv1r").val(valorMyAv1r);
+            
+            Myv2p= $("#Myv2p").val().replace(/,/g, "");
+        
+            var total = (Myv1r / Myv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Mymes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Mymes").val(total.toFixed(1) +"%");
+            }
+
+            var MyAv1r = parseFloat($("#MyAv1r").val().replace(/,/g, ""));
+            var MyAv2p = parseFloat($("#MyAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (MyAv1r / MyAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#MyRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#MyRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var MyRmes = parseFloat($("#MyRmes").val().replace("%", "")); 
+
+            var Myanio = (MyRmes * 100) /meta;
+            if (Number.isNaN(Myanio)||total =="NaN"||Myanio ==""||Myanio=="Infinity")
+            {
+                Myanio="0";
+                $("#Myanio").val(Myanio +"%");
+            }
+            else
+            {
+                $("#Myanio").val(Myanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Myv2p").keyup(function ()
+    { 
+        var Myv2p = $("#Myv2p").val();
+        if (Number.isNaN(Myv2p)||Myv2p =="NaN"||Myv2p ==""||Myv2p ==" " || Myv2p =="0")
+        {
+            Myv2p="0";
+            $("#Myv2p").val(Myv2p);
+            $("#MyAv2p").val($("#AbAv2p").val());            
+            $("#Mymes").val(Myv2p+"%")
+            $("#MyRmes").val(Myv2p+"%")
+            $("#Myanio").val(Myv2p+"%")
+        }
+        else 
+        {  
+            Myv2p = parseFloat(Myv2p.replace(/,/g, ""));
+            
+            var AbAv2p = parseFloat($("#AbAv2p").val().replace(/,/g, "")); 
+            
+            var MyAv2p= parseFloat(Myv2p)+parseFloat(AbAv2p);
+            
+             
+            var valor = Myv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorMyAv2p = MyAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Myv2p").val(valor);          
+            $("#MyAv2p").val(valorMyAv2p); 
+
+            Myv1r= $("#Myv1r").val().replace(/,/g, "");
+        
+            var total = (Myv1r / Myv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Mymes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Mymes").val(total.toFixed(1) +"%");
+            }
+            var MyAv1r = parseFloat($("#MyAv1r").val().replace(/,/g, ""));
+            var MyAv2p = parseFloat($("#MyAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (MyAv1r / MyAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#MyRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#MyRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var MyRmes = parseFloat($("#MyRmes").val().replace("%", "")); 
+
+            var Myanio = (MyRmes * 100) /meta;
+            if (Number.isNaN(Myanio)||Myanio =="NaN"||Myanio ==""||Myanio=="Infinity")
+            {
+                Myanio="0";
+                $("#Myanio").val(Myanio +"%");
+            }
+            else
+            {
+                $("#Myanio").val(Myanio.toFixed(1) +"%");
+            }
+        } 
+    }); 
+    $("#Jnv1r").keyup(function ()
+    { 
+        var Jnv1r = $("#Jnv1r").val();
+        if (Number.isNaN(Jnv1r)||Jnv1r =="NaN"||Jnv1r ==""||Jnv1r ==" " || Jnv1r =="0")
+        {
+            Jnv1r="0";
+            $("#Jnv1r").val(Jnv1r); 
+            $("#JnAv1r").val($("#MyAv1r").val());            
+            $("#Jnmes").val(Jnv1r+"%")
+            $("#JnRmes").val(Jnv1r+"%")
+            $("#Jnanio").val(Jnv1r+"%")
+        }
+        else 
+        { 
+            
+            var MyAv1r = parseFloat($("#MyAv1r").val().replace(/,/g, ""));  
+            
+            Jnv1r =  parseFloat(Jnv1r.replace(/,/g, ""));
+           
+            JnAv1r = parseFloat(Jnv1r)+parseFloat(MyAv1r);
+         
+             
+            var valor = Jnv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorJnAv1r = JnAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Jnv1r").val(valor); 
+            $("#JnAv1r").val(valorJnAv1r);
+            
+            Jnv2p= $("#Jnv2p").val().replace(/,/g, "");
+        
+            var total = (Jnv1r / Jnv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Jnmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Jnmes").val(total.toFixed(1) +"%");
+            }
+
+            var JnAv1r = parseFloat($("#JnAv1r").val().replace(/,/g, ""));
+            var JnAv2p = parseFloat($("#JnAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (JnAv1r / JnAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#JnRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#JnRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var JnRmes = parseFloat($("#JnRmes").val().replace("%", "")); 
+
+            var Jnanio = (JnRmes * 100) /meta;
+            if (Number.isNaN(Jnanio)||Jnanio =="NaN"||Jnanio ==""||Jnanio=="Infinity")
+            {
+                Jnanio="0";
+                $("#Jnanio").val(Jnanio +"%");
+            }
+            else
+            {
+                $("#Jnanio").val(Jnanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Jnv2p").keyup(function ()
+    { 
+        var Jnv2p = $("#Jnv2p").val();
+        if (Number.isNaN(Jnv2p)||Jnv2p =="NaN"||Jnv2p ==""||Jnv2p ==" " || Jnv2p =="0")
+        {
+            Jnv2p="0";
+            $("#Jnv2p").val(Jnv2p);
+            $("#JnAv2p").val($("#MyAv2p").val());            
+            $("#Jnmes").val(Jnv2p+"%")
+            $("#JnRmes").val(Jnv2p+"%")
+            $("#Jnanio").val(Jnv2p+"%")
+        }
+        else 
+        {  
+            Jnv2p = parseFloat(Jnv2p.replace(/,/g, ""));
+            
+            var MyAv2p = parseFloat($("#MyAv2p").val().replace(/,/g, "")); 
+            
+            var JnAv2p= parseFloat(Jnv2p)+parseFloat(MyAv2p);
+            
+             
+            var valor = Jnv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorJnAv2p = JnAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Jnv2p").val(valor);          
+            $("#JnAv2p").val(valorJnAv2p); 
+
+            Jnv1r= $("#Jnv1r").val().replace(/,/g, "");
+        
+            var total = (Jnv1r / Jnv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Jnmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Jnmes").val(total.toFixed(1) +"%");
+            }
+            var JnAv1r = parseFloat($("#JnAv1r").val().replace(/,/g, ""));
+            var JnAv2p = parseFloat($("#JnAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (JnAv1r / JnAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#JnRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#JnRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var JnRmes = parseFloat($("#JnRmes").val().replace("%", "")); 
+
+            var Jnanio = (JnRmes * 100) /meta;
+            if (Number.isNaN(Jnanio)||Jnanio =="NaN"||Jnanio ==""||Jnanio=="Infinity")
+            {
+                Jnanio="0";
+                $("#Jnanio").val(Jnanio +"%");
+            }
+            else
+            {
+                $("#Jnanio").val(Jnanio.toFixed(1) +"%");
+            }
+        } 
+    });         
+    $("#Jlv1r").keyup(function ()
+    { 
+        var Jlv1r = $("#Jlv1r").val();
+        if (Number.isNaN(Jlv1r)||Jlv1r =="NaN"||Jlv1r ==""||Jlv1r ==" " || Jlv1r =="0")
+        {
+            Jlv1r="0";
+            $("#Jlv1r").val(Jlv1r); 
+            $("#JlAv1r").val($("#JnAv1r").val());            
+            $("#Jlmes").val(Jlv1r+"%")
+            $("#JlRmes").val(Jlv1r+"%")
+            $("#Jlanio").val(Jlv1r+"%")
+        }
+        else 
+        { 
+            
+            var JnAv1r = parseFloat($("#JnAv1r").val().replace(/,/g, ""));  
+            
+            Jlv1r =  parseFloat(Jlv1r.replace(/,/g, ""));
+           
+            JlAv1r = parseFloat(Jlv1r)+parseFloat(JnAv1r);
+         
+             
+            var valor = Jlv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorJlAv1r = JlAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Jlv1r").val(valor); 
+            $("#JlAv1r").val(valorJlAv1r);
+            
+            Jlv2p= $("#Jlv2p").val().replace(/,/g, "");
+        
+            var total = (Jlv1r / Jlv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Jlmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Jlmes").val(total.toFixed(1) +"%");
+            }
+
+            var JlAv1r = parseFloat($("#JlAv1r").val().replace(/,/g, ""));
+            var JlAv2p = parseFloat($("#JlAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (JlAv1r / JlAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#JlRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#JlRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var JlRmes = parseFloat($("#JlRmes").val().replace("%", "")); 
+
+            var Jlanio = (JlRmes * 100) /meta;
+            if (Number.isNaN(Jlanio)||Jlanio =="NaN"||Jlanio ==""||Jlanio=="Infinity")
+            {
+                Jlanio="0";
+                $("#Jlanio").val(Jlanio +"%");
+            }
+            else
+            {
+                $("#Jlanio").val(Jlanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Jlv2p").keyup(function ()
+    { 
+        var Jlv2p = $("#Jlv2p").val();
+        if (Number.isNaN(Jlv2p)||Jlv2p =="NaN"||Jlv2p ==""||Jlv2p ==" " || Jlv2p =="0")
+        {
+            Jlv2p="0";
+            $("#Jlv2p").val(Jlv2p);
+            $("#JlAv2p").val($("#JnAv2p").val());            
+            $("#Jlmes").val(Jlv2p+"%")
+            $("#JlRmes").val(Jlv2p+"%")
+            $("#Jlanio").val(Jlv2p+"%")
+        }
+        else 
+        {  
+            Jlv2p = parseFloat(Jlv2p.replace(/,/g, ""));
+            
+            var JnAv2p = parseFloat($("#JnAv2p").val().replace(/,/g, "")); 
+            
+            var JlAv2p= parseFloat(Jlv2p)+parseFloat(JnAv2p);
+            
+             
+            var valor = Jlv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorJlAv2p = JlAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Jlv2p").val(valor);          
+            $("#JlAv2p").val(valorJlAv2p); 
+
+            Jlv1r= $("#Jlv1r").val().replace(/,/g, "");
+        
+            var total = (Jlv1r / Jlv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Jlmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Jlmes").val(total.toFixed(1) +"%");
+            }
+            var JlAv1r = parseFloat($("#JlAv1r").val().replace(/,/g, ""));
+            var JlAv2p = parseFloat($("#JlAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (JlAv1r / JlAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#JlRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#JlRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var JlRmes = parseFloat($("#JlRmes").val().replace("%", "")); 
+
+            var Jlanio = (JlRmes * 100) /meta;
+            if (Number.isNaN(Jlanio)||Jlanio =="NaN"||Jlanio ==""||Jlanio=="Infinity")
+            {
+                Jlanio="0";
+                $("#Jlanio").val(Jlanio +"%");
+            }
+            else
+            {
+                $("#Jlanio").val(Jlanio.toFixed(1) +"%");
+            }
+        } 
+    });  
+    $("#Agv1r").keyup(function ()
+    { 
+        var Agv1r = $("#Agv1r").val();
+        if (Number.isNaN(Agv1r)||Agv1r =="NaN"||Agv1r ==""||Agv1r ==" " || Agv1r =="0")
+        {
+            Agv1r="0";
+            $("#Agv1r").val(Agv1r); 
+            $("#AgAv1r").val($("#JlAv1r").val());            
+            $("#Agmes").val(Agv1r+"%")
+            $("#AgRmes").val(Agv1r+"%")
+            $("#Aganio").val(Agv1r+"%")
+        }
+        else 
+        { 
+            
+            var JlAv1r = parseFloat($("#JlAv1r").val().replace(/,/g, ""));  
+            
+            Agv1r =  parseFloat(Agv1r.replace(/,/g, ""));
+           
+            AgAv1r = parseFloat(Agv1r)+parseFloat(JlAv1r);
+         
+             
+            var valor = Agv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorAgAv1r = AgAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Agv1r").val(valor); 
+            $("#AgAv1r").val(valorAgAv1r);
+            
+            Agv2p= $("#Agv2p").val().replace(/,/g, "");
+        
+            var total = (Agv1r / Agv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Agmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Agmes").val(total.toFixed(1) +"%");
+            }
+
+            var AgAv1r = parseFloat($("#AgAv1r").val().replace(/,/g, ""));
+            var AgAv2p = parseFloat($("#AgAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (AgAv1r / AgAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#AgRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#AgRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var AgRmes = parseFloat($("#AgRmes").val().replace("%", "")); 
+
+            var Aganio = (AgRmes * 100) /meta;
+            if (Number.isNaN(Aganio)||Aganio =="NaN"||Aganio ==""||Aganio=="Infinity")
+            {
+                Aganio="0";
+                $("#Aganio").val(Aganio +"%");
+            }
+            else
+            {
+                $("#Aganio").val(Aganio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Agv2p").keyup(function ()
+    { 
+        var Agv2p = $("#Agv2p").val();
+        if (Number.isNaN(Agv2p)||Agv2p =="NaN"||Agv2p ==""||Agv2p ==" " || Agv2p =="0")
+        {
+            Agv2p="0";
+            $("#Agv2p").val(Agv2p);
+            $("#AgAv2p").val($("#JlAv2p").val());            
+            $("#Agmes").val(Agv2p+"%")
+            $("#AgRmes").val(Agv2p+"%")
+            $("#Aganio").val(Agv2p+"%")
+        }
+        else 
+        {  
+            Agv2p = parseFloat(Agv2p.replace(/,/g, ""));
+            
+            var JlAv2p = parseFloat($("#JlAv2p").val().replace(/,/g, "")); 
+            
+            var AgAv2p= parseFloat(Agv2p)+parseFloat(JlAv2p);
+            
+             
+            var valor = Agv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorAgAv2p = AgAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Agv2p").val(valor);          
+            $("#AgAv2p").val(valorAgAv2p); 
+
+            Agv1r= $("#Agv1r").val().replace(/,/g, "");
+        
+            var total = (Agv1r / Agv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Agmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Agmes").val(total.toFixed(1) +"%");
+            }
+            var AgAv1r = parseFloat($("#AgAv1r").val().replace(/,/g, ""));
+            var AgAv2p = parseFloat($("#AgAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (AgAv1r / AgAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#AgRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#AgRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var AgRmes = parseFloat($("#AgRmes").val().replace("%", "")); 
+
+            var Aganio = (AgRmes * 100) /meta;
+            if (Number.isNaN(Aganio)||Aganio =="NaN"||Aganio ==""||Aganio=="Infinity")
+            {
+                Aganio="0";
+                $("#Aganio").val(Aganio +"%");
+            }
+            else
+            {
+                $("#Aganio").val(Aganio.toFixed(1) +"%");
+            }
+        } 
+    });  
+    $("#Spv1r").keyup(function ()
+    { 
+        var Spv1r = $("#Spv1r").val();
+        if (Number.isNaN(Spv1r)||Spv1r =="NaN"||Spv1r ==""||Spv1r ==" " || Spv1r =="0")
+        {
+            Spv1r="0";
+            $("#Spv1r").val(Spv1r); 
+            $("#SpAv1r").val($("#AgAv1r").val());            
+            $("#Spmes").val(Spv1r+"%")
+            $("#SpRmes").val(Spv1r+"%")
+            $("#Spanio").val(Spv1r+"%")
+        }
+        else 
+        { 
+            
+            var AgAv1r = parseFloat($("#AgAv1r").val().replace(/,/g, ""));  
+            
+            Spv1r =  parseFloat(Spv1r.replace(/,/g, ""));
+           
+            SpAv1r = parseFloat(Spv1r)+parseFloat(AgAv1r);
+         
+             
+            var valor = Spv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorSpAv1r = SpAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Spv1r").val(valor); 
+            $("#SpAv1r").val(valorSpAv1r);
+            
+            Spv2p= $("#Spv2p").val().replace(/,/g, "");
+        
+            var total = (Spv1r / Spv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Spmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Spmes").val(total.toFixed(1) +"%");
+            }
+
+            var SpAv1r = parseFloat($("#SpAv1r").val().replace(/,/g, ""));
+            var SpAv2p = parseFloat($("#SpAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (SpAv1r / SpAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#SpRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#SpRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var SpRmes = parseFloat($("#SpRmes").val().replace("%", "")); 
+
+            var Spanio = (SpRmes * 100) /meta;
+            if (Number.isNaN(Spanio)||Spanio =="NaN"||Spanio ==""||Spanio=="Infinity")
+            {
+                Spanio="0";
+                $("#Spanio").val(Spanio +"%");
+            }
+            else
+            {
+                $("#Spanio").val(Spanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Spv2p").keyup(function ()
+    { 
+        var Spv2p = $("#Spv2p").val();
+        if (Number.isNaN(Spv2p)||Spv2p =="NaN"||Spv2p ==""||Spv2p ==" " || Spv2p =="0")
+        {
+            Spv2p="0";
+            $("#Spv2p").val(Spv2p);
+            $("#SpAv2p").val($("#AgAv2p").val());            
+            $("#Spmes").val(Spv2p+"%")
+            $("#SpRmes").val(Spv2p+"%")
+            $("#Spanio").val(Spv2p+"%")
+        }
+        else 
+        {  
+            Spv2p = parseFloat(Spv2p.replace(/,/g, ""));
+            
+            var AgAv2p = parseFloat($("#AgAv2p").val().replace(/,/g, "")); 
+            
+            var SpAv2p= parseFloat(Spv2p)+parseFloat(AgAv2p);
+            
+             
+            var valor = Spv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorSpAv2p = SpAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Spv2p").val(valor);          
+            $("#SpAv2p").val(valorSpAv2p); 
+
+            Spv1r= $("#Spv1r").val().replace(/,/g, "");
+        
+            var total = (Spv1r / Spv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Spmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Spmes").val(total.toFixed(1) +"%");
+            }
+            var SpAv1r = parseFloat($("#SpAv1r").val().replace(/,/g, ""));
+            var SpAv2p = parseFloat($("#SpAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (SpAv1r / SpAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#SpRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#SpRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var SpRmes = parseFloat($("#SpRmes").val().replace("%", "")); 
+
+            var Spanio = (SpRmes * 100) /meta;
+            if (Number.isNaN(Spanio)||Spanio =="NaN"||Spanio ==""||Spanio=="Infinity")
+            {
+                Spanio="0";
+                $("#Spanio").val(Spanio +"%");
+            }
+            else
+            {
+                $("#Spanio").val(Spanio.toFixed(1) +"%");
+            }
+        } 
+    });  
+    $("#Ocv1r").keyup(function ()
+    { 
+        var Ocv1r = $("#Ocv1r").val();
+        if (Number.isNaN(Ocv1r)||Ocv1r =="NaN"||Ocv1r ==""||Ocv1r ==" " || Ocv1r =="0")
+        {
+            Ocv1r="0";
+            $("#Ocv1r").val(Ocv1r); 
+            $("#OcAv1r").val($("#SpAv1r").val());            
+            $("#Ocmes").val(Ocv1r+"%")
+            $("#OcRmes").val(Ocv1r+"%")
+            $("#Ocanio").val(Ocv1r+"%")
+        }
+        else 
+        { 
+            
+            var SpAv1r = parseFloat($("#SpAv1r").val().replace(/,/g, ""));  
+            
+            Ocv1r =  parseFloat(Ocv1r.replace(/,/g, ""));
+           
+            OcAv1r = parseFloat(Ocv1r)+parseFloat(SpAv1r);
+         
+             
+            var valor = Ocv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorOcAv1r = OcAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Ocv1r").val(valor); 
+            $("#OcAv1r").val(valorOcAv1r);
+            
+            Ocv2p= $("#Ocv2p").val().replace(/,/g, "");
+        
+            var total = (Ocv1r / Ocv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Ocmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Ocmes").val(total.toFixed(1) +"%");
+            }
+
+            var OcAv1r = parseFloat($("#OcAv1r").val().replace(/,/g, ""));
+            var OcAv2p = parseFloat($("#OcAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (OcAv1r / OcAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#OcRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#OcRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var OcRmes = parseFloat($("#OcRmes").val().replace("%", "")); 
+
+            var Ocanio = (OcRmes * 100) /meta;
+            if (Number.isNaN(Ocanio)||Ocanio =="NaN"||Ocanio ==""||Ocanio=="Infinity")
+            {
+                Ocanio="0";
+                $("#Ocanio").val(Ocanio +"%");
+            }
+            else
+            {
+                $("#Ocanio").val(Ocanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Ocv2p").keyup(function ()
+    { 
+        var Ocv2p = $("#Ocv2p").val();
+        if (Number.isNaN(Ocv2p)||Ocv2p =="NaN"||Ocv2p ==""||Ocv2p ==" " || Ocv2p =="0")
+        {
+            Ocv2p="0";
+            $("#Ocv2p").val(Ocv2p);
+            $("#OcAv2p").val($("#SpAv2p").val());            
+            $("#Ocmes").val(Ocv2p+"%")
+            $("#OcRmes").val(Ocv2p+"%")
+            $("#Ocanio").val(Ocv2p+"%")
+        }
+        else 
+        {  
+            Ocv2p = parseFloat(Ocv2p.replace(/,/g, ""));
+            
+            var SpAv2p = parseFloat($("#SpAv2p").val().replace(/,/g, "")); 
+            
+            var OcAv2p= parseFloat(Ocv2p)+parseFloat(SpAv2p);
+            
+             
+            var valor = Ocv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorOcAv2p = OcAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Ocv2p").val(valor);          
+            $("#OcAv2p").val(valorOcAv2p); 
+
+            Ocv1r= $("#Ocv1r").val().replace(/,/g, "");
+        
+            var total = (Ocv1r / Ocv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Ocmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Ocmes").val(total.toFixed(1) +"%");
+            }
+            var OcAv1r = parseFloat($("#OcAv1r").val().replace(/,/g, ""));
+            var OcAv2p = parseFloat($("#OcAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (OcAv1r / OcAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#OcRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#OcRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var OcRmes = parseFloat($("#OcRmes").val().replace("%", "")); 
+
+            var Ocanio = (OcRmes * 100) /meta;
+            if (Number.isNaN(Ocanio)||Ocanio =="NaN"||Ocanio ==""||Ocanio=="Infinity")
+            {
+                Ocanio="0";
+                $("#Ocanio").val(Ocanio +"%");
+            }
+            else
+            {
+                $("#Ocanio").val(Ocanio.toFixed(1) +"%");
+            }
+        } 
+    });  
+    $("#Nvv1r").keyup(function ()
+    { 
+        var Nvv1r = $("#Nvv1r").val();
+        if (Number.isNaN(Nvv1r)||Nvv1r =="NaN"||Nvv1r ==""||Nvv1r ==" " || Nvv1r =="0")
+        {
+            Nvv1r="0";
+            $("#Nvv1r").val(Nvv1r); 
+            $("#NvAv1r").val($("#OcAv1r").val());            
+            $("#Nvmes").val(Nvv1r+"%")
+            $("#NvRmes").val(Nvv1r+"%")
+            $("#Nvanio").val(Nvv1r+"%")
+        }
+        else 
+        { 
+            
+            var OcAv1r = parseFloat($("#OcAv1r").val().replace(/,/g, ""));  
+            
+            Nvv1r =  parseFloat(Nvv1r.replace(/,/g, ""));
+           
+            NvAv1r = parseFloat(Nvv1r)+parseFloat(OcAv1r);
+         
+             
+            var valor = Nvv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorNvAv1r = NvAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Nvv1r").val(valor); 
+            $("#NvAv1r").val(valorNvAv1r);
+            
+            Nvv2p= $("#Nvv2p").val().replace(/,/g, "");
+        
+            var total = (Nvv1r / Nvv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Nvmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Nvmes").val(total.toFixed(1) +"%");
+            }
+
+            var NvAv1r = parseFloat($("#NvAv1r").val().replace(/,/g, ""));
+            var NvAv2p = parseFloat($("#NvAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (NvAv1r / NvAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#NvRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#NvRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var NvRmes = parseFloat($("#NvRmes").val().replace("%", "")); 
+
+            var Nvanio = (NvRmes * 100) /meta;
+            if (Number.isNaN(Nvanio)||Nvanio =="NaN"||Nvanio ==""||Nvanio=="Infinity")
+            {
+                Nvanio="0";
+                $("#Nvanio").val(Nvanio +"%");
+            }
+            else
+            {
+                $("#Nvanio").val(Nvanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Nvv2p").keyup(function ()
+    { 
+        var Nvv2p = $("#Nvv2p").val();
+        if (Number.isNaN(Nvv2p)||Nvv2p =="NaN"||Nvv2p ==""||Nvv2p ==" " || Nvv2p =="0")
+        {
+            Nvv2p="0";
+            $("#Nvv2p").val(Nvv2p);
+            $("#NvAv2p").val($("#OcAv2p").val());            
+            $("#Nvmes").val(Nvv2p+"%")
+            $("#NvRmes").val(Nvv2p+"%")
+            $("#Nvanio").val(Nvv2p+"%")
+        }
+        else 
+        {  
+            Nvv2p = parseFloat(Nvv2p.replace(/,/g, ""));
+            
+            var OcAv2p = parseFloat($("#OcAv2p").val().replace(/,/g, "")); 
+            
+            var NvAv2p= parseFloat(Nvv2p)+parseFloat(OcAv2p);
+            
+             
+            var valor = Nvv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorNvAv2p = NvAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Nvv2p").val(valor);          
+            $("#NvAv2p").val(valorNvAv2p); 
+
+            Nvv1r= $("#Nvv1r").val().replace(/,/g, "");
+        
+            var total = (Nvv1r / Nvv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Nvmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Nvmes").val(total.toFixed(1) +"%");
+            }
+            var NvAv1r = parseFloat($("#NvAv1r").val().replace(/,/g, ""));
+            var NvAv2p = parseFloat($("#NvAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (NvAv1r / NvAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#NvRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#NvRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var NvRmes = parseFloat($("#NvRmes").val().replace("%", "")); 
+
+            var Nvanio = (NvRmes * 100) /meta;
+            if (Number.isNaN(Nvanio)||Nvanio =="NaN"||Nvanio ==""||Nvanio=="Infinity")
+            {
+                Nvanio="0";
+                $("#Nvanio").val(Nvanio +"%");
+            }
+            else
+            {
+                $("#Nvanio").val(Nvanio.toFixed(1) +"%");
+            }
+        } 
+    });  
+    $("#Dcv1r").keyup(function ()
+    { 
+        var Dcv1r = $("#Dcv1r").val();
+        if (Number.isNaN(Dcv1r)||Dcv1r =="NaN"||Dcv1r ==""||Dcv1r ==" " || Dcv1r =="0")
+        {
+            Dcv1r="0";
+            $("#Dcv1r").val(Dcv1r); 
+            $("#DcAv1r").val($("#NvAv1r").val());            
+            $("#Dcmes").val(Dcv1r+"%")
+            $("#DcRmes").val(Dcv1r+"%")
+            $("#Dcanio").val(Dcv1r+"%")
+        }
+        else 
+        { 
+            
+            var NvAv1r = parseFloat($("#NvAv1r").val().replace(/,/g, ""));  
+            
+            Dcv1r =  parseFloat(Dcv1r.replace(/,/g, ""));
+           
+            DcAv1r = parseFloat(Dcv1r)+parseFloat(NvAv1r);
+         
+             
+            var valor = Dcv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorDcAv1r = DcAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Dcv1r").val(valor); 
+            $("#DcAv1r").val(valorDcAv1r);
+            
+            Dcv2p= $("#Dcv2p").val().replace(/,/g, "");
+        
+            var total = (Dcv1r / Dcv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Dcmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Dcmes").val(total.toFixed(1) +"%");
+            }
+
+            var DcAv1r = parseFloat($("#DcAv1r").val().replace(/,/g, ""));
+            var DcAv2p = parseFloat($("#DcAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (DcAv1r / DcAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#DcRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#DcRmes").val(totalmesac.toFixed(1) +"%");
+            }
+
+            var DcRmes = parseFloat($("#DcRmes").val().replace("%", "")); 
+
+            var Dcanio = (DcRmes * 100) /meta;
+            if (Number.isNaN(Dcanio)||Dcanio =="NaN"||Dcanio ==""||Dcanio=="Infinity")
+            {
+                Dcanio="0";
+                $("#Dcanio").val(Dcanio +"%");
+            }
+            else
+            {
+                $("#Dcanio").val(Dcanio.toFixed(1) +"%");
+            }
+
+        } 
+    }); 
+    $("#Dcv2p").keyup(function ()
+    { 
+        var Dcv2p = $("#Dcv2p").val();
+        if (Number.isNaN(Dcv2p)||Dcv2p =="NaN"||Dcv2p ==""||Dcv2p ==" " || Dcv2p =="0")
+        {
+            Dcv2p="0";
+            $("#Dcv2p").val(Dcv2p);
+            $("#DcAv2p").val($("#NvAv2p").val());            
+            $("#Dcmes").val(Dcv2p+"%")
+            $("#DcRmes").val(Dcv2p+"%")
+            $("#Dcanio").val(Dcv2p+"%")
+        }
+        else 
+        {  
+            Dcv2p = parseFloat(Dcv2p.replace(/,/g, ""));
+            
+            var NvAv2p = parseFloat($("#NvAv2p").val().replace(/,/g, "")); 
+            
+            var DcAv2p= parseFloat(Dcv2p)+parseFloat(NvAv2p);
+            
+             
+            var valor = Dcv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var valorDcAv2p = DcAv2p.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            if (Number.isNaN(valor))
+            {
+                valor="0";
+            }
+            else if (valor =="NaN")
+            {
+                valor="0";
+            }
+         
+            $("#Dcv2p").val(valor);          
+            $("#DcAv2p").val(valorDcAv2p); 
+
+            Dcv1r= $("#Dcv1r").val().replace(/,/g, "");
+        
+            var total = (Dcv1r / Dcv2p) * 100;
+                if (Number.isNaN(total)||total =="NaN"||total ==""||total=="Infinity")
+            { 
+                total="0";
+                $("#Dcmes").val(total  +"%");
+            
+            }
+            else
+            { 
+                $("#Dcmes").val(total.toFixed(1) +"%");
+            }
+            var DcAv1r = parseFloat($("#DcAv1r").val().replace(/,/g, ""));
+            var DcAv2p = parseFloat($("#DcAv2p").val().replace(/,/g, ""));
+
+            var totalmesac = (DcAv1r / DcAv2p) * 100;
+                     if (Number.isNaN(totalmesac)||totalmesac =="NaN"||totalmesac ==""||totalmesac=="Infinity")
+            {
+                totalmesac="0";
+                $("#DcRmes").val(totalmesac +"%");
+            }
+            else
+            {
+                $("#DcRmes").val(totalmesac.toFixed(1) +"%");
+            }
+            
+            var DcRmes = parseFloat($("#DcRmes").val().replace("%", "")); 
+
+            var Dcanio = (DcRmes * 100) /meta;
+            if (Number.isNaN(Dcanio)||Dcanio =="NaN"||Dcanio ==""||Dcanio=="Infinity")
+            {
+                Dcanio="0";
+                $("#Dcanio").val(Dcanio +"%");
+            }
+            else
+            {
+                $("#Dcanio").val(Dcanio.toFixed(1) +"%");
+            }
+        } 
+    }); 
+});
+</script>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="text-align:center;">
+                <h5 class="modal-title text-center" id="exampleModalLabel" style="text-align:center;">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="list">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:100%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-group {
+        border-radius: 7px;
+    }
+
+    .form-control {
+        border: 1px solid;
+        font-size: 10px;
+    }
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    .tabs {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    #tab-button {
+        font-size: 11px;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        #tab-button li {
+            display: table-cell;
+            width: 20%;
+        }
+
+            #tab-button li a {
+                display: block;
+                padding: .5em;
+                background: #eee;
+                border: 1px solid #ddd;
+                text-align: center;
+                color: #000;
+                text-decoration: none;
+            }
+
+            #tab-button li:not(:first-child) a {
+                border-left: none;
+            }
+
+            #tab-button li a:hover,
+            #tab-button .is-active a {
+                border-bottom-color: transparent;
+                background: #fff;
+            }
+
+    .tab-contents {
+        padding: .5em 2em 1em;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+
+
+    .tab-button-outer {
+        display: none;
+    }
+
+    .tab-contents {
+        margin-top: 20px;
+    }
+
+    @@media screen and (min-width: 768px) {
+        .tab-button-outer {
+            position: relative;
+            z-index: 2;
+            display: block;
+        }
+
+        .tab-select-outer {
+            display: none;
+        }
+
+        .tab-contents {
+            position: relative;
+            top: -1px;
+            margin-top: 0;
+        }
+    }
+
+    .my_second_class {
+        width: 1%;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+
+    .form-control {
+        border-radius: 5px;
+    }
+</style>
+
+<div class="modal fade bd-example-modal-lg" id="spiner" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-5x"></span>
+        </div>
+    </div>
+</div>

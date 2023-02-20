@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "UploadFile";
+}
+<h2>UploadFile</h2>
+
+<div>
+    <input type="text" id="idindicador" value="@ViewBag.decryptedString" />
+
+    <input type="file" id="archivo" />
+    <div class="col-sm-2">
+        <div class="form-group has-success">
+            <div id="btnUpload" class="btn btn-success" style="width:100%;">Guardar Archivos</div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="form-group has-success">
+            <div id="btnUpload" class="btn btn-success" onclick="VerArchivo();" style="width:100%;">Ver</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function VerArchivo()
+    {
+
+        var idarchivo = $("#idindicador").val();
+        idarchivo = idarchivo.trim()
+
+        if (idarchivo.length <= 0 || idarchivo == "") {
+
+        }
+        else
+        {
+
+            var URL = '@Url.Action("getDocument", "Archivos", new { Name = "0" })';
+            URL = URL.replace("0", idarchivo.trim());
+
+            window.open(URL, "_blank");
+        }
+    }
+
+
+        $(document).ready(function ()
+        {
+            $('#btnUpload').click(function ()
+            {
+                var formData = new FormData();
+
+                var archivo = $("#archivo").get(0).files;
+                formData.append("archivo", archivo[0]);
+                formData.append("idindicador", $('#idindicador').val());
+                formData.append("remplazo", false);
+
+                $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("UploadFile")',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                        success: function (data) {
+                            if (data.IdError == "0") {
+                                alert(data.Desc);
+                            }
+                            else if (data.IdError == "1")
+                            {
+                                alert(data.Desc);
+                            } else if (data.IdError == "2")
+                            {
+                                var result = confirm(data.Desc);
+                                if (result == true) {
+                                    var formData = new FormData();
+
+                                    var archivo = $("#archivo").get(0).files;
+                                    formData.append("archivo", archivo[0]);
+                                    formData.append("idindicador", $('#idindicador').val());
+                                    formData.append("remplazo", true);
+                                    $.ajax(
+                                    {
+                                        type: 'POST',
+                                        url: '@Url.Action("UploadFile")',
+                                        data: formData,
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                            success: function (data) {
+                                                if (data.IdError == "0") {
+                                                    alert(data.Desc);
+                                                }
+                                                else if (data.IdError == "1")
+                                                {
+                                                    alert(data.Desc);
+                                                }
+                                            }
+                                    });
+                                }
+                            }
+                        }
+                });
+
+            });
+        });
+</script>
+ 

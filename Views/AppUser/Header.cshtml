@@ -1,0 +1,131 @@
+﻿@model Indicadores.Models.ModelViews.LoginModel
+@{
+    Layout = null;
+}
+
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gobierno Municipal de Monterrey</title>
+    <style>
+        .carousel-item {
+            height: 100vh;
+            min-height: 350px;
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+
+    <script type="text/javascript" language="javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
+ 
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Start Bootstrap</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav> 
+    <header>
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+
+            <div class="carousel-inner"> 
+                <div class="carousel-item active" style="background: url(~Images/portada_ciudad_ninez_v05.png)">
+                </div>
+            </div>
+        </div>
+    </header> 
+ 
+    <div class="container">
+        <div class="col-md-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Datos Generales</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li>
+                            <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <br>
+                    <form class="form-label-left input_mask">
+                        <div class="col-md-12 col-sm-12  form-group has-feedback">
+                            <input type="text" required class="form-control has-feedback-left input" id="nombre" name="nombre" placeholder="Nombre(s)">
+
+                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12  form-group has-feedback">
+                            <input type="text" required class="form-control has-feedback-left" id="apellidopaterno" name="apellidopaterno" placeholder="Apellido Paterno">
+
+                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12  form-group has-feedback">
+                            <input type="text" required class="form-control has-feedback-left" id="apellidomaterno" name="apellidomaterno" placeholder="Apellido Materno">
+                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12  form-group has-feedback">
+                            <input type="email" required class="form-control has-feedback-left" id="email" name="email" placeholder="Correo Electrónico">
+                            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-section">
+            <div class="container">
+                <div class="card-block bg-white mb30">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <!-- section-title -->
+                            <div class="section-title mb-0">
+                                <h2>All about Hike. We share our knowledge on blog</h2>
+                                <p>Our approach is very simple: we define your problem and give the best solution. </p>
+                            </div>
+                            <!-- /.section-title -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                        Created for <a href="https://easetemplate.com/downloads/digital-marketing-website-template-hike-bold-design/" target="_blank">easetemplate</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</body>
+</html>

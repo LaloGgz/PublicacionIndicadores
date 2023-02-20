@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Indicadores.DetalleCalendario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idcalendario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descmes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.v1r)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.v2p)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Av1r)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Av2p)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Avance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvanceMesRep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Avanceanio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comentarios)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mescurso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.anio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nomes)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.idcalendario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.descmes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.v1r)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.v2p)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Av1r)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Av2p)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Avance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvanceMesRep)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Avanceanio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comentarios)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mescurso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.anio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomes)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.iddetcalen }) |
+            @Html.ActionLink("Details", "Details", new { id=item.iddetcalen }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.iddetcalen })
+        </td>
+    </tr>
+}
+
+</table>

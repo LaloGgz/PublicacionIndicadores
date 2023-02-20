@@ -1,0 +1,209 @@
+﻿@model Indicadores.Models.Indicador.NuevoUsuario
+
+ @using (Html.BeginForm())
+{
+
+<div class="container">
+    <div class="col-md-6 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Datos Generales</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form class="form-label-left input_mask"> 
+                    <div class="col-md-12 col-sm-12  form-group has-feedback"> 
+                        <input type="text" required class="form-control has-feedback-left input" id="nombre" name="nombre" value="@Model.nombre" placeholder="Nombre(s)">
+
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12  form-group has-feedback"> 
+                        <input type="text" required class="form-control has-feedback-left" id="apellidopaterno" name="apellidopaterno" value="@Model.apellidopaterno" placeholder="Apellido Paterno">
+
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-12 col-sm-12  form-group has-feedback">                            
+                        <input type="text" required class="form-control has-feedback-left" id="apellidomaterno" name="apellidomaterno" value="@Model.apellidomaterno" placeholder="Apellido Materno">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12  form-group has-feedback"> 
+                        <input type="email" required class="form-control has-feedback-left" id="email" value="@Model.email" name="email" placeholder="Correo Electrónico">
+                        <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Usuario</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br> 
+
+                <div class="form-group row">
+                    <label class="col-form-label col-md-3 col-sm-3 ">Usuario</label>
+                    <div class="col-md-9 col-sm-9 "> 
+                        <input type="text" required class="form-control" id="usuario" name="usuario" value="@Model.usuario" placeholder="Usuario">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-md-3 col-sm-3 ">Contraseña</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <input type="text" required class="form-control" id="password" name="password" value="@Model.password" placeholder="Contraseña">                            
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-md-3 col-sm-3 ">Grupo</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        @Html.DropDownList("idgrupo", null, htmlAttributes: new { @class = "form-control" })  
+                    </div>
+                </div> 
+                <div class="form-group row">
+                    <label class="col-form-label col-md-3 col-sm-3 ">Secretaría</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <div class="form-group">
+                            <select class="form-control" id="Scretaria2" onchange="GetDire2();"></select>
+                        </div>
+                    </div>
+                </div>   
+                <div class="form-group row">
+                    <label class="col-form-label col-md-3 col-sm-3 ">Dirección</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <div class="form-group">
+                            <select class="form-control" id="iddireccion" required name="iddireccion"></select>
+                        </div>
+                    </div>
+                </div>  
+            </div>  
+        </div>
+    </div>  
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-4 col-sm-4 ">
+                    <input type="button" style="width:100%;" class="btn btn-warning" value="Cancelar" onclick="location.href='@Url.Action("Index", "Home" )'"> 
+              
+                </div>
+                <div class="col-md-4 col-sm-4 ">
+                    <button type="submit" style="width:100%;" class="btn btn-success">Guardar</button>
+                </div>
+                <div class="col-md-4 col-sm-4 ">
+                    <button class="btn btn-primary" style="width:100%;" type="button" id="btnreset">Borrar datos</button>
+                </div>
+            </div>
+        </div> 
+</div>
+ <input type="hidden" value="@Model.Msj" id="msj" />
+ } 
+ @section Scripts
+{
+    <script>
+        $(document).ready(function ()
+        { 
+            var msj = $("#msj").val();
+          
+            if (msj.toString().length > 0)
+            { 
+                $("#msj").val("");
+                $("#modal").click();
+            }
+
+            $("#btnreset").on("click", function (event) {
+                $(".form-control").val("");
+                $("#idgrupo").val(1);
+            });
+            
+            CargaSecretarias();
+        });
+    </script>
+
+     <script>
+
+         function CargaSecretarias() {
+             $("#Scretaria2").html("");
+             $.ajax({
+                 type: 'POST',
+                 url: "GetSecretarias",
+                 dataType: 'json', 
+                 success: function (states) {
+                     $("#Scretaria2").append('<option selected disabled="disabled">Secretaría</option>');
+                     $.each(states, function (i, state) {
+                         $("#Scretaria2").append('<option value="' + state.Value + '">' +
+                            state.Text + '</option>');
+                     });
+
+                 },
+                 error: function (ex) {
+                     alert('Sin Datos.');
+                 }
+             });
+         }
+          
+
+         function GetDire2() {
+             $.ajax({
+                 type: 'POST',
+                 url: "../Direcciones/GetDirecciones",
+                 dataType: 'json',
+                 data: {
+                     id: $("#Scretaria2").val()
+                 },
+                 success: function (data) {
+                     $("#iddireccion").html("");
+                     $("#iddireccion").append('<option selected disabled="disabled">Dirección</option>');
+                     $.each(data, function (i, state) {
+                         $("#iddireccion").append('<option value="' + state.Value + '">' +
+                             state.Text + '</option>');
+                     });
+
+                 },
+                 error: function (ex) {
+                 }
+             });
+         }
+
+     </script>
+}
+
+ 
+
+<button type="button" class="btn btn-primary" data-toggle="modal" id="modal" hidden="hidden" data-target="#exampleModal">
+   Aviso
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align:center;">
+                <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                @Model.Msj
+            </div>
+            <div class="modal-footer" style="text-align:center;">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

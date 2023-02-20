@@ -1,0 +1,310 @@
+﻿@model Indicadores.Models.Indicador.Calendario 
+<style>
+    .form-group {
+        border-radius: 7px;
+    }
+    label {
+    font-weight:bold;
+    font-size:larger;
+    color:black;
+    }
+</style>
+
+<div class="container">
+    <input type="hidden" id="idcalendario" value="@Model.idcalendario">
+    <input type="checkbox" id="porcentaje" hidden="hidden"/>
+    <div class="col-lg-12">
+        <div class="card" style="background-color:#F7F7F7">
+            <div class="card-header text-center " style="background-color:#5086c1;color:white;">
+                <h1>Indicador</h1>
+            </div>
+            <div class="card-body">
+                <div class="form-group msj" style="color:red;">
+                </div>
+                <div class="form-group">  
+                    <label for="recipient-name" class="col-form-label">Actividad:</label>
+                    <textarea class="form-control" id="actividad" name="actividad">@Model.actividad</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Secretaría:</label>
+                    <input type="hidden" id="idsecretaria2" value="@Model.idsecretaria">
+                    <select class="form-control" id="idsecretaria" name="idsecretaria" onchange="GetDireccion();"></select>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" id="iddireccion2" value="@Model.iddireccion">
+                    <label for="recipient-name" class="col-form-label">Dirección:</label>
+                    <select class="form-control" id="iddireccion"></select> 
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Eje estratégico:</label>
+                    <input type="hidden" id="Eje2" value="@Model.ideje">
+                    <select class="form-control" id="Eje" name="Eje" onchange="GetObjetivo();"></select>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" id="idobjetiv2" value="@Model.idobjetiv">
+                    <label for="recipient-name" class="col-form-label">Objetivo estratégico:</label>
+                    <select class="form-control" id="idobjetiv" onchange="descobj();"></select>
+                    <div id="descobjetivo" style="text-align: center;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Programa Presupuestario:</label>
+                    <textarea class="form-control" id="programapresu">@Model.actividad</textarea>
+                </div>
+                <div class="form-group">
+                    <table class="table text-break text-center" style="font-size:10px;">
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Unidad de medida (%):</label>
+                                    <input type="text" class="form-control" value="@Model.unidadmedida" id="unidadmedida" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Meta institicional(%):</label>
+                                    <input type="text" class="form-control" value="@Model.metainstitu" id="metainstitucinal" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Unidad de medida (meta valor):</label>
+                                    <input type="text" class="form-control" value="@Model.unidadmedidavalor" id="unidadmedidameta" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Meta valor:</label>
+                                    <input type="text" class="form-control meses" value="@Model.metavalor" id="meta"  onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Medios de verificación:</label>
+                    <textarea class="form-control" id="medioverificacion">@Model.mediosverificacion</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Monto solicitado:</label>
+                    <input type="text" class="form-control" id="montosolicitado" value="@Model.MontoSoli" />
+                </div>
+                <div class="form-group">
+                    <table class="table text-break text-center">
+                        <tr>
+                            <td colspan="4">Calendarización de actividades</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Enero</label>
+                                    <input type="text" class="form-control meses" value="@Model.Enero" id="Enero" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Febrero</label>
+                                    <input type="text" class="form-control meses" value="@Model.Febrero" id="Febrero" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Marzo</label>
+                                    <input type="text" class="form-control meses" value="@Model.Marzo" id="Marzo" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Abril:</label>
+                                    <input type="text" class="form-control meses" value="@Model.Abril" id="Abril" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Mayo</label>
+                                    <input type="text" class="form-control meses" value="@Model.Mayo" id="Mayo" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Junio</label>
+                                    <input type="text" class="form-control meses" value="@Model.Junio" id="Junio" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Julio</label>
+                                    <input type="text" class="form-control meses" value="@Model.Julio" id="Julio" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Agosto:</label>
+                                    <input type="text" class="form-control meses" value="@Model.Agosto" id="Agosto" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Septiembre</label>
+                                    <input type="text" class="form-control meses" value="@Model.Septiembre" id="Septiembre" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Octubre</label>
+                                    <input type="text" class="form-control meses" value="@Model.Octubre" id="Octubre" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Noviembre</label>
+                                    <input type="text" class="form-control meses" value="@Model.Noviembre" id="Noviembre" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Diciembre:</label>
+                                    <input type="text" class="form-control meses" value="@Model.Diciembre" id="Diciembre" onkeypress="return valideKey(event);" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form-group msj" style="color:red;">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <a href="@Url.Action("Lista", "Calendario")">
+                            <button type="button" class="btn btn-secondary w-100">
+                                Regresar
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-save w-100" onclick="Valida2(1);">Enviar Datos</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-save w-100" onclick="Valida2(0);">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="hidenporcentaje" value="@Model.porcentaje" />
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="text-align:center;">
+                <h5 class="modal-title text-center" id="exampleModalLabel" style="text-align:center;">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="list">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:100%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .my_second_class {
+        width: 1%;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    .form-control {
+        border-radius: 5px;
+    }
+</style>
+
+<div class="modal fade bd-example-modal-lg" id="spiner" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-5x"></span>
+        </div>
+    </div>
+</div>
+
+
+ <script src="~/Scripts/Indicadores/CalendarioLista.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        var porcentaje = $("#hidenporcentaje").val();
+        if (porcentaje == "value") {
+            $("#meta").val($("#meta").val() + "%")
+            $("#Enero").val($("#Enero").val() + "%")
+            $("#Febrero").val($("#Febrero").val() + "%")
+            $("#Marzo").val($("#Marzo").val() + "%")
+            $("#Abril").val($("#Abril").val() + "%")
+            $("#Mayo").val($("#Mayo").val() + "%")
+            $("#Junio").val($("#Junio").val() + "%")
+            $("#Julio").val($("#Julio").val() + "%")
+            $("#Agosto").val($("#Agosto").val() + "%")
+            $("#Septiembre").val($("#Septiembre").val() + "%")
+            $("#Octubre").val($("#Octubre").val() + "%")
+            $("#Noviembre").val($("#Noviembre").val() + "%")
+            $("#Diciembre").val($("#Diciembre").val() + "%")
+        }
+        else
+        {
+
+        }
+        carga();
+
+        $(".meses").keyup(function ()
+        { 
+            var valormeta = $("#meta").val();
+            if (valormeta.includes("%")) {
+                $('#porcentaje').prop('checked', true);
+            }
+
+            else
+            {
+                $('#porcentaje').prop('checked', false);
+                var textbox = parseFloat($("#" + this.id).val().replace(/,/g, ""));
+                if (Number.isNaN(textbox) || textbox == "NaN" || textbox == "" || textbox == "null") {
+                    textbox = "0";
+                    $("#" + this.id).val(textbox);
+                }
+                else
+                { 
+                    $("#" + this.id).val(textbox.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                }
+            }
+        });
+    });  
+</script>

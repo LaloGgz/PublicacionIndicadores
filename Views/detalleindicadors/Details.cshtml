@@ -1,0 +1,74 @@
+﻿@model Indicadores.Models.PDM.detalleindicador
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>detalleindicador</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.idindicador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idindicador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resultado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resultado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.resulvariacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resulvariacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.observaciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.observaciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mescurso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mescurso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.activo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.activo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecharegistro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecharegistro)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.iddetindic }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

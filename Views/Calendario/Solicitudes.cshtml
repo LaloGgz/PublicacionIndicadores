@@ -1,0 +1,413 @@
+﻿@using Indicadores.Models.Extensions
+<input type="hidden" id="Porcentaje" />
+<script src="~/Scripts/Indicadores/CalendarioLista.js"></script>
+<div class="container">
+    <input type="checkbox" id="porcentaje" hidden="hidden" />
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header text-center">
+                <div class="col-md-12" style="background-color: #e4dcd7; color: #484441;padding:10px 50px 10px 50px">
+                    <label for="recipient-name" class="col-form-label">Solicitudes</label>
+                </div>
+            </div>  
+        
+            <div class="col-md-12" style="padding:10px 50px 10px 50px;font-size:11px; overflow:scroll;">
+                <table id="demodata" class=" table-bordered" style="text-align:left;border:1px solid #73879C;width:100%;">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th></th> 
+                            <th>Botones</th> 
+                            <th>Actividad</th> 
+                            <th>Programa P</th> 
+                            <th>comentario</th> 
+                            <th>Fecha</th> 
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="secre" value="@User.Identity.GetIdSecretaria()" />
+@section Scripts
+{
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css"> 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script> 
+    $(document).ready(function () {
+        CargaSecretarias(); 
+    });
+
+    DemoDatatable();
+
+    function DemoDatatable() {
+
+        $("#demodata").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "language": {
+                "url": "@Url.Content("~/Scripts/Datatable/datatable.spanish.js")"
+            },
+            "filter": true,
+            "orderMulti": false,
+            "destroy": true,
+            "ordering": true,
+            "ajax": {
+
+                "url": '@Url.Action("GetTablaSolicitudes", "Calendario")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "idcalendario", "name": "idcalendario", className: "idcal" },
+                {
+                    data: null,
+                    className: "tab-1 botones",
+                    render: function (data, type, row, meta) {
+                         
+                        var Valida = '<a  onclick="Valida(\'' + data.idcomentario + '\' )" class="btnactivo" title="Validar" style="cursor: pointer;font-size: 16px;"><i class="fa fa-check-circle"></i></a>&nbsp;&nbsp;&nbsp; ';
+                         
+                        var Rechaza = '<a  onclick="Rechaza(\'' + data.idcomentario + '\' )" style="cursor: pointer;font-size: 16px;font-weight:bold;" title="Rechaza" ><i class="fa fa-times-circle"></i>  </a>&nbsp;';
+                         
+                        return Valida + Rechaza;
+
+                    }
+                },
+                { "data": "actividad", "name": "actividad", className: "activity" },
+                { "data": "programapresu", "name": "programapresu", className: "activity" },
+                { "data": "comentario", "name": "comentario", className: "comentario" },
+                { "data": "fecha", "name": "fecha", className: "idcal" }
+            ]
+
+        }); 
+    }
+</script>
+    <script>
+        function Valida(a)
+        {
+            $("#idcomentario").val('');
+            $("#idcomentario").val(a);
+            $.ajax(
+            {
+                type: 'POST',
+                url: pathserver + "/Calendario/ValidaComentario", 
+                dataType: 'json',
+                data:
+                    {
+                        Codigo: a
+                    },
+                success: function (data)
+                {
+                    DemoDatatable();
+                }
+            });
+        }
+
+        function Rechaza(a) {
+            $("#idcomentario").val('');
+            $("#idcomentario").val(a);
+            $.ajax(
+            {
+                type: 'POST',
+                url: pathserver + "/Calendario/RechazaComentario",
+                dataType: 'json',
+                data:
+                    {
+                        Codigo: a
+                    },
+                success: function (data) {
+                    DemoDatatable();
+                }
+            });
+        }
+    </script>
+    }
+<input type="hidden" id="idcomentario" />
+<div class="modal fade" id="validado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="rechaza" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .dot {
+        height: 30px;
+        width: 30px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .table-bordered td, .table-bordered th, .table-bordered tr {
+        border: 1px solid #2A3F54;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    .tab-1 {
+        padding: 0px 0px 0px 0px;
+        text-align: center;
+    }
+
+    table.display td {
+    }
+
+    .pad {
+        text-align: left;
+        padding-left: 10px;
+        padding-right: 10px;
+    } 
+    body {
+        font-family: 'Lato', sans-serif;
+    }
+
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0, 0.9);
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    .idcal {
+        width: 10%;
+        text-align: center;
+    }
+
+    .botones {
+        width: 15%;
+    }
+
+    .Categ {
+        width: 12%;
+    }
+
+    .Meta {
+        width: 12%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .activity {
+        width: 20%;
+    }
+      .pp {
+        width: 20%;
+    }
+
+
+    .comentario {
+        width: 40%;
+    }
+
+    .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 36px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .overlay a:hover, .overlay a:focus {
+            color: #f1f1f1;
+        }
+
+    .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+    }
+
+    table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
+        padding-right: 0px;
+    }
+
+    @@media screen and (max-height: 450px) {
+        .overlay a {
+            font-size: 20px;
+        }
+
+        .overlay .closebtn {
+            font-size: 40px;
+            top: 15px;
+            right: 35px;
+        }
+    } 
+    .form-group {
+        border-radius: 7px;
+    }
+
+    .form-control {
+        border: 1px solid;
+    }
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    .tabs {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    #tab-button {
+        font-size: 11px;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        #tab-button li {
+            display: table-cell;
+            width: 20%;
+        }
+
+            #tab-button li a {
+                display: block;
+                padding: .5em;
+                background: #eee;
+                border: 1px solid #ddd;
+                text-align: center;
+                color: #000;
+                text-decoration: none;
+            }
+
+            #tab-button li:not(:first-child) a {
+                border-left: none;
+            }
+
+            #tab-button li a:hover,
+            #tab-button .is-active a {
+                border-bottom-color: transparent;
+                background: #fff;
+            }
+
+    .tab-contents {
+        padding: .5em 2em 1em;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+
+
+    .tab-button-outer {
+        display: none;
+    }
+
+    .tab-contents {
+        margin-top: 20px;
+    }
+
+    @@media screen and (min-width: 768px) {
+        .tab-button-outer {
+            position: relative;
+            z-index: 2;
+            display: block;
+        }
+
+        .tab-select-outer {
+            display: none;
+        }
+
+        .tab-contents {
+            position: relative;
+            top: -1px;
+            margin-top: 0;
+        }
+    }
+
+    .my_second_class {
+        width: 1%;
+        word-break: break-word;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    table.dataTable td {
+        word-break: break-word;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+</style> 

@@ -1,0 +1,47 @@
+﻿@using Indicadores.Models
+@model LoginViewModel
+
+
+<div class="row ok" style="margin-right: -30px; margin-left: -30px;">
+    <div class="col-md-12"> 
+        <section class="background-radial-gradient overflow-hidden">
+            <style>
+                .background-radial-gradient {
+                    background: rgb(236,178,119);
+                    background: linear-gradient(90deg, rgba(236,178,119,1) 0%, rgba(201,136,45,1) 35%, rgba(199,129,34,1) 61%, rgba(241,187,143,1) 100%);
+                }
+
+                .bg-glass {
+                    background-color: hsla(0, 0%, 100%, 0.9) !important;
+                    backdrop-filter: saturate(200%) blur(25px);
+                }
+            </style>
+            <div class="row" style="margin-right: -20px; margin-left: -20px;">
+                <div class="container ml-5 px-5 py-5 px-md-5 text-center text-lg-start my-5" style="background-color:transparent;">
+                    <div class="row gx-lg-5 align-items-center mb-5">
+                        <div class="col-md-8" style="z-index: 10;background-color:transparent;">
+                            <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                                Secretaría  Ejecutiva
+                            </h1>
+                            <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 95%)">
+                                Dirección de Planeación, Enlace y Proyectos Estratégicos
+                            </p>
+                            <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 95%)">
+                                Sistema de Indicadores
+                            </p>
+                        </div>
+                        <div class="col-md-4 card bg-glass pt-5 pb-5" style="border-radius: 10%;"  >
+                            <h2>Entar al sistema usando </h2>
+                            <section id="socialLoginForm">
+                                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                            </section>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+  </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

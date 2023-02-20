@@ -1,0 +1,195 @@
+﻿<script src="~/Scripts/Indicadores/NivelObjetivo.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+<div class="container">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1>Listado Nivel Objetivo</h1>
+            </div>
+            <div class="col-md-12" style="padding:10px 50px 10px 50px">
+                <button type="button" data-toggle="modal" data-target="#ModalNueva" style="width:100%;" class="btn btn-success">Nuevo registro</button>
+            </div>
+            <div class="col-md-12" style="padding:10px 50px 10px 50px;font-size:15px;">
+                <table id="demodata" class="display responsive nowrap" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>descripción</th>
+                            <th>Botones </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+    });
+
+    DemoDatatable();
+
+
+    function DemoDatatable() {
+        $("#demodata").DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "language": {
+                "url": "@Url.Content("~/Scripts/Datatable/datatable.spanish.js")"
+            },
+            "filter": true,
+            "orderMulti": false,
+            "destroy": true,
+            "ordering": true,
+            "ajax": {
+
+                "url": '@Url.Action("GetTableData", "NivelObjetivo")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+            { "data": "idnivelobj", "name": "idnivelobj", "autoWidth": true }
+            , { "data": "descripcion", "name": "descripcionn", "autoWidth": true }
+            , {
+                data: null,
+                className: "tab-1",
+                render: function (data, type, row, meta) {
+                    return ' <a onclick="Get(' + data.idnivelobj + ')"  title="Direccion" data-toggle="modal" data-target="#ModalEdita"><i class="fa fa-edit"></i> </a>    &nbsp;&nbsp;&nbsp; ' +
+                           ' <a  data-target="#basic" data-toggle="modal" onclick="GetId(' + data.idnivelobj + ')" class="btnactivo" title="Borrar"><i class="fa fa-trash"></i></a>';
+                }
+            }
+            ]
+        });
+    }
+</script>
+
+
+<div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="idborra" name="idborra" />
+                <h3 class="modal-title">Aviso!</h3>
+            </div>
+            <div class="modal-body text-center">
+                <h4> ¿Desea eliminar el registro?</h4>
+            </div>
+            <div class="modal-footer" style="display:block">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <button data-dismiss="modal" onclick="CancelaDelet()" type="button" class="btn btn-primary w-100">Cancelar</button>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <button id="btnContinueDelete" onclick="Delete()" type="button" class="btn btn-danger w-100">Borrar</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal" id="ModalEdita">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Editar registro</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="update.php" id="edit-form">
+                    <input class="form-control" type="hidden" id="iddescripcion">
+                    <div class="form-group">
+                        <label for="email">Descripción</label>
+                        <input class="form-control" type="text" autocomplete="off" id="descripcion">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btnUpdateSubmit" onclick="Actualiza()">Actualizar</button>
+                    <button type="button" class="btn btn-danger float-right" data-dismiss="modal">Cerrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="ModalNueva">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Nueva registro</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="update.php" id="edit-form">
+                    <div class="form-group">
+                        <label for="email">Descripción</label>
+                        <input class="form-control" type="text" autocomplete="off" id="descripcion1">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="Valida()">Guardar</button>
+                    <button type="button" class="btn btn-danger float-right" data-dismiss="modal">Cerrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="list">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:100%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+</style>
+
+<div class="modal fade bd-example-modal-lg" id="spiner" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-5x"></span>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,603 @@
+﻿@using Indicadores.Models.Extensions
+
+<input type="hidden" id="Porcentaje" />
+<script src="~/Scripts/PMD/Inicio.js"></script>
+<div class="container">
+    <input type="checkbox" id="porcentaje" hidden="hidden" />
+    <input type="hidden" id="MetodoDeCalculo" />
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header text-center">
+                <div class="col-md-12" style="background-color: #e4dcd7; color: #484441;padding:10px 50px 10px 50px">
+                    <label for="recipient-name" class="col-form-label">Plan Municipal - Indicadores</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" style="padding:10px 50px 10px 50px">
+                </div>
+                <div class="col-md-4 btnnuevo" style="padding:10px 50px 10px 50px; ">
+                    <a>
+                        <button type="button" style="width:100%;" id="btnnuevo" onclick="Nuevo()" class="btn btn-success btnnuevo">Nuevo</button>
+                    </a>
+                </div>
+                <div class="col-md-4" style="padding:10px 50px 10px 50px">
+                </div>
+            </div>
+            <div class="col-md-12" style="padding:10px 50px 10px 50px;font-size:11px; overflow:scroll;">
+                <table id="demodata" class=" table-bordered" style=" border:1px solid #73879C;width:110%;">
+                    <thead>
+                        <tr>
+                            @*<th hidden="hidden">Id</th>*@
+                            <th>Responsable</th>
+                            <th>Botones</th>
+                            @*<th>Eje</th>*@ 
+                            <th>Nombre indicador</th>
+                            <th class="text-center">Línea base / Año</th>
+                            <th class="text-center">Meta / 2024 </th>
+                            <th class="text-center">Sentido</th>
+                            <th class="text-center">Resultado</th>
+                            <th class="text-left">
+                                % de variación
+                                (avance vs línea
+                                base)
+                            </th> 
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+
+    <link href="~/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <script>
+         $(document).ready(function ()
+        {
+            $('#btnUpload').click(function ()
+            {
+                var formData = new FormData();
+
+                var archivo = $("#archivo").get(0).files;
+                formData.append("archivo", archivo[0]);
+                formData.append("idindicador", $('#idindicador').val());
+                formData.append("remplazo", false);
+
+                $.ajax(
+                {
+                    type: 'POST',
+                    url: '@Url.Action("UploadFile")',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                        success: function (data)
+                        {
+                            if (data.IdError == "0")
+                            {
+                                alert(data.Desc);
+                            }
+                            else if (data.IdError == "1")
+                            {
+                                alert(data.Desc);
+                            }
+                            else if (data.IdError == "2")
+                            {
+                                var result = confirm(data.Desc);
+                                if (result == true) {
+                                    var formData = new FormData();
+
+                                    var archivo = $("#archivo").get(0).files;
+                                    formData.append("archivo", archivo[0]);
+                                    formData.append("idindicador", $('#idindicador').val());
+                                    formData.append("remplazo", true);
+                                    $.ajax(
+                                    {
+                                        type: 'POST',
+                                        url: '@Url.Action("UploadFile")',
+                                        data: formData,
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                            success: function (data) {
+                                                if (data.IdError == "0") {
+                                                    alert(data.Desc);
+                                                }
+                                                else if (data.IdError == "1")
+                                                {
+                                                    alert(data.Desc);
+                                                }
+                                            }
+                                    });
+                                }
+                            }
+                        }
+                });
+
+            });
+        });
+    DemoDatatable();
+
+    function DemoDatatable()
+    {
+
+        $("#demodata").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "language": {
+                "url": "@Url.Content("~/Scripts/Datatable/datatable.spanish.js")"
+            },
+            "filter": true,
+            "orderMulti": false,
+            "destroy": true,
+            "ordering": true,
+            "ajax": {
+
+                "url": '@Url.Action("GetTableData", "PlanMunicipal")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+
+                //{ "data": "idindicador", "name": "idindicador", className: "idfolio" },
+                { "data": "secretaria", "name": "secretaria", className: "secretaria" },
+                {
+                    data: null,
+                    className: "botones",
+                    render: function (data, type, row, meta)
+                    {
+                        //var Upload = '<a data-target="#SubeFile" data-toggle="modal" onclick="SubeFile(\'' + data.pindiacdor + '\' )"  class="btnactivo" title="Subir archivo" style="cursor: pointer;font-size: 16px;"><i class="fa fa-upload"></i></a>&nbsp; ';
+                        var Avances = '<a  data-target="#Avances" data-toggle="modal" onclick="Avances(\'' + data.pindiacdor + '\' )"  class="btnactivo" title="Avances" style="cursor: pointer;font-size: 16px;"><i class="fa fa-reorder"></i></a>&nbsp; ';
+                        var VerArchivo = '';
+                        var Reportar = '<a  onclick="Reportar(\'' + data.cf_d4k_f4 + '\' )"  class="btnactivo" title="Ver archivo" style="cursor: pointer;font-size: 16px;"><i class="fa fa-pencil-square"></i></a>&nbsp; ';
+                        var Ficha = '   <a onclick="VerPdf(\'' + data.pindiacdor + '\')" style="cursor: pointer;font-size: 15px;font-weight:bold;" title="Ver ficha de indicador" ><i class="fa fa-file-pdf-o"></i> </a>&nbsp;';
+
+                        if (data.path != null)
+                        {
+                            VerArchivo = '<a onclick="VerArchivo(\'' + data.pindiacdor + '\' )"  class="btnactivo" title="Ver archivo" style="cursor: pointer;font-size: 16px;"><i class="fa fa-download"></i></a>&nbsp; ';
+                        }
+                         
+                        return Reportar + Ficha + Avances ;
+                    }
+                },
+                //{ "data": "eje", "name": "eje", className: "lineabase" }, 
+                { "data": "nombreindicador", "name": "nombreindicador", className: "nombre" },
+                { "data": "lineabase", "name": "lineabase", className: "lineabase" },
+                { "data": "meta", "name": "meta", className: "meta" },
+                { "data": "sentido", "name": "sentido", className: "sentido" },
+                { "data": "resultado", "name": "resultado", className: "resultado" },
+                { "data": "variacion", "name": "variacion", className: "meta" },
+                //{
+                //    data: null,
+                //    className: "observaciones",
+                //    render: function (data, type, row, meta)
+                //    {
+                //        var observacion = '';
+                //        if (data.observacion == null || data.observacion =="") {
+                //            observacion = '';
+                //        }
+                //        else
+                //        {
+                //            if (data.observacion.length >= 40) {
+                //                observacion = '<a     class="btnactivo" title="Ver obervaciones" style="cursor: pointer;font-size: 9px;"> ' + data.observacion.toString().substring(0,40) + '...</a>&nbsp; ';
+                //            }
+                //            else
+                //            {
+                //                observacion = '<a     class="btnactivo" title="Ver obervaciones" style="cursor: pointer;font-size: 9px;"> ' + data.observacion + '</a>&nbsp; ';
+                //            }
+
+                //        }
+                //        return observacion;
+                //    }
+                //},
+            ] 
+        });
+        oTable = $('#demodata').DataTable();
+        //oTable.columns(1).search($('#dropdireccion').val());
+        //oTable.columns(2).search($('#loadsecretaria').val());
+        oTable.draw();
+
+    }
+
+    </script>
+}
+
+<div class="modal fade" id="Avances" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="max-width:80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="idcalendario" name="idcalendario" />
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 bg-white" style="font-weight:bold;">
+                        Nombre del indicador:
+                        <span id="nameindicador"></span>
+                    </div>
+                    <div class="col-md-12 col-sm-12 bg-white" style="font-weight:bold;">
+                        Línea base:
+                        <span id="lineab"></span>
+                    </div>
+                    <div class="col-md-12 col-sm-12 bg-white" style="font-weight:bold;">
+                        <spa class="modal-title">Meta 2024: <span id="metaanio"></span></spa>
+                    </div>
+                </div> 
+            </div>
+            <div class="modal-body text-center">
+                <table id="demodata" class=" table-bordered" style="text-align:center;border:1px solid #73879C;width:100%;">
+                    <thead>
+                        <tr>
+                            <th width="12%">Periodo</th>
+                            <th width="12%">Resultado</th>
+                            <th width="12%">
+                                % de variación
+                                (avance vs línea
+                                base)
+                            </th>
+                            <th width="12%">Evidencia documental</th>
+                            <th width="50%">Comentarios</th>
+                            <th width="2%"></th>
+                            <th hidden='hidden'>linea b</th>
+                            <th hidden='hidden'></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableavances">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer" style="display:block">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <button id="btnContinueDelete" data-dismiss="modal" type="button" class="btn btn-danger w-100">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SubeFile" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="indicadorid" name="indicadorid" /> 
+            </div>
+            <div class="modal-body text-center">
+                <input type="file" class="form-control" id="archivo" onchange="evento();" />
+            </div>
+            <div class="modal-footer" style="display:block">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <button data-dismiss="modal" type="button" class="btn btn-primary w-100">Cerrar</button>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="basic" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="idcalendario" name="idcalendario" />
+                <h3 class="modal-title">Aviso!</h3>
+            </div>
+            <div class="modal-body text-center">
+                <h4> ¿Desea eliminar el registro?</h4>
+            </div>
+            <div class="modal-footer" style="display:block">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <button data-dismiss="modal" onclick="CancelaDelet()" type="button" class="btn btn-primary w-100">Cancelar</button>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <button id="btnContinueDelete" onclick="Delete()" type="button" class="btn btn-danger w-100">Borrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="list">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:100%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .dot {
+        height: 30px;
+        width: 30px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .table-bordered td, .table-bordered th, .table-bordered tr {
+        border: 1px solid #2A3F54;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    .tab-1 {
+        padding: 0px 0px 0px 0px;
+        text-align: center;
+    }
+
+    table.display td {
+    }
+
+    .pad {
+        text-align: left;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .form-group {
+        border-radius: 7px;
+    }
+
+    .form-control {
+        border: 1px solid;
+    }
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    .tabs {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    #tab-button {
+        font-size: 11px;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        #tab-button li {
+            display: table-cell;
+            width: 20%;
+        }
+
+            #tab-button li a {
+                display: block;
+                padding: .5em;
+                background: #eee;
+                border: 1px solid #ddd;
+                text-align: center;
+                color: #000;
+                text-decoration: none;
+            }
+
+            #tab-button li:not(:first-child) a {
+                border-left: none;
+            }
+
+            #tab-button li a:hover,
+            #tab-button .is-active a {
+                border-bottom-color: transparent;
+                background: #fff;
+            }
+
+    .tab-contents {
+        padding: .5em 2em 1em;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+
+
+    .tab-button-outer {
+        display: none;
+    }
+
+    .tab-contents {
+        margin-top: 20px;
+    }
+
+    @@media screen and (min-width: 768px) {
+        .tab-button-outer {
+            position: relative;
+            z-index: 2;
+            display: block;
+        }
+
+        .tab-select-outer {
+            display: none;
+        }
+
+        .tab-contents {
+            position: relative;
+            top: -1px;
+            margin-top: 0;
+        }
+    }
+
+    .my_second_class {
+        width: 1%;
+        word-break: break-word;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    table.dataTable td {
+        word-break: break-word;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    body {
+        font-family: 'Lato', sans-serif;
+    }
+
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0, 0.9);
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    .botones {
+        width: 5%;
+        padding-left: 20px;
+        padding-right: 10px;
+    }
+
+    .idfolio {
+        width: 5%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .nombre {
+        width: 15%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .secretaria {
+        width: 10%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .programa {
+        width: 15%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .lineabase {
+        text-align:right;
+        width: 6%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .sentido {
+       text-align: left;
+        width: 6%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .resultado {
+        text-align: right;
+        width: 4%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .meta {
+        text-align:right;
+        width: 5%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .observaciones {
+        width: 8%;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 8px;
+    }
+
+    .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 36px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .overlay a:hover, .overlay a:focus {
+            color: #f1f1f1;
+        }
+
+    .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+    }
+
+    table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
+        padding-right: 0px;
+    }
+
+    @@media screen and (max-height: 450px) {
+        .overlay a {
+            font-size: 20px
+        }
+
+        .overlay .closebtn {
+            font-size: 40px;
+            top: 15px;
+            right: 35px;
+        }
+    }
+</style>
+
+

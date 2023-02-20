@@ -1,0 +1,295 @@
+﻿<script src="~/Scripts/Indicadores/Completa.js"></script>
+@using (Html.BeginForm("Problemas", "Arbol", FormMethod.Post, new { encType = "multipart/form-data", id = "Form" }))
+{
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="card" style="background-color:#F7F7F7">
+                <div class="card-header text-center " style="background-color:#e4dcd7;color:white;border-radius:20px;">
+                    <h1>     Árbol de Problemas</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row arbol">
+                        <div class="col-md-12" id="">
+                            <table id="problemas" class="display responsive nowrap " style="text-align:left;border-bottom:1px; border-bottom:1px solid #73879C;padding-right:15px;">
+                                <tr>
+                                    <td>
+                                        <span class="label label-default" id="btnproblema">Nombre del Programa</span>
+                                    </td>
+                                </tr>
+                                <tr id="trproblema">
+                                    <td id="tdproblema1" style=" padding-bottom: 15px;padding-top: 15px;"> 
+                                        <select class="form-control" id="idpp" name="idpp"></select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row arbol">
+                        <div class="col-md-1 lbl">
+                            <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title="click para agregar nuevo efecto">
+                                Efectos
+                            </span>
+                        </div>
+                        <div class="col-md-11" id="">
+                            <table id="efectos" class="display responsive nowrap " style="text-align:left;border-bottom:1px solid #73879C;padding-right:15px;">
+                                <tr id="trefecto">
+                                    <td class="tdefecto" id="tdefecto1" style=" padding-bottom: 15px;padding-top: 15px;">
+                                        <textarea placeholder="efecto 1" class="form-control efecto" name="efecto1" id="efecto1" rows="3"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row arbol">
+                        <div class="col-md-1 lbl">
+                            <span class="label label-default" id="btnproblema">Problema</span>
+                        </div>
+                        <div class="col-md-11" id="">
+                            <table id="problemas" class="display responsive nowrap " style="text-align:left;border-bottom:1px; border-bottom:1px solid #73879C;padding-right:15px;">
+                                <tr id="trproblema">
+                                    <td id="tdproblema1" style=" padding-bottom: 15px;padding-top: 15px;">
+                                        <textarea placeholder="problema" class="form-control problema" name="problema1" id="problema1" rows="3"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row arbol">
+                        <div class="col-md-1 lbl">
+                            <span class="label label-default" id="btncausa" data-toggle="tooltip" data-placement="top" title="click para agregar nueva causa">
+                                Causas
+                            </span>
+                        </div>
+                        <div class="col-md-11" id="">
+                            <table id="causas" class="display responsive nowrap " style="text-align:left;border-bottom:1px; border-bottom:1px solid #73879C;padding-right:15px;">
+                                <tr id="trcausa">
+                                    <td id="tdcausa1" style=" padding-bottom: 15px;padding-top: 15px;">
+                                        <textarea placeholder="causa 1" class="form-control causa" name="causa1" id="causa1" rows="3"></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row arbol">
+                        <div class="col-md-1 lbl">
+                            <span class="label label-default" id="btnsubcausa" data-toggle="tooltip" data-placement="top">
+                                SubCausas
+                            </span>
+                        </div>
+                        <div class="col-md-11" id="">
+                            <table id="subcausas" class="display responsive nowrap " style="text-align:left;border-bottom:1px; border-bottom:1px solid #73879C;padding-right:15px;">
+                                <tr class="trsubcausa" id="trsubcausa">
+                                    <td class="tdsubcausa1 totalsubcausa">
+                                        <table id="tableSub1" class="display responsive nowrap ">
+                                            <tr class="tabletrSub1" id="tabletrSub1">
+                                                <td>
+                                                    <span class="label label-default agregasub" id="1" data-toggle="tooltip" data-placement="top">
+                                                        SubCausa
+                                                    </span>
+                                                    <textarea class="form-control subcausa subcausa1" placeholder="SubCausa 1.1" name="subcausa11" id="11" rows="3"></textarea>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row arbol">
+                        <div class="col-md-12" id="">
+                            <button class="btn   w-100" style="background-color:#ffc19b;" id="btnenviar">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="hidens">
+        <input type="hidden" id="totalefecto" name="totalefecto" value="1" />
+        <input type="hidden" id="totalcausa" name="totalcausa" value="1" />
+        <input type="hidden" id="totalsubcausa" name="totalsubcausa" value="1" />
+        <input type="hidden" id="idcategoria" name="idcategoria" value="@ViewBag.idcategoria" />
+    </div>
+}
+    @section Scripts
+{
+        <script>
+            $(document).on('dblclick', '.efecto', function () {
+
+                var numItems = $('.efecto').length;
+                if (parseFloat(numItems) <= 1) {
+                }
+                else {
+                    var numItems = $('.efecto').length
+                    $("#td" + $(this).attr("id")).remove();
+                    var widthefecto = "100";
+                    var tdefecto = parseFloat(widthefecto) / (parseFloat(numItems));
+
+                    var lasid = 0;
+                    for (var i = 1; i <= numItems; i++) {
+                        $("#tdefecto" + i).css("width", tdefecto + "%");
+
+                    }
+                    $("#totalefecto").val($('.efecto').length);
+                }
+            });
+            $(document).on('dblclick', '.causa', function () {
+                var numItems = $('.causa').length;
+                if (parseFloat(numItems) <= 1) {
+
+                }
+                else {
+                    var numItems = $('.causa').length
+                    $("#td" + $(this).attr("id")).remove();
+                    $(".tdsub" + $(this).attr("id")).remove();
+                    var widthcausa = "100";
+                    var tdcausa = parseFloat(widthcausa) / (parseFloat(numItems));
+                    var lasid = 0;
+                    for (var i = 1; i <= numItems; i++) {
+                        $("#tdcausa" + i).css("width", tdcausa + "%");
+                    }
+                    $("#totalcausa").val($('.causa').length);
+                    $("#totalsubcausa").val($('.causa').length);
+                }
+            });
+            $(document).on('dblclick', '.subcausa', function () {
+                var id = this.id;
+                $("#tabletrSub" + id).remove();
+            });
+            $(document).on('click', '.agregasub', function () {
+                var id = this.id;
+                var numItems = $('.tabletrSub' + id).length;
+                var tr = "<tr class='tabletrSub" + id + "' id='tabletrSub" + id + (parseFloat(numItems) + 1) + "' >";
+
+                tr = tr + "  <td>  <textarea class='form-control subcausa subcausa" + id + "'   name='subcausa" + id + (parseFloat(numItems) + 1) + "' id='" + id + (parseFloat(numItems) + 1) + "'   rows='3'></textarea></td>  ";
+
+                tr = tr + "</tr>";
+
+                $("#tableSub" + id).append(tr);
+
+            });
+           
+
+            function GetProgramaPres() {
+                $("#idpp").html("");
+                $.ajax({
+                    type: 'POST',
+                    url:  "GetProgramaPres",
+                    dataType: 'json',
+                    success: function (states) {
+                        $("#idpp").append('<option selected disabled="disabled">Programa presupuestario</option>');
+                        $.each(states, function (i, state) {
+                            $("#idpp").append('<option value="' + state.Value + '">' +
+                                state.Text + '</option>');
+                        });
+
+                    },
+                    error: function (ex) {
+                        alert('Sin Datos.');
+                    }
+                });
+            }
+            $(document).ready(function ()
+            {
+                GetProgramaPres();
+                $("#btnefecto").click(function () {
+                    var numItems = $('.efecto').length;
+                    var widthefecto = "100";
+                    var tdefecto = parseFloat(widthefecto) / (parseFloat(numItems) + 1);
+                    $("#trefecto").append("<td class='tdefecto' id='tdefecto" + (parseFloat(numItems) + 1) + "' style=' padding-bottom: 15px;padding-top: 15px;'>  <textarea placeholder='efecto " + (parseFloat(numItems) + 1) + "'  class='form-control efecto' name='efecto" + (parseFloat(numItems) + 1) + "' id='efecto" + (parseFloat(numItems) + 1) + "' rows='3'></textarea></td>");
+
+                    for (var i = 1; i <= numItems; i++) {
+                        $("#tdefecto" + i).css("width", tdefecto + "%");
+                    }
+                    $("#totalefecto").val($('.efecto').length);
+                });
+
+                $("#btncausa").click(function () {
+                    var numItems = $('.causa').length;
+                    var widthcausa = "100";
+                    var tdcausa = parseFloat(widthcausa) / (parseFloat(numItems) + 1);
+                    $("#trcausa").append("<td class='tdcausa" + (parseFloat(numItems) + 1) + "' id='tdcausa" + (parseFloat(numItems) + 1) + "' style=' padding-bottom: 15px;padding-top: 15px;'>  <textarea  placeholder='causa " + (parseFloat(numItems) + 1) + "'  class='form-control causa' name='causa" + (parseFloat(numItems) + 1) + "'  id='causa" + (parseFloat(numItems) + 1) + "' rows='3'></textarea></td>");
+                    var trsubcausa = $('.trsubcausa').length;
+
+                    for (var i = 1; i <= trsubcausa; i++) {
+                        $("#trsubcausa").append("<td class='tdsubcausa" + (parseFloat(numItems) + 1) + "  totalsubcausa' > <table id='tableSub" + (parseFloat(numItems) + 1) + "' class='display responsive nowrap '> <tr class='tabletrSub" + (parseFloat(numItems) + 1) + "' id='tabletrSub" + (parseFloat(numItems) + 1) + "'> <td> <span class='label label-default agregasub' id='" + (parseFloat(numItems) + 1) + "' data-toggle='tooltip' data-placement='top'> SubCausa </span><textarea class='form-control subcausa subcausa" + (parseFloat(numItems) + 1) + "' placeholder='SubCausa " + (parseFloat(numItems) + 1) + ".1' name='subcausa" + (parseFloat(numItems) + 1) + i + "' id='" + (parseFloat(numItems) + 1) + "1'   rows='3'></textarea></td> </tr> </table></td> ");
+                    }
+
+
+
+                    $("#totalcausa").val($('.causa').length);
+                    $("#totalsubcausa").val($('.causa').length);
+
+                    for (var i = 1; i <= numItems; i++) {
+                        $("#tdcausa" + i).css("width", tdcausa + "%");
+                        $("#tdsubcausa" + i).css("width", tdcausa + "%");
+                    }
+
+
+                });
+
+                $("#btnenviar").click(function ()
+                {
+                    
+                    var subcausa = "";
+                    var totalsubcausa = $('.totalsubcausa').length;
+                    for (var i = 1; i <= totalsubcausa; i++) {
+                        var subcausa1 = $('.subcausa' + i).length;
+                        for (var j = 1; j <= subcausa1; j++) {
+                            subcausa = i.toString() + j.toString();
+                        }
+
+                        $("#hidens").append(' <input type="hidden" id="subcausas" name="subcausas" value="' + subcausa + '" />');
+                        $("#Form").submit();
+                    }
+
+                });
+            });
+
+        </script>
+    }
+
+    <style>
+        table td {
+            vertical-align: top;
+        }
+
+        .form-control {
+            position: relative;
+            border: 1px solid;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        .efecto, .causa, .problema, .subcausa {
+            border-radius: 15px;
+            font-size: 9px;
+        }
+
+        table.display td {
+            padding: 3px 1px;
+        }
+
+        .label-default {
+            background-color: #777;
+        }
+
+        .label {
+            display: inline;
+            padding: 0.2em 0.6em 0.3em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25em;
+        }
+
+        .lbl {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>

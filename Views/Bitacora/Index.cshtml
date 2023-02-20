@@ -1,0 +1,394 @@
+﻿
+@using Indicadores.Models.Extensions
+
+<input type="hidden" id="Porcentaje" />
+<script src="~/Scripts/Indicadores/CalendarioLista.js"></script>
+<div class="container">
+    <input type="checkbox" id="porcentaje" hidden="hidden" />
+    <input type="hidden" id="MetodoDeCalculo" />
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header text-center">
+                <div class="col-md-12" style="background-color: #e4dcd7; color: #484441;padding:10px 50px 10px 50px">
+                    <label for="recipient-name" class="col-form-label">Indicadores</label>
+                </div>
+            </div>
+            <div class="col-md-12" style="padding:10px 50px 10px 50px;font-size:11px; overflow:scroll;">
+                <table id="demodata" class=" table-bordered" style="text-align:left;border:1px solid #73879C;width:100%;">
+                    <thead>
+                        <tr style="text-align:center;">
+                            <th width="10%">Id</th>
+                            <th width="10%">Botones</th>
+                            <th width="20%">Fecha</th>
+                            <th width="20%">Usuario</th>
+                            <th width="30%">Componente</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ModalExportar" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" id="iddial" style="max-width:70%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Movimientos</h3>
+            </div>
+            <div class="modal-body text-center">
+                <div class="row">
+                    <div class="col-md-12" id="tableview">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="display:block">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+<script>
+
+    DemoDatatable();
+    function DemoDatatable()
+    {
+
+        $("#demodata").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "language": {
+                "url": "@Url.Content("~/Scripts/Datatable/datatable.spanish.js")"
+            },
+            "filter": true,
+            "orderMulti": false,
+            "destroy": true,
+            "ordering": true,
+            "ajax": {
+
+                "url": '@Url.Action("GetTableData", "Bitacora")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "id", "name": "id", className: "botones" },
+                 {
+                    data: null,
+                     className: "botones",
+                    render: function (data, type, row, meta)
+                    {
+                        var Ver = '<a  data-target="#basic" data-toggle="modal" onclick="CallData(\'' + data.parametro + '\' , \'' + data.idCrip +'\')" class="btnactivo" title="Ver" style="cursor: pointer;font-size: 16px;"><i class="fa fa-search"></i></a>&nbsp; ';
+
+
+                        return Ver;
+                    }
+                },
+                { "data": "Fecha", "name": "Fecha", className: "fecha" },
+                { "data": "Usuario", "name": "Usuario",className: "usuario"},
+                { "data": "Componente", "name": "Componente",className: "componente"},
+
+            ]
+
+        });
+        oTable = $('#demodata').DataTable();
+        oTable.draw();
+
+    }
+</script>
+<script>
+    var pathserver = window.location.pathname;
+
+    if (pathserver.includes("Indicadores")) {
+
+        pathserver = "/Indicadores";
+    }
+    else {
+        pathserver = "";
+    }
+    function CallData(a, b) {
+        $("#tableview").html("");
+        $.ajax({
+            type: 'POST',
+            url: pathserver + "/Bitacora/GetData",
+            dataType: 'json',
+            data: {
+                parametro: a,
+                idbitacora: b
+            },
+            success: function (data)
+            {
+                if (data == "0") {
+
+                }
+                else {
+                    $("#tableview").html(data);
+                    $("#ModalExportar").modal("show");}
+               
+
+            },
+            error: function (ex) {
+
+            }
+        });
+    }
+</script>
+<style>
+
+    .table-bordered td, .table-bordered th, .table-bordered tr {
+        border: 1px solid #2A3F54;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+
+
+    .form-group {
+        border-radius: 7px;
+    }
+
+    .form-control {
+        border: 1px solid;
+    }
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    .tabs {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    #tab-button {
+        font-size: 11px;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        #tab-button li {
+            display: table-cell;
+            width: 20%;
+        }
+
+            #tab-button li a {
+                display: block;
+                padding: .5em;
+                background: #eee;
+                border: 1px solid #ddd;
+                text-align: center;
+                color: #000;
+                text-decoration: none;
+            }
+
+            #tab-button li:not(:first-child) a {
+                border-left: none;
+            }
+
+            #tab-button li a:hover,
+            #tab-button .is-active a {
+                border-bottom-color: transparent;
+                background: #fff;
+            }
+
+    .tab-contents {
+        padding: .5em 2em 1em;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+
+
+    .tab-button-outer {
+        display: none;
+    }
+
+    .tab-contents {
+        margin-top: 20px;
+    }
+
+    @@media screen and (min-width: 768px) {
+        .tab-button-outer {
+            position: relative;
+            z-index: 2;
+            display: block;
+        }
+
+        .tab-select-outer {
+            display: none;
+        }
+
+        .tab-contents {
+            position: relative;
+            top: -1px;
+            margin-top: 0;
+        }
+    }
+
+    .my_second_class {
+        width: 1%;
+        word-break: break-word;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    table.dataTable td {
+        word-break: break-word;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+
+    body {
+        font-family: 'Lato', sans-serif;
+    }
+
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0, 0.9);
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    .botones {
+        text-align: center;
+        width: 5%;
+    }
+
+    .fecha {
+        text-align: center;
+        width: 10%;
+    }
+
+    .usuario {
+        text-align: center;
+        width: 10%;
+    }
+
+    .componente {
+        width: 50%;
+    }
+
+    .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 36px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .overlay a:hover, .overlay a:focus {
+            color: #f1f1f1;
+        }
+
+    .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+    }
+
+    table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
+        padding-right: 0px;
+    }
+
+    @@media screen and (max-height: 450px) {
+        .overlay a {
+            font-size: 20px
+        }
+
+        .overlay .closebtn {
+            font-size: 40px;
+            top: 15px;
+            right: 35px;
+        }
+    }
+    .div-table-col {
+        float: left;
+        display: table-column;
+        width: 200px;
+        background-color:white;
+    }
+</style>
+ 
+
+<style>
+    .div-table {
+        display: table;
+        width: auto;
+        background-color: #eee;
+        border: 1px solid #666666;
+        border-spacing: 5px; /* cellspacing:poor IE support for  this */
+    }
+
+    .div-table-row {
+        display: table-row;
+        width: auto;
+        clear: both;
+    }
+
+    .div-table-col {
+        float: left; /* fix for  buggy browsers */
+        display: table-column;
+        width: 200px;
+        background-color: #ccc;
+    }
+</style>

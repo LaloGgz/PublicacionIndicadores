@@ -1,0 +1,1050 @@
+﻿<div class="card">
+    <div class="card-header text-center ">
+        @*<h1>Ficha</h1>*@
+    </div>
+    <div class="card-body" style="font-size:11px;">
+        <div class="row">
+            <div class="col-md-12">
+                <input type="hidden" id="variacion" />
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                        <label class="label">Dirección</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <input type="text" class="form-control" id="dir" readonly style="font-size:10px;text-align:center;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold; text-align:center;">
+                        <label class="label">Nombre del Indicador</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <textarea class="form-control" style="text-align:center;" readonly id="indicador"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                        <label class="label">Meta Anual</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <input type="text" class="form-control" id="Meta" value="" readonly style="font-size:10px;text-align:center;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="tabs" style="overflow:scroll;">
+                        <div class="tab-button-outer">
+                            <ul id="tab-button">
+                                <li class="lista" id="listaEn"><a id="AEn" href="#tab01">Enero</a></li>
+                                <li class="lista" id="listaFb"><a id="AFb" href="#tab02">Febrero</a></li>
+                                <li class="lista" id="listaMz"><a id="AMz" href="#tab03">Marzo</a></li>
+                                <li class="lista" id="listaAb"><a id="AAb" href="#tab04">Abril</a></li>
+                                <li class="lista" id="listaMy"><a id="AMy" href="#tab05">Mayo</a></li>
+                                <li class="lista" id="listaJn"><a id="AJn" href="#tab06">Junio</a></li>
+                                <li class="lista" id="listaJl"><a id="AJl" href="#tab07">Julio</a></li>
+                                <li class="lista" id="listaAg"><a id="AAg" href="#tab08">Agosto</a></li>
+                                <li class="lista" id="listaSp"><a id="ASp" href="#tab09">Septiembre</a></li>
+                                <li class="lista" id="listaOc"><a id="AOc" href="#tab10">Octubre</a></li>
+                                <li class="lista" id="listaNv"><a id="ANv" href="#tab11">Noviembre</a></li>
+                                <li class="lista" id="listaDc"><a id="ADc" href="#tab12">Diciembre</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-select-outer">
+                            <select id="tab-select">
+                                <option value="#tab01">Enero</option>
+                                <option value="#tab02">Febrero</option>
+                                <option value="#tab03">Marzo</option>
+                                <option value="#tab04">Abril</option>
+                                <option value="#tab05">Mayo</option>
+                                <option value="#tab06">Junio</option>
+                                <option value="#tab07">Julio</option>
+                                <option value="#tab08">Agosto</option>
+                                <option value="#tab09">Septiembre</option>
+                                <option value="#tab10">Octubre</option>
+                                <option value="#tab11">Noviembre</option>
+                                <option value="#tab12">Diciembre</option>
+                            </select>
+                        </div>
+                        <div id="tab01" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Enero</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idEnv1r" onkeyup="GetIdEnero(event)" class="form-control realizado idEnv1r  PorcEnv1r Env1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idEnv2p" class="form-control idEnv2p PorcEnv2p Env2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idEnAv1r" class="form-control idEnAv1r PorcEnAv1r EnAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idEnAv2p" class="form-control idEnAv2p PorcEnAv2p EnAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idEnmes" class="form-control idEnmes PorcEnmes Enmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idEnRmes" class="form-control idEnRmes PorcEnRmes EnRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idEnanio" class="form-control idEnanio PorcEnanio Enanio" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="En" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab02" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Febrero</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idFbv1r" onkeyup="GetId(event)" class="form-control realizado idFbv1r  PorcFbv1r Fbv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idFbv2p" class="form-control idFbv2p PorcFbv2p Fbv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idFbAv1r" class="form-control idFbAv1r PorcFbAv1r FbAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idFbAv2p" class="form-control idFbAv2p PorcFbAv2p FbAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idFbmes" class="form-control idFbmes PorcFbmes Fbmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idFbRmes" class="form-control idFbRmes PorcFbRmes FbRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idFbanio" class="form-control idFbanio PorcFbanio Fbanio" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Fb" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab03" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Marzo</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white; ">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idMzv1r" onkeyup="GetId(event)" class="form-control realizado idMzv1r  PorcMzv1r Mzv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMzv2p" class="form-control idMzv2p PorcMzv2p Mzv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMzAv1r" class="form-control idMzAv1r PorcMzAv1r MzAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMzAv2p" class="form-control idMzAv2p PorcMzAv2p MzAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMzmes" class="form-control idMzmes PorcMzmes Mzmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMzRmes" class="form-control idMzRmes PorcMzRmes MzRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMzanio" class="form-control idMzanio PorcMzanio Mzanio" readonly />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Mz" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab04" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Abril</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idAbv1r" onkeyup="GetId(event)" class="form-control realizado idAbv1r  PorcAbv1r Abv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAbv2p" class="form-control idAbv2p PorcAbv2p Abv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAbAv1r" class="form-control idAbAv1r PorcAbAv1r AbAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAbAv2p" class="form-control idAbAv2p PorcAbAv2p AbAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAbmes" class="form-control idAbmes PorcAbmes Abmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAbRmes" class="form-control idAbRmes PorcAbRmes AbRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAbanio" class="form-control idAbanio PorcAbanio Abanio" readonly />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Ab" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab05" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Mayo</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idMyv1r" onkeyup="GetId(event)" class="form-control realizado idMyv1r  PorcMyv1r Myv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMyv2p" class="form-control idMyv2p PorcMyv2p Myv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMyAv1r" class="form-control idMyAv1r PorcMyAv1r MyAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMyAv2p" class="form-control idMyAv2p PorcMyAv2p MyAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMymes" class="form-control idMymes PorcMymes Mymes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMyRmes" class="form-control idMyRmes PorcMyRmes MyRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idMyanio" class="form-control idMyanio PorcMyanio Myanio" readonly />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="My" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab06" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Junio</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idJnv1r" onkeyup="GetId(event)" class="form-control realizado idJnv1r  PorcJnv1r Jnv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJnv2p" class="form-control idJnv2p PorcJnv2p Jnv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJnAv1r" class="form-control idJnAv1r PorcJnAv1r JnAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJnAv2p" class="form-control idJnAv2p PorcJnAv2p JnAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJnmes" class="form-control idJnmes PorcJnmes Jnmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJnRmes" class="form-control idJnRmes PorcJnRmes JnRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJnanio" class="form-control idJnanio PorcJnanio Jnanio" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Jn" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab07" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Julio</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idJlv1r" onkeyup="GetId(event)" class="form-control realizado idJlv1r  PorcJlv1r Jlv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJlv2p" class="form-control idJlv2p PorcJlv2p Jlv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJlAv1r" class="form-control idJlAv1r PorcJlAv1r JlAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJlAv2p" class="form-control idJlAv2p PorcJlAv2p JlAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJlmes" class="form-control idJlmes PorcJlmes Jlmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJlRmes" class="form-control idJlRmes PorcJlRmes JlRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idJlanio" class="form-control idJlanio PorcJlanio Jlanio" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Jl" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab08" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Agosto</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white; ">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idAgv1r" onkeyup="GetId(event)" class="form-control realizado idAgv1r  PorcAgv1r Agv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAgv2p" class="form-control idAgv2p PorcAgv2p Agv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAgAv1r" class="form-control idAgAv1r PorcAgAv1r AgAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAgAv2p" class="form-control idAgAv2p PorcAgAv2p AgAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAgmes" class="form-control idAgmes PorcAgmes Agmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAgRmes" class="form-control idAgRmes PorcAgRmes AgRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idAganio" class="form-control idAganio PorcAganio Aganio" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Ag" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab09" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Septiembre</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idSpv1r" onkeyup="GetId(event)" class="form-control realizado idSpv1r  PorcSpv1r Spv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idSpv2p" class="form-control idSpv2p PorcSpv2p Spv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idSpAv1r" class="form-control idSpAv1r PorcSpAv1r SpAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idSpAv2p" class="form-control idSpAv2p PorcSpAv2p SpAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idSpmes" class="form-control idSpmes PorcSpmes Spmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idSpRmes" class="form-control idSpRmes PorcSpRmes SpRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idSpanio" class="form-control idSpanio PorcSpanio Spanio" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Sp" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab10" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Octubre</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idOcv1r" onkeyup="GetId(event)" class="form-control realizado idOcv1r  PorcOcv1r Ocv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idOcv2p" class="form-control idOcv2p PorcOcv2p Ocv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idOcAv1r" class="form-control idOcAv1r PorcOcAv1r OcAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idOcAv2p" class="form-control idOcAv2p PorcOcAv2p OcAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idOcmes" class="form-control idOcmes PorcOcmes Ocmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idOcRmes" class="form-control idOcRmes PorcOcRmes OcRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idOcanio" class="form-control idOcanio PorcOcanio Ocanio" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Oc" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab11" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Noviembre</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idNvv1r" onkeyup="GetId(event)" class="form-control realizado idNvv1r  PorcNvv1r Nvv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idNvv2p" class="form-control idNvv2p PorcNvv2p Nvv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idNvAv1r" class="form-control idNvAv1r PorcNvAv1r NvAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idNvAv2p" class="form-control idNvAv2p PorcNvAv2p NvAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idNvmes" class="form-control idNvmes PorcNvmes Nvmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idNvRmes" class="form-control idNvRmes PorcNvRmes NvRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idNvanio" class="form-control idNvanio PorcNvanio Nvanio" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Nv" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="tab12" class="tab-contents">
+                            <table class="table table-responsive w-100">
+                                <thead>
+                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                        <th scope="col" colspan="2">Diciembre</th>
+                                        <th scope="col" colspan="2">Acumulado</th>
+                                        <th scope="col" colspan="3">Avance</th>
+                                    </tr>
+                                    <tr style="background-color:#5e6060; color:white;">
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            V1
+                                            <br />
+                                            Realizado
+                                        </td>
+                                        <td>
+                                            V2
+                                            <br />
+                                            Planeado
+                                        </td>
+                                        <td>
+                                            Avance del mes
+                                        </td>
+                                        <td>
+                                            Avance al mes reportado
+                                        </td>
+                                        <td>
+                                            Avance al año
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" id="idDcv1r" onkeyup="GetId(event)" class="form-control realizado idDcv1r  PorcDcv1r Dcv1r" />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idDcv2p" class="form-control idDcv2p PorcDcv2p Dcv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idDcAv1r" class="form-control idDcAv1r PorcDcAv1r DcAv1r" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idDcAv2p" class="form-control idDcAv2p PorcDcAv2p DcAv2p" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idDcmes" class="form-control idDcmes PorcDcmes Dcmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idDcRmes" class="form-control idDcRmes PorcDcRmes DcRmes" readonly />
+                                        </td>
+                                        <td>
+                                            <input type="text" id="idDcanio" class="form-control idDcanio PorcDcanio Dcanio" readonly />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+                                                <button type="button" id="Dc" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                    Guardar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4 text-center">
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-4 text-center">
+
+        </div>
+        <div class="col-md-4 col-sm-4 text-center">
+
+            <button type="button" class="btn btn-secondary w-100" data-dismiss="modal">Cerrar</button>
+        </div>
+        <div class="col-md-4 col-sm-4 text-center">
+
+        </div>
+
+    </div>
+</div>

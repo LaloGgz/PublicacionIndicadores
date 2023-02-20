@@ -1,0 +1,286 @@
+﻿@model IEnumerable<Indicadores.Login>
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap.min.css">
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.css">
+
+<div class="container">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header text-center" style="background-color:white;">
+                <h1>Listado de usuarios</h1>
+            </div>
+            <table id="example" class="display responsive nowrap" width="100%">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Grupo</th>
+                        <th>Empleado</th>
+                        <th>Estatus</th>
+                        <th>Botones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userLogin)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Grupo.descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Empleado.nombre)
+                            </td>
+                            <td>
+                                @if (@item.activo == true)
+                                {
+                                    <span>Activo</span>
+                                }
+                                else
+                                { 
+                                    <span>Inactivo</span>
+                                } 
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <a href="#" onclick="GetInfoUser(@item.idLogin)" title="Editar"><i class="fa fa-edit"></i>  <span class="text-muted"></span></a>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <a href="#" onclick="Validacion(@item.idLogin)" title="Eliminar"><i class="fa fa-trash"></i><span class="text-muted"></span></a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+            <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.js"></script>
+            <script>
+                $('#example').DataTable(
+                       {
+                           responsive: true,
+                           "order": [[1, "desc"]],
+                           "language":
+                               {
+                                   "url": "@Url.Content("~/Scripts/Datatable/datatable.spanish.js")"
+                               },
+                       });
+                $(document).ready(function ()
+                {
+                    $("#btnguardar").click(function ()
+                    {                        
+                        var idempleado = $("#idempleado").val(); if (idempleado.length <= 0) { alert("Error al actulizar."); location.reload(); }
+                        var idlogin = $("#idlogin").val(); if (idlogin.length <= 0) { alert("Error al actulizar."); location.reload(); }
+                        var grupo = $("#idgrupo").val();
+                        if (grupo.length > 0)
+                        {
+                            $.ajax({
+                                type: 'POST',
+                                url: '@Url.Action("GuardaUser")',
+                                dataType: 'json',
+                                data: {
+                                    nombre: $("#nombre").val(), apellidopaterno: $("#apellidopaterno").val(), apellidomaterno: $("#apellidomaterno").val(),
+                                    email: $("#email").val(), usuario: $("#usuario").val(), idempleado: $("#idempleado").val(), idlogin: $("#idlogin").val(),
+                                    idgrupo: $("#idgrupo").val()
+                                },
+                                success: function (data) {
+                                    if (data == "1") {
+                                        alert("Se actualizo el usuario correctamente.");
+                                        location.reload();
+                                    }
+                                    else {
+                                        alert(data);
+                                    }
+                                },
+                                error: function (ex) {
+                                }
+                            });
+                        }
+                        else {
+                            alert("No se ha seleccionado grupo!.");
+                        }
+
+                    });
+                });
+
+
+
+            </script>
+            <script>
+                function Validacion(id)
+                {
+                    if (window.confirm("¿Estas seguro de borrar el usuario?")) {
+                        BorraUser(id);
+                    }
+                    else {
+
+                    }
+                }
+
+                function BorraUser(val)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteUser")',
+
+                        dataType: 'json',
+
+                        data: { id: val },
+
+                        success: function (data)
+                        {
+                            if (data == "1") {
+                                alert("Se elimino el usuario correctamente.");
+                                location.reload();
+                            }
+                            else {
+                            }
+                        },
+                        error: function (ex) {
+
+                        }
+                    });
+                }
+                 
+                function GetInfoUser(val)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetUser")',
+
+                        dataType: 'json',
+
+                        data: { id: val },
+
+                        success: function (data) {
+                            CargaGroup(data.idgrupo);
+
+                            $("#nombre").val(data.nombre);
+                            $("#apellidopaterno").val(data.apellidopaterno);
+                            $("#apellidomaterno").val(data.apellidomaterno);
+                            $("#email").val(data.email);
+                            $("#usuario").val(data.usuario);
+                            $("#idempleado").val(data.idresponsable);
+                            $("#idlogin").val(data.idlogin);
+                            $("#ModalEdit").modal('toggle');
+                        },
+                        error: function (ex) { 
+                        }
+                    });
+                }
+
+                function CargaGroup(a)
+                {
+                    $("#idgrupo").html("");
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetGrupo")',
+                        dataType: 'json',
+                        success: function (states) {
+                            $("#idgrupo").append('<option value=""></option>');
+                            $.each(states, function (i, state) {
+                                $("#idgrupo").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                            }); $("#idgrupo").val(a);
+                        },
+                        error: function (ex) {
+                            alert('Sin Datos.');
+                        }
+                    });
+                    return false;
+                }
+
+            </script>
+
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Datos Generales</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <form class="form-label-left input_mask">
+                                        <input type="hidden" id="idempleado" />
+                                        <input type="hidden" id="idlogin" />
+                                        <div class="col-md-12 col-sm-12  form-group has-feedback">
+                                            <input type="text" required class="form-control has-feedback-left input" id="nombre" name="nombre" placeholder="Nombre(s)">
+
+                                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12  form-group has-feedback">
+                                            <input type="text" required class="form-control has-feedback-left" id="apellidopaterno" name="apellidopaterno" placeholder="Apellido Paterno">
+
+                                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12  form-group has-feedback">
+                                            <input type="text" required class="form-control has-feedback-left" id="apellidomaterno" name="apellidomaterno" placeholder="Apellido Materno">
+                                            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12  form-group has-feedback">
+                                            <input type="email" required class="form-control has-feedback-left" id="email" name="email" placeholder="Correo Electrónico">
+                                            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Datos Usuario</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 ">Usuario</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <input type="text" required class="form-control" id="usuario" name="usuario" placeholder="Usuario">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-form-label col-md-3 col-sm-3 ">Perfil</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <select id="idgrupo" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" style="width:100%;max-width:100%;" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <button type="button" id="btnguardar" class="btn btn-primary" style="width:100%;max-width:100%;">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

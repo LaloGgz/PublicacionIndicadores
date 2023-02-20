@@ -1,0 +1,309 @@
+<div style="margin:0px; min-width:100%; padding:0px; width:100%">
+   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align:center">
+      <tbody>
+         <tr>
+            <td>
+               <div>
+                  <div >
+                    <h2>Secretaría Ejecutiva</h1>
+                    <h3>Dirección de Planeación, Enlace y Proyectos Estratégicos</h3> 
+                  </div>
+           
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <td align="center">
+               <div class="bgcolor" style="background:#F5F5F5">
+                  <table bgcolor="#F5F5F5" border="0" cellpadding="0" cellspacing="0" class="bgimage" width="100%" style="background:#F5F5F5">
+                     <tbody>
+                        <tr>
+                           <td align="center">
+                              <table align="center" border="0" cellpadding="0" cellspacing="0" class="main-width" width="612" style="width:612px">
+                                 <tbody>
+                                    <tr>
+                                       <td align="center" class="layout" valign="top" style="padding:15px 5px">
+                                          <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                             <tbody>
+                                                <tr>
+                                                   <td align="center" bgcolor="#000000" class="layout-container-border" valign="top" style="background:#000000; padding:1px">
+                                                      <table align="center" bgcolor="#000000" border="0" cellpadding="0" cellspacing="0" width="100%" style="background:#000000">
+                                                         <tbody>
+                                                            <tr>
+                                                               <td align="center" bgcolor="#ffffff" class="layout-container" valign="top" style="background:#ffffff; padding:0">
+                                                                  <div class="">
+                                                                     <table border="0" cellpadding="0" cellspacing="0" class="galileo-ap-layout-editor layout-tools-hover" width="100%">
+                                                                        <tbody>
+                                                                           <tr>
+                                                                              <td align="left" bgcolor="rgb(255, 255, 255)" class="feature OneColumnMobile column-left" valign="top" width="50%" style="background:rgb(255,255,255); padding-bottom:10px; padding-top:10px">
+                                                                                 <div>
+                                                                                    <div class="column-resize-bar"><span class="line"></span><span class="grabber"></span></div>
+                                                                                 </div>
+                                                                                 <div class="gl-contains-image">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" class="editor-image content-image editor-image-vspace-on" width="100%">
+                                                                                       <tbody>
+                                                                                          <tr>
+                                                                                             <td align="center" valign="top" style="padding-bottom:10px; padding-top:10px">
+                                                                                                <div class="publish-container"><img blockedimagesrc="https://files.constantcontact.com/b1bf3807be/8e1ce7e2-28c8-410b-966b-be8b9bc05722.jpg" alt="" border="0" class="" hspace="0" vspace="0" width="141" style="display:block; height:auto; max-width:100%"> </div>
+                                                                                             </td>
+                                                                                          </tr>
+                                                                                       </tbody>
+                                                                                    </table>
+                                                                                 </div>
+                                                                              </td>
+                                                                              <td align="left" bgcolor="rgb(255, 255, 255)" class="feature OneColumnMobile column-right" valign="top" width="50%" style="background:rgb(255,255,255); padding-bottom:10px; padding-top:10px">
+                                                                                 <div class="gl-contains-text">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                                       <tbody>
+                                                                                          <tr>
+                                                                                             <td align="left" class="editor-text feature-heading-text" valign="top" style="color:#000000; display:block; font-family:Arial,Verdana,Helvetica,sans-serif; font-size:16px; font-weight:bold; padding:10px 20px 10px 10px; text-align:left; word-wrap:break-word">
+                                                                                                <div></div>
+                                                                                                <div>
+                                                                                                   <div align="right" style="text-align:right">
+                                                                                                      <div style=""><br></div>
+                                                                                                      <div style=""><br></div>
+                                                                                                      <div style=""><span style="font-family:Courier New,monospace">Oficio No. <span style="font-weight:normal">@@NoOficio</span></span></div>
+                                                                                                   </div>
+                                                                                                </div>
+                                                                                             </td>
+                                                                                          </tr>
+                                                                                       </tbody>
+                                                                                    </table>
+                                                                                 </div>
+                                                                                 <div class="gl-contains-text">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                                       <tbody>
+                                                                                          <tr>
+                                                                                             <td align="left" class="editor-text feature-text" valign="top" style="color:#333333; display:block; font-family:'Times New Roman',Times,serif; font-size:16px; padding:10px 20px 10px 10px; text-align:left; word-wrap:break-word">
+                                                                                                <div></div>
+                                                                                                <div>
+                                                                                                   <div align="right" style="text-align:right">
+                                                                                                      <div style=""><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif"><span style="font-size:12px; font-weight:bold">Asunto:</span></span><span style="font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif; font-size:12px">  @@Asunto</div>
+                                                                                                   </div>
+                                                                                                </div>
+                                                                                             </td>
+                                                                                          </tr>
+                                                                                       </tbody>
+                                                                                    </table>
+                                                                                 </div>
+                                                                              </td>
+                                                                           </tr>
+                                                                        </tbody>
+                                                                     </table>
+                                                                     <table border="0" cellpadding="0" cellspacing="0" class="galileo-ap-layout-editor" width="100%">
+                                                                        <tbody>
+                                                                           <tr>
+                                                                              <td align="left" class="content OneColumnMobile column" valign="top" width="100%">
+                                                                                 <div class="gl-contains-text">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                                       <tbody>
+                                                                                          <tr>
+                                                                                             <td align="left" class="editor-text content-text" valign="top" style="color:#333333; font-family:'Times New Roman',Times,serif; font-size:16px; padding:10px 20px; text-align:left; word-wrap:break-word">
+                                                                                                <div></div>
+                                                                                                <div>
+                                                                                                   <div align="justify" style="text-align:justify">
+                                                                                                      <div style=""><span class="contact-detail" style="font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif; font-size:12px; font-weight:bold">Estimado Funcionario Municipal:</span></div>
+                                                                                                      <div style=""><span style="font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif; font-size:11px"> @@Direccion</span> </div>
+                                                                                                      <div style=""><span style="font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif; font-size:11px">Presente.-</span></div>
+                                                                                                      <div style=""><br style=""></div>
+                                                                                                      <div align="left" style="text-align:left">
+                                                                                                         <div style=""><span style="font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif; font-size:11px">
+                                                                                                             @@Parrafo
+                                                                                                         </span></div>
+                                                                                                          
+                                                                                                      </div>
+                                                                                                   </div>
+                                                                                                </div>
+                                                                                             </td>
+                                                                                          </tr>
+                                                                                       </tbody>
+                                                                                    </table>
+                                                                                 </div>
+                                                                              </td>
+                                                                           </tr>
+                                                                        </tbody>
+                                                                     </table>
+                                                                     <table border="0" cellpadding="0" cellspacing="0" class="galileo-ap-layout-editor" width="100%">
+                                                                        <tbody>
+                                                                           <tr>
+                                                                              <td align="" class="OneColumnMobile column-left" valign="top" width="30%">
+                                                                                 <div>
+                                                                                    <div class="column-resize-bar"><span class="line"></span><span class="grabber"></span></div>
+                                                                                 </div>
+                                                                                 <div class="gl-contains-image">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" class="editor-image editor-image  editor-image-vspace-on" width="100%">
+                                                                                       <tbody>
+                                                                                          <tr>
+                                                                                             <td align="center" valign="top" style="padding-bottom:10px; padding-top:10px">
+                                                                                                <div class="publish-container"><img blockedimagesrc="https://files.constantcontact.com/b1bf3807be/c8271071-abfd-4530-acd4-854c4d794806.jpg" alt="" border="0" class="" hspace="0" vspace="0" width="143" style="display:block; height:auto!important; max-width:100%!important"> </div>
+                                                                                             </td>
+                                                                                          </tr>
+                                                                                       </tbody>
+                                                                                    </table>
+                                                                                 </div>
+                                                                              </td>
+                                                                              <td align="" class="OneColumnMobile column-right" valign="top" width="70%">
+                                                                                 <div class="gl-contains-text">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                                       <tbody>
+                                                                                          <tr>
+                                                                                             <td align="left" class="editor-text " valign="top" style="color:#333333; font-family:'Times New Roman',Times,serif; font-size:16px; padding:10px 20px 10px 10px; text-align:left; word-wrap:break-word">
+                                                                                                <div></div>
+                                                                                                <div>
+                                                                                                   <div style="">&nbsp; <br style=""></div>
+                                                                                                </div>
+                                                                                             </td>
+                                                                                          </tr>
+                                                                                       </tbody>
+                                                                                    </table>
+                                                                                 </div>
+                                                                              </td>
+                                                                           </tr>
+                                                                        </tbody>
+                                                                     </table>
+                                                                     <table border="0" cellpadding="0" cellspacing="0" class="galileo-ap-layout-editor" width="100%">
+                                                                        <tbody>
+                                                                           <tr>
+                                                                              <td align="left" class="signature OneColumnMobile column" valign="top" width="100%">
+                                                                                 <div class="gl-contains-text">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                                       <tbody>
+                                                                                          <tr>
+                                                                                             <td align="left" class="editor-text signature-text" valign="top" style="color:#333333; font-family:'Times New Roman',Times,serif; font-size:16px; padding:10px 20px; text-align:left; word-wrap:break-word">
+                                                                                                <div></div>
+                                                                                                <div>
+                                                                                                   <div>
+                                                                                                      <div style=""><span style="font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif; font-size:12px">Atentamente,</span><span style="font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif; font-size:12px; font-weight:bold"></span><a href="#" style="color:#0078c1"></a><a href="http://r20.rs6.net/tn.jsp?f=001ZRUMC3fUZkQRBDypq_LJeeXQqqdjspAmgMuSZSh4cAHB9I1ccvrRDGwa0_gnUgXAItVbGttFQxTZ98zjyagwojy---zceORUjPH8wRsPvdS7PBz5FjPKdiM94S9iF04q7i6ozX0i_STVYI3Xso2r3Q==&amp;c=ctK1I_oDwR_WTuEwn2_R9cBG8dq588pKYZIWyt7eXHzfPCVQKKMahA==&amp;ch=yRtzlKYol6lJ5stUnpeoqSj3t0VqpOxwDIWW626ndQOiwxhIsxEEJQ==" target="_blank" style="color:#0078c1"></a></div>
+                                                                                                   </div>
+                                                                                                </div>
+                                                                                             </td>
+                                                                                          </tr>
+                                                                                       </tbody>
+                                                                                    </table>
+                                                                                 </div>
+                                                                              </td>
+                                                                           </tr>
+                                                                        </tbody>
+                                                                     </table>
+                                                                     
+                                                                     <table border="0" cellpadding="0" cellspacing="0" class="galileo-ap-layout-editor" width="100%">
+                                                                        <tbody>
+                                                                           <tr>
+                                                                              <td align="" class="OneColumnMobile column" valign="top" width="100%">
+                                                                                 <div class="gl-contains-text">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                                       <tbody>
+                                                                                          <tr>
+                                                                                             <td align="left" class="editor-text editor-text " valign="top" style="color:#333333; font-family:'Times New Roman',Times,serif; font-size:16px; padding:10px 20px; text-align:left; word-wrap:break-word">
+                                                                                                <div></div>
+                                                                                                <div>
+                                                                                                   <div>
+                                                                                                      <div style=""><span style="font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif; font-size:12px; font-weight:bold">
+                                                                                                      @@Nombre
+                                                                                                   </span>
+                                                                                                      <br style="">
+                                                                                                      <span style="font-family:'Lucida Sans Unicode','Lucida Grande',sans-serif; font-size:12px">
+                                                                                                      @@Puesto
+                                                                                                   </span> 
+                                                                                                      </div>
+                                                                                                   </div>
+                                                                                                </div>
+                                                                                             </td>
+                                                                                          </tr>
+                                                                                       </tbody>
+                                                                                    </table>
+                                                                                 </div>
+                                                                              </td>
+                                                                           </tr>
+                                                                        </tbody>
+                                                                     </table> 
+                                                                     <table border="0" cellpadding="0" cellspacing="0" class="galileo-ap-layout-editor" width="100%">
+                                                                        <tbody>
+                                                                           <tr>
+                                                                              <td align="" class="OneColumnMobile column" valign="top" width="100%">
+                                                                                 <div class="gl-contains-image">
+                                                                                    <table border="0" cellpadding="0" cellspacing="0" class="editor-image editor-image editor-image-vspace-on" width="100%">
+                                                                                       <tbody>
+                                                                                          <tr>
+                                                                                             <td align="center" valign="top" style="padding-bottom:10px; padding-top:10px">
+                                                                                                <div class="publish-container"><img blockedimagesrc="https://files.constantcontact.com/b1bf3807be/694296f9-70e2-4144-af53-813cc3ebe22d.png" alt="" border="0" class="" hspace="0" vspace="0" width="100" style="display:block; height:auto!important; max-width:100%!important"> </div>
+                                                                                             </td>
+                                                                                          </tr>
+                                                                                       </tbody>
+                                                                                    </table>
+                                                                                 </div>
+                                                                              </td>
+                                                                           </tr>
+                                                                        </tbody>
+                                                                     </table> 
+                                                                  </div>
+                                                               </td>
+                                                            </tr>
+                                                         </tbody>
+                                                      </table>
+                                                   </td>
+                                                </tr>
+                                             </tbody>
+                                          </table>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <td></td>
+         </tr>
+      </tbody>
+   </table>
+   <table class="footer-container" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background:#ffffff; margin-left:auto; margin-right:auto; table-layout:auto!important">
+      <tbody>
+         <tr>
+            <td class="footer-mobile-hidden"><img blockedimagesrc="https://static.ctctcdn.com/letters/images/1101116784221/S.gif" alt="" width="1" height="5" border="0" hspace="0" vspace="0"></td>
+            <td class="footer-main-width" width="580" align="center" valign="top" style="width:580px">
+               <div class="footer-max-main-width" align="center" style="margin-left:auto; margin-right:auto; max-width:580px">
+                  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                     <tbody>
+                        <tr>
+                           <td class="footer-layout" align="center" valign="top" style="padding:16px 0px">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                 <tbody>
+                                    <tr>
+                                       <td class="footer-row" align="center" valign="top" style="padding:10px 0px">
+                                          <table cellpadding="0" cellspacing="0" border="0">
+                                             <tbody>
+                                                <tr>
+                                                   <td class="footer-text" align="center" valign="top" style="color:#5d5d5d; font-family:Verdana,Geneva,sans-serif; font-size:12px; padding:4px 0px">
+                                                     Palacio Municipal de Monterrey Zaragoza y Ocampo S/N, Zona Centro Monterrey, N.L. C.P. 64000.
+                                                     <br>
+                                                     Tel: (52) (81) 8130.6565
+                                                   </td>
+                                                </tr> 
+                                                <tr>
+                                                   <td class="footer-text" align="center" valign="top" style="color:#5d5d5d; font-family:Verdana,Geneva,sans-serif; font-size:12px; padding:4px 0px">
+                                                 <a href="http://www.monterrey.gob.mx/index.asp" target="_blank" style="color:#5d5d5d">Gobierno Municipal de Monterrey</a> 
+                                                   </td>
+                                                </tr>
+                                             </tbody>
+                                          </table>
+                                       </td>
+                                    </tr>
+                                     
+                                 </tbody>
+                              </table>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </td>
+            <td class="footer-mobile-hidden"><img blockedimagesrc="https://static.ctctcdn.com/letters/images/1101116784221/S.gif" alt="" width="1" height="5" border="0" hspace="0" vspace="0"></td>
+         </tr>
+      </tbody>
+   </table>
+</div>

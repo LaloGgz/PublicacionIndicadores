@@ -1,0 +1,296 @@
+﻿@using Indicadores.Models.Extensions
+@using (Html.BeginForm("", "Home", FormMethod.Post, new { encType = "multipart/form-data", id = "Form" }))
+{
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="card" style="background-color:#F7F7F7">
+                <div class="card-header text-center " style="background-color:#e4dcd7;color:white;border-radius:20px;">
+                    <h1>     Árbol de Objetivos</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row arbol">
+                        <div class="col-md-1 lbl">
+                            <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top">
+                                Fin
+                            </span>
+                        </div>
+                        <div class="col-md-11" id="">
+                            <table id="efectos" class="display responsive nowrap " style="text-align:left;border-bottom:1px solid #73879C;padding-right:15px;">
+                                <tr id="trefecto">
+                                    <td class="tdefecto" id="tdfin1" style=" padding-bottom: 15px;padding-top: 15px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row arbol">
+                        <div class="col-md-1 lbl">
+                            <span class="label label-default" id="btnproblema">Propósito</span>
+                        </div>
+                        <div class="col-md-11" id="">
+                            <table id="problemas" class="display responsive nowrap " style="text-align:left;border-bottom:1px; border-bottom:1px solid #73879C;padding-right:15px;">
+                                <tr id="trproblema">
+                                    <td id="tdproposito1" style=" padding-bottom: 15px;padding-top: 15px;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row arbol">
+                        <div class="col-md-1 lbl">
+                            <span class="label label-default" id="btncausa">
+                                Componentes
+                            </span>
+                        </div>
+                        <div class="col-md-11" id="">
+                            <table id="causas" class="display responsive nowrap " style="text-align:left;border-bottom:1px; border-bottom:1px solid #73879C;padding-right:15px;">
+                                <tr id="trcausa"></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row arbol">
+                        <div class="col-md-1 lbl">
+                            <span class="label label-default" id="btnsubcausa" data-toggle="tooltip" data-placement="top">
+                                Actividades
+                            </span>
+                        </div>
+                        <div class="col-md-11" id="">
+                            <table id="subcausas" class="display responsive nowrap " style="text-align:left;border-bottom:1px; border-bottom:1px solid #73879C;padding-right:15px;">
+                                <tr class="trsubcausa" id="trsubcausa"></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 text-center">
+                            <a href="@Url.Action("ListaPp", "Calendario")">
+                                <button id="btnback" type="button" class="btn btn-secondary btn-block mb-4">
+                                    Regresar
+                                </button>
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-sm-4 text-center">
+
+                        </div>
+                        <div class="col-md-4 col-sm-4 text-center">
+                            <a href="@Url.Action("ListaPp", "Calendario")">
+                                <button type="button" id="btnguardar" onclick="Valida(0);" class="btn btn-primary btn-block mb-4">
+                                    Inicio
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="hidens">
+        <input type="hidden" id="idarbol" name="idarbol" value="@ViewBag.idarbol" />
+        <input type="hidden" id="idcategoria" name="idcategoria" value="@ViewBag.idcategoria" />
+
+        <input type="hidden" id="totalsubcausa" name="totalsubcausa" value="1" />
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+    $(document).ready(function ()
+    {
+        var pathserver = window.location.pathname;
+        if (pathserver.includes("Indicadores")) {
+            pathserver = "/Indicadores";
+        }
+        else {
+            pathserver = "";
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: pathserver + "/Arbol/GetArbol",
+            dataType: 'json',
+            data: {
+                idarbol: $("#idarbol").val()
+            },
+            success: function (list)
+            {
+                var widthcausa = "100";
+
+                for (var i = 0; i < list.listafin.length; i++)
+                {
+                    if (list.listafin[i].idcalendario != "" || list.listafin[i].idcalendario != 0)
+                    {
+                        check = "<strong data-toggle='tooltip' data-placement='top'  > <i class='fa fa fa-check-circle' style='color:green;'></i></strong>";
+                    }
+                    else
+                    {
+                        check = "<strong data-toggle='tooltip' data-placement='top' title='Este indicador no cuenta con ficha técnica'> <i class='fa fa fa-exclamation-circle' style='color:red;'></i> </strong>";
+                    }
+
+                    //$("#tdfin1").append(check + "<textarea ondblclick='GetFicha(this.id)' placeholder='Fin' readonly class='form-control efecto' name='fin1' id='fin1' rows='3'>" + list.listafin[i].desc + "</textarea>");
+                    $("#tdfin1").append(check + '<textarea ondblclick="GetFicha(this.id ,\'' + list.listafin[i].orden + '\' )"  readonly class="form-control efecto" name="fin1" id="fin1" rows="3">' + list.listafin[i].desc + '</textarea>');
+
+
+                }
+                var tdcausa = parseFloat(widthcausa) / parseFloat(list.listacomponente.length);
+                var tdsubcausa = "";
+                for (var i = 0; i < list.listacomponente.length; i++)
+                {
+                    if (list.listacomponente[i].idcalendario != "" || list.listacomponente[i].idcalendario != 0)
+                    {
+                        check = "<strong data-toggle='tooltip' data-placement='top'  ><i class='fa fa fa-check-circle' style='color:green;'></i></strong>";
+                    }
+                    else {
+                        check = "<strong data-toggle='tooltip' data-placement='top' title='Este indicador no cuenta con ficha técnica'><a href='#/question-circle'><i class='fa fa fa-exclamation-circle' style='color:red;'></i></strong>";
+                    }
+
+                    $("#trcausa").append('<td id="tdcausa' + (parseFloat(1) + parseFloat(i)) + '" class="tdcausa" style="padding-bottom: 15px;padding-top: 15px;"> ' + check + ' <textarea ondblclick="GetFicha(this.id ,\'' + list.listacomponente[i].orden + '\' )"  readonly placeholder="Componente ' + (parseFloat(1) + parseFloat(i)) + '"  class="form-control causa" name="' + list.listacomponente[i].id.replace("causa", "componente") + '" id="' + list.listacomponente[i].id.replace("causa", "componente") + '" rows="3"  >' + list.listacomponente[i].desc + '</textarea></td>');
+
+                    $("#tdcausa" + (parseFloat(1) + parseFloat(i))).css("width", tdcausa + "%");
+                    $("#trsubcausa").append(list.listacomponente[i].total);
+
+                }
+
+                for (var i = 0; i < list.listaproposito.length; i++)
+                {
+                    if (list.listaproposito[i].idcalendario != "" || list.listaproposito[i].idcalendario != 0) {
+                        check = "<strong data-toggle='tooltip' data-placement='top'  ><i class='fa fa fa-check-circle' style='color:green;'></i></strong>";
+                    }
+                    else {
+                        check = "<strong data-toggle='tooltip' data-placement='top' title='Este indicador no cuenta con ficha técnica'><i class='fa fa fa-exclamation-circle' style='color:red;'></i></strong>";
+                    }
+
+                    $("#tdproposito1").append(check + '<textarea ondblclick="GetFicha(this.id ,\'' + list.listaproposito[i].orden + '\' )" placeholder="Proposito" readonly class="form-control efecto" name="proposito1" id="proposito1" rows="3">' + list.listaproposito[i].desc + '</textarea>');
+
+                }
+
+            },
+            error: function (ex) {
+                alert('Sin Datos.');
+            }
+        });
+    });
+
+    function GetFicha(a,b)
+    {
+        var pathserver = window.location.pathname;
+        if (pathserver.includes("Indicadores")) {
+            pathserver = "/Indicadores";
+        }
+        else {
+            pathserver = "";
+        }
+
+        var idcategoria= $("#idcategoria").val();
+        var idarbol = $("#idarbol").val();
+
+        $.ajax({
+            type: 'POST',
+            url: pathserver + "/Arbol/ValidaFicha",
+            dataType: 'json',
+            data: {
+                idarbol: $("#idarbol").val(),
+                idcategoria: $("#idcategoria").val(),
+                idcampo: a
+            },
+            success: function (data)
+            {
+                if (@User.Identity.GetIdGrupo()==5 || @User.Identity.GetIdGrupo()==1)
+                {
+                    if (data.val1 == "0")
+                    {
+                        path = pathserver + "/Ficha/Completa?idarbol=" + idarbol + "&idcategoria=" + idcategoria + "&idcampo=" + a + "&orden="+b+"";
+                        window.location = path;
+                    }
+                    else if (data.val1 == "1")
+                    {
+                        path = pathserver + "/Ficha/Vista?codigo=" + data.val2 ;
+                        window.location = path;
+                    }
+                    else
+                    {
+                        path = pathserver + "/Ficha/Editar?codigo=" + data.val2 + "";
+                        window.location = path;
+                    }
+                }
+                else
+                {  
+                    path = pathserver + "/Ficha/Vista?codigo=" + data.val2 ;
+                    window.location = path;
+                }
+            },
+            error: function (ex) {
+                alert('Sin Datos.');
+            }
+        }); 
+    } 
+    </script>
+}
+
+
+<style>
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black;
+    }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+
+    table td {
+        vertical-align: top;
+    }
+
+    .form-control {
+        position: relative;
+        border: 1px solid;
+        text-align: center;
+        border-radius: 12px;
+    }
+
+    .efecto, .causa, .problema, .subcausa {
+        border-radius: 15px;
+        font-size: 9px;
+    }
+
+    table.display td {
+        padding: 3px 1px;
+    }
+
+    .label-default {
+        background-color: #777;
+    }
+
+    .label {
+        display: inline;
+        padding: 0.2em 0.6em 0.3em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25em;
+    }
+
+    .lbl {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+     
+</style>

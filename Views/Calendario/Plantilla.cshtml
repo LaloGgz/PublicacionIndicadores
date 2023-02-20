@@ -1,0 +1,2300 @@
+﻿@model Indicadores.Tb_Calendario
+@using Indicadores.Models.Extensions
+<script src="~/Scripts/Indicadores/Calendario.js"></script>
+ 
+<script>
+    $(function ()
+    {
+        var $tabButtonItem = $('#tab-button li'),
+            $tabSelect = $('#tab-select'),
+            $tabContents = $('.tab-contents'),
+            activeClass = 'is-active';
+
+        $tabButtonItem.first().addClass(activeClass);
+        $tabContents.not(':first').hide();
+
+        $tabButtonItem.find('a').on('click', function (e)
+        {
+            var target = $(this).attr('href');
+
+            $tabButtonItem.removeClass(activeClass);
+            $(this).parent().addClass(activeClass);
+            $tabSelect.val(target);
+            $tabContents.hide();
+            $(target).show();
+            e.preventDefault();
+        });
+
+        $tabSelect.on('change', function ()
+        {
+            var target = $(this).val(),
+                targetSelectNum = $(this).prop('selectedIndex');
+
+            $tabButtonItem.removeClass(activeClass);
+            $tabButtonItem.eq(targetSelectNum).addClass(activeClass);
+            $tabContents.hide();
+            $(target).show();
+        });
+
+        const monthNames = ["En", "Fb", "Mz", "Ab", "My", "Jn", "Jl", "Ag", "Sp", "Oc", "Nv", "Dc"];
+
+        const d = new Date();
+
+        var idlista = "lista" + monthNames[d.getMonth()];
+        var ida = "A" + monthNames[d.getMonth()];
+
+        var target = $("#" + ida).attr('href');
+        $(".lista").removeClass("is-active");
+        $("#" + idlista).addClass("is-active");
+        $tabContents.hide();
+        $(target).show();
+
+        @*if (@User.Identity.GetIdGrupo()!=1) 
+        {    $(".realizado").prop("readonly", true);
+            $(".realizado").css({ "cursor": "no-drop" });
+            $(".realizadomes").hide();        
+            $("#"+monthNames[d.getMonth()]+"").show();
+
+            $("#" + monthNames[d.getMonth()] + "v1r").prop("readonly", false);
+            $("#" + monthNames[d.getMonth()] + "v1r").css({ "cursor": "text" });
+        }*@ 
+    });
+</script>
+
+<div class="container">
+    <input type="hidden" id="idficha"><div class="col-lg-12">
+        <input type="hidden" id="idcalendario" value="@Model.idcalendario">
+        <div class="card" style="background-color:#F7F7F7"> 
+            <div class="card-body" style="font-size:11px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                                <label class="label">Dirección</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9  form-group has-feedback">
+                                <input type="text" class="form-control"  value="@Model.Tb_Ficha.Cat_Direcciones.descripcion" readonly style="font-size:10px;text-align:center;" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold; text-align:center;">
+                                <label class="label">Nombre del Indicador</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9  form-group has-feedback">
+                                <textarea class="form-control" style="text-align:center;" readonly id="indicador">@Model.Tb_Ficha.nombindi</textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                                <label class="label">Meta Anual</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9  form-group has-feedback">
+                                <input type="text" class="form-control" id="Meta" value="@Model.meta" readonly style="font-size:10px;text-align:center;" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="tabs" style="overflow:scroll;">
+                                <div class="tab-button-outer">
+                                    <ul id="tab-button">
+                                        <li class="lista" id="listaEn"><a id="AEn" href="#tab01">Enero</a></li>
+                                        <li class="lista" id="listaFb"><a id="AFb" href="#tab02">Febrero</a></li>
+                                        <li class="lista" id="listaMz"><a id="AMz" href="#tab03">Marzo</a></li>
+                                        <li class="lista" id="listaAb"><a id="AAb" href="#tab04">Abril</a></li>
+                                        <li class="lista" id="listaMy"><a id="AMy" href="#tab05">Mayo</a></li>
+                                        <li class="lista" id="listaJn"><a id="AJn" href="#tab06">Junio</a></li>
+                                        <li class="lista" id="listaJl"><a id="AJl" href="#tab07">Julio</a></li>
+                                        <li class="lista" id="listaAg"><a id="AAg" href="#tab08">Agosto</a></li>
+                                        <li class="lista" id="listaSp"><a id="ASp" href="#tab09">Septiembre</a></li>
+                                        <li class="lista" id="listaOc"><a id="AOc" href="#tab10">Octubre</a></li>
+                                        <li class="lista" id="listaNv"><a id="ANv" href="#tab11">Noviembre</a></li>
+                                        <li class="lista" id="listaDc"><a id="ADc" href="#tab12">Diciembre</a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-select-outer">
+                                    <select id="tab-select">
+                                        <option value="#tab01">Enero</option>
+                                        <option value="#tab02">Febrero</option>
+                                        <option value="#tab03">Marzo</option>
+                                        <option value="#tab04">Abril</option>
+                                        <option value="#tab05">Mayo</option>
+                                        <option value="#tab06">Junio</option>
+                                        <option value="#tab07">Julio</option>
+                                        <option value="#tab08">Agosto</option>
+                                        <option value="#tab09">Septiembre</option>
+                                        <option value="#tab10">Octubre</option>
+                                        <option value="#tab11">Noviembre</option>
+                                        <option value="#tab12">Diciembre</option>
+                                    </select>
+                                </div>
+                                <div id="tab01" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Enero</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Env1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Env2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="EnAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="EnAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Enmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="EnRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Enanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                       
+                                                    </div>
+
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="En" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                       
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab02" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Febrero</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Fbv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Fbv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="FbAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="FbAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Fbmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="FbRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Fbanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Fb" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab03" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Marzo</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white; ">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Mzv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Mzv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MzAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MzAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Mzmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MzRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Mzanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Mz" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab04" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Abril</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Abv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Abv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AbAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AbAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Abmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AbRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Abanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Ab" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab05" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Mayo</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Myv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Myv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MyAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MyAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Mymes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="MyRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Myanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="My" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab06" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Junio</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Jnv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jnv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JnAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JnAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jnmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JnRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jnanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Jn" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab07" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Julio</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Jlv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jlv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JlAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JlAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jlmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="JlRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Jlanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Jl" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab08" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Agosto</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white; ">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Agv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Agv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AgAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AgAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Agmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="AgRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Aganio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Ag" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab09" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Septiembre</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Spv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Spv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="SpAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="SpAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Spmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="SpRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Spanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Sp" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab10" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Octubre</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Ocv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Ocv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="OcAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="OcAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Ocmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="OcRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Ocanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Oc" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab11" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Noviembre</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Nvv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Nvv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="NvAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="NvAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Nvmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="NvRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Nvanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Nv" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div id="tab12" class="tab-contents">
+                                    <table class="table table-responsive w-100">
+                                        <thead>
+                                            <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                <th scope="col" colspan="2">Diciembre</th>
+                                                <th scope="col" colspan="2">Acumulado</th>
+                                                <th scope="col" colspan="3">Avance</th>
+                                            </tr>
+                                            <tr style="background-color:#5e6060; color:white;">
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    V1
+                                                    <br />
+                                                    Realizado
+                                                </td>
+                                                <td>
+                                                    V2
+                                                    <br />
+                                                    Planeado
+                                                </td>
+                                                <td>
+                                                    Avance del mes
+                                                </td>
+                                                <td>
+                                                    Avance al mes reportado
+                                                </td>
+                                                <td>
+                                                    Avance al año
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" class="form-control realizado" id="Dcv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Dcv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="DcAv1r" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="DcAv2p" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Dcmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="DcRmes" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" readonly id="Dcanio" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="7">
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+                                                        <button type="button" id="Dc" class="btn btn-success btn-block mb-4 btnmes realizadomes">
+                                                            Guardar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 text-center">
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4 text-center">
+
+                </div>
+                <div class="col-md-4 col-sm-4 text-center">
+                    <a href="@Url.Action("Lista", "Calendario")">
+                        <button type="button" class="btn btn-secondary w-100">
+                            Regresar
+                        </button>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-4 text-center">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="Enhid" />
+<input type="hidden" id="Fbhid" />
+<input type="hidden" id="Mzhid" />
+<input type="hidden" id="Abhid" />
+<input type="hidden" id="Myhid" />
+<input type="hidden" id="Jnhid" />
+<input type="hidden" id="Jlhid" />
+<input type="hidden" id="Aghid" />
+<input type="hidden" id="Sphid" />
+<input type="hidden" id="Ochid" />
+<input type="hidden" id="Nvhid" />
+<input type="hidden" id="Dchid" />
+<input type="hidden" id="aniohide" />
+<input type="hidden" id="iddetallecal" value="@Model.idcalendario" />
+<input type="hidden" id="porcentaje" value="@Model.porcentaje" />
+
+<script>
+    $(document).ready(function ()
+    {
+        var textbox = @Model.meta;
+      
+        $("#Meta").val(textbox.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        
+        var idcal = @Model.idcalendario;
+    $.ajax({
+        type: 'POST',
+        url:pathserver+ "/Calendario/GetDetalleCalendario",
+        dataType: 'json',
+        data:
+            {
+                idcalendario : idcal
+            },
+        success: function (data)
+        {
+            $.each(data, function (i, dat)
+            {
+                var v1r = dat.descmes + "v1r";
+                var v2p = dat.descmes + "v2p";
+                var Av1r = dat.descmes + "Av1r";
+                var Av2p = dat.descmes + "Av2p";
+                var mes = dat.descmes + "mes";
+                var Rmes = dat.descmes + "Rmes";
+                var anio = dat.descmes + "anio";
+                var hid = dat.descmes + "hid";
+
+                if (dat.v1r=="" || dat.v1r ==null || dat.v1r=="null")
+                {
+                    $("#" + v1r).val(dat.v1r);
+                }
+                else
+                {
+                    $("#" + v1r).val(parseFloat(dat.v1r.replace(/,/g, "")).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                }
+
+                if (dat.Av1r=="" || dat.Av1r ==null || dat.Av1r=="null")
+                {
+                    $("#" + Av1r).val(dat.Av1r);
+                }
+                else
+                {
+                    $("#" + Av1r).val(parseFloat(dat.Av1r.replace(/,/g, "")).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                }
+
+                if (dat.v2p=="" || dat.v2p ==null || dat.v2p=="null")
+                {
+                    $("#" + v2p).val(dat.v2p);
+                }
+                else
+                {
+                    $("#" + v2p).val(parseFloat(dat.v2p.replace(/,/g, "")).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                }
+
+
+                if (dat.Av2p=="" || dat.Av2p ==null || dat.Av2p=="null")
+                {
+                    $("#" + Av2p).val(dat.Av2p);
+                }
+                else
+                {
+                    $("#" + Av2p).val(parseFloat(dat.Av2p.replace(/,/g, "")).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                } 
+                if (dat.Avance=="" || dat.Avance ==null || dat.Avance=="null")
+                {
+                    $("#" + mes).val(dat.Avance);
+                }
+                else
+                {
+                    $("#" + mes).val(parseFloat(dat.Avance.replace(/,/g, "")).toString()+"%");
+                } 
+                if (dat.AvanceMesRep=="" || dat.AvanceMesRep ==null || dat.AvanceMesRep=="null")
+                {
+                    $("#" + Rmes).val(dat.AvanceMesRep);
+                }
+                else
+                {
+                    $("#" + Rmes).val(parseFloat(dat.AvanceMesRep.replace(/,/g, "")).toString()+"%");
+                } 
+                if (dat.Avanceanio=="" || dat.Avanceanio ==null || dat.Avanceanio=="null")
+                {
+                    $("#" + anio).val(dat.Avanceanio);
+                }
+                else
+                {
+                    $("#" + anio).val(parseFloat(dat.Avanceanio.replace(/,/g, "")).toString()+"%");
+                }
+                $("#" + hid).val(dat.iddetcalen);
+                $("#aniohide").val(dat.anio);
+            });
+
+        },
+        error: function (ex) {
+            alert(ex.message);
+        }
+    });
+        
+ 
+
+    $(".btnmes").click(function ()
+    {
+        var options = ['En','Fb','Mz','Ab','My','Jn','Jl','Ag','Sp','Oc','Nv','Dc'];
+        var id = this.id;
+        var guarda="true";
+        for (var i = 0; i < options.length; i++)
+        { 
+            var btn = options[i]; 
+            var v1r = btn + "v1r";
+            var v2p = btn + "v2p";
+            var Av1r = btn + "Av1r";
+            var Av2p = btn + "Av2p";
+            var mes = btn + "mes";
+            var Rmes = btn + "Rmes";
+            var anio = btn + "anio";
+            var hid = btn + "hid";
+
+            var formData = new FormData();
+
+            formData.append("Btn",id);;
+            formData.append("v1r", $("#" + v1r).val().replace(/,/g, ""));
+            formData.append("v2p", $("#" + v2p).val().replace(/,/g, ""));
+            formData.append("Av1r", $("#" + Av1r).val().replace(/,/g, ""));
+            formData.append("Av2p", $("#" + Av2p).val().replace(/,/g, ""));
+            formData.append("Avance", $("#" + mes).val().replace(/,/g, "").replace("%", ""));
+            formData.append("AvanceMesRep", $("#" + Rmes).val().replace(/,/g, "").replace("%", ""));
+            formData.append("Avanceanio", $("#" + anio).val().replace(/,/g, "").replace("%", ""));
+            formData.append("iddetcalen", $("#" + hid).val());
+            formData.append("idcalendario", $("#idcalendario").val());
+            $.ajax(
+            {
+                type: 'POST',
+                url: pathserver+"/Calendario/UpdateDetalleCalendario2",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) 
+                {
+                    guarda = data.activo;
+                    setTimeout(function () {
+                        $('#spiner').modal('hide');
+                    }, 1000);
+                }
+            });
+        }  
+        
+        if (guarda == true || guarda == "true") 
+        {
+            setTimeout(function () { $('#spiner').modal('hide'); }, 500);
+            $("#list").append('<p style="text-align:center;">Se guardo la información correctamente');
+            $("#exampleModal").modal("show");
+            setTimeout(function () { window.location.reload()}, 500);
+        }
+        else {
+            setTimeout(function () {
+                $('#spiner').modal('hide');
+            }, 500);
+            $("#list").append("<p>Ocurrió un error al ingresar el registro, favor de volver a intentarlo</p>.");
+            $("#exampleModal").modal("show");
+        }
+    });
+
+    var meta = parseFloat($("#Meta").val().replace(/,/g, ""));
+         
+    $("#Env1r").keyup(function ()
+    { 
+         
+        var Env1r = parseFloat($("#Env1r").val().replace(/,/g, ""));
+        if (Number.isNaN(Env1r)||Env1r =="NaN"||Env1r =="")
+        {
+            Env1r="0";
+            $("#Env1r").val(Env1r);
+        }
+        else
+        {
+            $("#Env1r").val(Env1r);
+        }
+        //$("#EnAv1r").val(Env1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var EnAv1r=$("#Env1r").val().replace(/,/g, "");
+        if (Number.isNaN(EnAv1r)||Env1r =="NaN"||Env1r =="")
+        {
+            EnAv1r="0";
+            $("#EnAv1r").val(EnAv1r);
+        }
+        else
+        {
+            $("#EnAv1r").val(parseFloat(EnAv1r.replace(/,/g, "")).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+        }
+
+        var Env2p = parseFloat($("#Env2p").val().replace(/,/g, ""));
+        var total = (Env1r / Env2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Enmes").val(total+"%");
+        }
+        else
+        {
+            $("#Enmes").val(total.toFixed(1) +"%");
+        }
+        
+        var EnAv1r =$("#EnAv1r").val();
+        if (Number.isNaN(EnAv1r)||EnAv1r =="NaN"||EnAv1r =="")
+        {}
+        else
+        {
+              EnAv1r = parseFloat($("#EnAv1r").val().replace(/,/g, ""));
+        }
+        var EnAv2p =$("#EnAv2p").val();
+        if (Number.isNaN(EnAv2p)||EnAv2p =="NaN"||EnAv2p =="")
+        {}
+        else
+        {
+            EnAv2p = parseFloat($("#EnAv2p").val().replace(/,/g, ""));
+        } 
+        var totalmesrep = (EnAv1r / EnAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#EnRmes").val(totalmesrep.toFixed(1)+"%");
+        var totalanio = (Env1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Enanio").val(totalanio.toFixed(1)+"%");
+        var valor = Env1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Env1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Env1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+        
+
+    });
+    $("#Fbv1r").keyup(function ()
+    { 
+        var Fbv1r = parseFloat($("#Fbv1r").val().replace(/,/g, ""));
+        $("#FbAv1r").val(Fbv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Fbv2p = parseFloat($("#Fbv2p").val().replace(/,/g, ""));
+
+        var total = (Fbv1r / Fbv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Fbmes").val(total +"%");
+
+        }
+        else
+        {
+            $("#Fbmes").val(total.toFixed(1) +"%");
+        }
+
+        var EnAv1r = parseFloat($("#EnAv1r").val().replace(/,/g, ""));
+        var FbAv1r = parseFloat($("#FbAv1r").val().replace(/,/g, ""));
+
+
+        if (Number.isNaN(FbAv1r) || FbAv1r=="" ||FbAv1r =="NaN" )
+        {
+            FbAv1r="0";
+            FbAv1r = parseFloat(FbAv1r) + EnAv1r
+            $("#FbAv1r").val(FbAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            FbAv1r = parseFloat(FbAv1r) + EnAv1r
+            $("#FbAv1r").val(FbAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+
+
+
+        var FbAv1r = parseFloat($("#FbAv1r").val().replace(/,/g, ""));
+        var FbAv2p =parseFloat($("#FbAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (FbAv1r / FbAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#FbRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (FbAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+         
+        $("#Fbanio").val(totalanio.toFixed(1)+"%"); 
+        var valor = Fbv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Fbv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Fbv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+
+
+    });
+    $("#Mzv1r").keyup(function ()
+    {
+
+        var Mzv1r = parseFloat($("#Mzv1r").val().replace(/,/g, ""));
+        $("#MzAv1r").val(Mzv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Mzv2p = parseFloat($("#Mzv2p").val().replace(/,/g, ""));
+
+        var total = (Mzv1r / Mzv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Mzmes").val(total+"%");
+
+        }
+        else
+        {
+            $("#Mzmes").val(total.toFixed(1) +"%");
+        }
+
+        var FbAv1r = parseFloat($("#FbAv1r").val().replace(/,/g, ""));
+        var MzAv1r = parseFloat($("#MzAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(MzAv1r) || MzAv1r=="" ||MzAv1r =="NaN" )
+        {
+            MzAv1r="0";
+            MzAv1r = parseFloat(MzAv1r) + FbAv1r
+            $("#MzAv1r").val(MzAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            MzAv1r = parseFloat(MzAv1r) + FbAv1r
+            $("#MzAv1r").val(MzAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var MzAv1r = parseFloat($("#MzAv1r").val().replace(/,/g, ""));
+        var MzAv2p =parseFloat($("#MzAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (MzAv1r / MzAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#MzRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (MzAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Mzanio").val(totalanio.toFixed(1)+"%");
+    
+
+        var valor = Mzv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Mzv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Mzv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+
+    $("#Abv1r").keyup(function ()
+    {
+
+        var Abv1r = parseFloat($("#Abv1r").val().replace(/,/g, ""));
+        $("#AbAv1r").val(Abv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Abv2p = parseFloat($("#Abv2p").val().replace(/,/g, ""));
+
+        var total = (Abv1r / Abv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Abmes").val(total +"%");
+
+        }
+        else
+        {
+            $("#Abmes").val(total.toFixed(1) +"%");
+        }
+
+        var MzAv1r = parseFloat($("#MzAv1r").val().replace(/,/g, ""));
+        var AbAv1r = parseFloat($("#AbAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(AbAv1r) || AbAv1r=="" ||AbAv1r =="NaN" )
+        {
+            AbAv1r="0";
+            AbAv1r = parseFloat(AbAv1r) + MzAv1r
+            $("#AbAv1r").val(AbAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            AbAv1r = parseFloat(AbAv1r) + MzAv1r
+            $("#AbAv1r").val(AbAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var AbAv1r = parseFloat($("#AbAv1r").val().replace(/,/g, ""));
+        var AbAv2p =parseFloat($("#AbAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (AbAv1r / AbAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#AbRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (AbAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Abanio").val(totalanio.toFixed(1)+"%"); 
+        var valor = Abv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Abv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Abv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+    $("#Myv1r").keyup(function ()
+    {
+
+        var Myv1r = parseFloat($("#Myv1r").val().replace(/,/g, ""));
+        $("#MyAv1r").val(Myv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Myv2p = parseFloat($("#Myv2p").val().replace(/,/g, ""));
+
+        var total = (Myv1r / Myv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Mymes").val(total +"%");
+
+        }
+        else
+        {
+            $("#Mymes").val(total.toFixed(1) +"%");
+        }
+
+        var AbAv1r = parseFloat($("#AbAv1r").val().replace(/,/g, ""));
+        var MyAv1r = parseFloat($("#MyAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(MyAv1r) || MyAv1r=="" ||MyAv1r =="NaN" )
+        {
+            MyAv1r="0";
+            MyAv1r = parseFloat(MyAv1r) + AbAv1r
+            $("#MyAv1r").val(MyAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            MyAv1r = parseFloat(MyAv1r) + AbAv1r
+            $("#MyAv1r").val(MyAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var MyAv1r = parseFloat($("#MyAv1r").val().replace(/,/g, ""));
+        var MyAv2p =parseFloat($("#MyAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (MyAv1r / MyAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#MyRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (MyAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Myanio").val(totalanio.toFixed(1)+"%"); 
+        var valor = Myv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Myv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Myv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+    $("#Jnv1r").keyup(function ()
+    {
+
+        var Jnv1r = parseFloat($("#Jnv1r").val().replace(/,/g, ""));
+        $("#JnAv1r").val(Jnv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Jnv2p = parseFloat($("#Jnv2p").val().replace(/,/g, ""));
+
+        var total = (Jnv1r / Jnv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Jnmes").val(total +"%");
+        }
+        else
+        {
+            $("#Jnmes").val(total.toFixed(1) +"%");
+        }
+
+        var MyAv1r = parseFloat($("#MyAv1r").val().replace(/,/g, ""));
+        var JnAv1r = parseFloat($("#JnAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(JnAv1r) || JnAv1r=="" ||JnAv1r =="NaN" )
+        {
+            JnAv1r="0";
+            JnAv1r = parseFloat(JnAv1r) + MyAv1r
+            $("#JnAv1r").val(JnAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            JnAv1r = parseFloat(JnAv1r) + MyAv1r
+            $("#JnAv1r").val(JnAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var JnAv1r = parseFloat($("#JnAv1r").val().replace(/,/g, ""));
+        var JnAv2p =parseFloat($("#JnAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (JnAv1r / JnAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#JnRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (JnAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Jnanio").val(totalanio.toFixed(1)+"%"); 
+      
+        var valor = Jnv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Jnv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Jnv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+    $("#Jlv1r").keyup(function ()
+    {
+
+        var Jlv1r = parseFloat($("#Jlv1r").val().replace(/,/g, ""));
+        $("#JlAv1r").val(Jlv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Jlv2p = parseFloat($("#Jlv2p").val().replace(/,/g, ""));
+
+        var total = (Jlv1r / Jlv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Jlmes").val(total+"%");
+        }
+        else
+        {
+            $("#Jlmes").val(total.toFixed(1) +"%");
+        }
+
+        var JnAv1r = parseFloat($("#JnAv1r").val().replace(/,/g, ""));
+        var JlAv1r = parseFloat($("#JlAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(JlAv1r) || JlAv1r=="" ||JlAv1r =="NaN" )
+        {
+            JlAv1r="0";
+            JlAv1r = parseFloat(JlAv1r) + JnAv1r
+            $("#JlAv1r").val(JlAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            JlAv1r = parseFloat(JlAv1r) + JnAv1r
+            $("#JlAv1r").val(JlAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var JlAv1r = parseFloat($("#JlAv1r").val().replace(/,/g, ""));
+        var JlAv2p =parseFloat($("#JlAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (JlAv1r / JlAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#JlRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (JlAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Jlanio").val(totalanio.toFixed(1)+"%"); 
+        var valor = Jlv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Jlv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Jlv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+    $("#Agv1r").keyup(function ()
+    {
+
+        var Agv1r = parseFloat($("#Agv1r").val().replace(/,/g, ""));
+        $("#AgAv1r").val(Agv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Agv2p = parseFloat($("#Agv2p").val().replace(/,/g, ""));
+
+        var total = (Agv1r / Agv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Agmes").val(total+"%");
+        }
+        else
+        {
+            $("#Agmes").val(total.toFixed(1) +"%");
+        }
+
+        var JlAv1r = parseFloat($("#JlAv1r").val().replace(/,/g, ""));
+        var AgAv1r = parseFloat($("#AgAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(AgAv1r) || AgAv1r=="" ||AgAv1r =="NaN" )
+        {
+            AgAv1r="0";
+            AgAv1r = parseFloat(AgAv1r) + JlAv1r
+            $("#AgAv1r").val(AgAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            AgAv1r = parseFloat(AgAv1r) + JlAv1r
+            $("#AgAv1r").val(AgAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var AgAv1r = parseFloat($("#AgAv1r").val().replace(/,/g, ""));
+        var AgAv2p =parseFloat($("#AgAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (AgAv1r / AgAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#AgRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (AgAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Aganio").val(totalanio.toFixed(1)+"%"); 
+        var valor = Agv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Agv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Agv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+    $("#Spv1r").keyup(function ()
+    {
+
+        var Spv1r = parseFloat($("#Spv1r").val().replace(/,/g, ""));
+        $("#SpAv1r").val(Spv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Spv2p = parseFloat($("#Spv2p").val().replace(/,/g, ""));
+
+        var total = (Spv1r / Spv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Spmes").val(total+"%");
+        }
+        else
+        {
+            $("#Spmes").val(total.toFixed(1) +"%");
+        }
+
+        var AgAv1r = parseFloat($("#AgAv1r").val().replace(/,/g, ""));
+        var SpAv1r = parseFloat($("#SpAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(SpAv1r) || SpAv1r=="" ||SpAv1r =="NaN" )
+        {
+            SpAv1r="0";
+            SpAv1r = parseFloat(SpAv1r) + AgAv1r
+            $("#SpAv1r").val(SpAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            SpAv1r = parseFloat(SpAv1r) + AgAv1r
+            $("#SpAv1r").val(SpAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var SpAv1r = parseFloat($("#SpAv1r").val().replace(/,/g, ""));
+        var SpAv2p =parseFloat($("#SpAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (SpAv1r / SpAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#SpRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (SpAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Spanio").val(totalanio.toFixed(1)+"%"); 
+        var valor = Spv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Spv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Spv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+    $("#Ocv1r").keyup(function ()
+    {
+
+        var Ocv1r = parseFloat($("#Ocv1r").val().replace(/,/g, ""));
+        $("#OcAv1r").val(Ocv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Ocv2p = parseFloat($("#Ocv2p").val().replace(/,/g, ""));
+
+        var total = (Ocv1r / Ocv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Ocmes").val(total+"%");
+        }
+        else
+        {
+            $("#Ocmes").val(total.toFixed(1) +"%");
+        }
+
+        var SpAv1r = parseFloat($("#SpAv1r").val().replace(/,/g, ""));
+        var OcAv1r = parseFloat($("#OcAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(OcAv1r) || OcAv1r=="" ||OcAv1r =="NaN" )
+        {
+            OcAv1r="0";
+            OcAv1r = parseFloat(OcAv1r) + SpAv1r
+            $("#OcAv1r").val(OcAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            OcAv1r = parseFloat(OcAv1r) + SpAv1r
+            $("#OcAv1r").val(OcAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var OcAv1r = parseFloat($("#OcAv1r").val().replace(/,/g, ""));
+        var OcAv2p =parseFloat($("#OcAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (OcAv1r / OcAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#OcRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (OcAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Ocanio").val(totalanio.toFixed(1)+"%"); 
+        var valor = Ocv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Ocv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Ocv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+    $("#Nvv1r").keyup(function ()
+    {
+
+        var Nvv1r = parseFloat($("#Nvv1r").val().replace(/,/g, ""));
+        $("#NvAv1r").val(Nvv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Nvv2p = parseFloat($("#Nvv2p").val().replace(/,/g, ""));
+
+        var total = (Nvv1r / Nvv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Nvmes").val(total+"%");
+        }
+        else
+        {
+            $("#Nvmes").val(total.toFixed(1) +"%");
+        }
+
+        var OcAv1r = parseFloat($("#OcAv1r").val().replace(/,/g, ""));
+        var NvAv1r = parseFloat($("#NvAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(NvAv1r) || NvAv1r=="" ||NvAv1r =="NaN" )
+        {
+            NvAv1r="0";
+            NvAv1r = parseFloat(NvAv1r) + OcAv1r
+            $("#NvAv1r").val(NvAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            NvAv1r = parseFloat(NvAv1r) + OcAv1r
+            $("#NvAv1r").val(NvAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var NvAv1r = parseFloat($("#NvAv1r").val().replace(/,/g, ""));
+        var NvAv2p =parseFloat($("#NvAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (NvAv1r / NvAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#NvRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (NvAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Nvanio").val(totalanio.toFixed(1)+"%"); 
+        var valor = Nvv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Nvv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Nvv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+    $("#Dcv1r").keyup(function ()
+    {
+
+        var Dcv1r = parseFloat($("#Dcv1r").val().replace(/,/g, ""));
+        $("#DcAv1r").val(Dcv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        var Dcv2p = parseFloat($("#Dcv2p").val().replace(/,/g, ""));
+
+        var total = (Dcv1r / Dcv2p) * 100;
+        if (Number.isNaN(total)||total =="NaN"||total =="")
+        {
+            total="0";
+            $("#Dcmes").val(total+"%");
+        }
+        else
+        {
+            $("#Dcmes").val(total.toFixed(1) +"%");
+        }
+
+        var NvAv1r = parseFloat($("#NvAv1r").val().replace(/,/g, ""));
+        var DcAv1r = parseFloat($("#DcAv1r").val().replace(/,/g, ""));
+
+        //***************************************************************************************//
+        if (Number.isNaN(DcAv1r) || DcAv1r=="" ||DcAv1r =="NaN" )
+        {
+            DcAv1r="0";
+            DcAv1r = parseFloat(DcAv1r) + NvAv1r
+            $("#DcAv1r").val(DcAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        else
+        {
+            DcAv1r = parseFloat(DcAv1r) + NvAv1r
+            $("#DcAv1r").val(DcAv1r.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+
+        var DcAv1r = parseFloat($("#DcAv1r").val().replace(/,/g, ""));
+        var DcAv2p =parseFloat($("#DcAv2p").val().replace(/,/g, ""));
+
+        var totalmesrep = (DcAv1r / DcAv2p) * 100;
+        if (Number.isNaN(totalmesrep))
+        {
+            totalmesrep="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalmesrep="";
+        }
+        $("#DcRmes").val(totalmesrep.toFixed(1)+"%");
+
+        var totalanio = (DcAv1r / meta) * 100;
+        if (Number.isNaN(totalanio))
+        {
+            totalanio="";
+        }
+        else if (totalanio =="NaN") {
+
+            totalanio="";
+        }
+        $("#Dcanio").val(totalanio.toFixed(1)+"%"); 
+        var valor = Dcv1r;
+        if (Number.isNaN(valor) || valor =="0" ||valor =="NaN")
+        {
+            valor="0";
+            $("#Dcv1r").val(valor); 
+        } 
+        else
+        { 
+            $("#Dcv1r").val(valor.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")); 
+        }
+    });
+    });
+</script>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="text-align:center;">
+                <h5 class="modal-title text-center" id="exampleModalLabel" style="text-align:center;">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="list">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:100%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+      .form-group {
+        border-radius: 7px;
+    }
+
+    .form-control {
+        border: 1px solid;
+        font-size: 10px;
+    }
+
+    body {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    .tabs {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    #tab-button {
+        font-size: 11px;
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        #tab-button li {
+            display: table-cell;
+            width: 20%;
+        }
+
+            #tab-button li a {
+                display: block;
+                padding: .5em;
+                background: #eee;
+                border: 1px solid #ddd;
+                text-align: center;
+                color: #000;
+                text-decoration: none;
+            }
+
+            #tab-button li:not(:first-child) a {
+                border-left: none;
+            }
+
+            #tab-button li a:hover,
+            #tab-button .is-active a {
+                border-bottom-color: transparent;
+                background: #fff;
+            }
+
+    .tab-contents {
+        padding: .5em 2em 1em;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+
+
+    .tab-button-outer {
+        display: none;
+    }
+
+    .tab-contents {
+        margin-top: 20px;
+    }
+
+    @@media screen and (min-width: 768px) {
+        .tab-button-outer {
+            position: relative;
+            z-index: 2;
+            display: block;
+        }
+
+        .tab-select-outer {
+            display: none;
+        }
+
+        .tab-contents {
+            position: relative;
+            top: -1px;
+            margin-top: 0;
+        }
+    }
+    .my_second_class {
+        width: 1%;
+        word-break: break-word;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    table.dataTable td {
+        word-break: break-word;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+</style>
+
+<div class="modal fade bd-example-modal-lg" id="spiner" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-5x"></span>
+        </div>
+    </div>
+</div>

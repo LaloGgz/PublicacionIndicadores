@@ -1,0 +1,279 @@
+﻿ @model IEnumerable<Indicadores.Models.Indicador.Calendario2>
+<script src="~/Scripts/Indicadores/Calendario.js"></script>
+
+<style>
+    .form-group {
+        border-radius: 7px;
+    }
+
+    .form-control {
+        border: 1px solid;
+        font-size: 10px;
+    }
+</style>
+
+<div class="container">
+    <input type="hidden" id="idficha"  ><div class="col-lg-12">
+        <input type="hidden" id="idcalendario" >
+        <div class="card" style="background-color:#F7F7F7">
+            <div class="card-header text-center " style="background-color:#5086c1;color:white;">
+                @*<h1>Ficha</h1>*@
+            </div>
+            <div class="card-body" style="font-size:11px;"> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#5086c1;color:white;font-weight:bold;">
+                                <label class="label">Meta</label>
+                            </div>
+                            <div class="col-md-9 col-sm-9  form-group has-feedback">
+                                <input type="text" class="form-control" id="Meta" value="192000" style="font-size:10px;text-align:center;" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 text-center  pt-2">
+                                <div class="row">
+                                    <table class="table"> 
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                if (item.mescurso == true)
+                                                {
+                                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                        <th scope="col" colspan="2">@item.mes</th>
+                                                        <th scope="col" colspan="2">Acumulado</th>
+                                                        <th scope="col" colspan="3">Avance</th>
+                                                    </tr>
+                                                    <tr style="background-color:#5e6060; color:white;">
+                                                        <td>
+                                                            V1
+                                                            <br />
+                                                            Realizado
+                                                        </td>
+                                                        <td>
+                                                            V2
+                                                            <br />
+                                                            Planeado
+                                                        </td>
+                                                        <td>
+                                                            V1
+                                                            <br />
+                                                            Realizado
+                                                        </td>
+                                                        <td>
+                                                            V2
+                                                            <br />
+                                                            Planeado
+                                                        </td>
+                                                        <td>
+                                                            Avance del mes
+                                                        </td>
+                                                        <td>
+                                                            Avance al mes reportado
+                                                        </td>
+                                                        <td>
+                                                            Avance al año
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            @Html.TextBoxFor(m =>  item.v1r, new { @class = "form-control" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(m => item.v2p, new { @class = "form-control" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(m => item.Av1r, new { @class = "form-control" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(m => item.Av2p, new { @class = "form-control" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(m => item.Avance, new { @class = "form-control" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(m => item.AvanceMesRep, new { @class = "form-control" })
+                                                        </td>
+                                                        <td>
+                                                            @Html.TextBoxFor(m => item.Avanceanio, new { @class = "form-control" })
+                                                        </td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    <tr style="background-color:#5e6060; color:white;font-size:15px;">
+                                                        <th scope="col" colspan="2">@item.mes</th>
+                                                        <th scope="col" colspan="2">Acumulado</th>
+                                                        <th scope="col" colspan="3">Avance</th>
+                                                    </tr>
+                                                    <tr style="background-color:#5e6060; color:white;">
+                                                        <td>
+                                                            V1
+                                                            <br />
+                                                            Realizado
+                                                        </td>
+                                                        <td>
+                                                            V2
+                                                            <br />
+                                                            Planeado
+                                                        </td>
+                                                        <td>
+                                                            V1
+                                                            <br />
+                                                            Realizado
+                                                        </td>
+                                                        <td>
+                                                            V2
+                                                            <br />
+                                                            Planeado
+                                                        </td>
+                                                        <td>
+                                                            Avance del mes
+                                                        </td>
+                                                        <td>
+                                                            Avance al mes reportado
+                                                        </td>
+                                                        <td>
+                                                            Avance al año
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                           <input type="text" class="form-control"  />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" />
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 text-center">
+                        <a href="@Url.Action("Listado", "Ficha")">
+                            <button type="button" class="btn btn-success btn-block mb-4">
+                                Regresar
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-sm-6 text-center">
+                        <button type="button" onclick="Valida();" class="btn btn-primary btn-block mb-4">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="text-align:center;">
+                <h5 class="modal-title text-center" id="exampleModalLabel" style="text-align:center;">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="list">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:100%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .my_second_class {
+        width: 1%;
+        word-break: break-word;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    table.dataTable td {
+        word-break: break-word;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+</style>
+
+<div class="modal fade bd-example-modal-lg" id="spiner" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-5x"></span>
+        </div>
+    </div>
+</div>
+ 
+<script>
+    $(document).ready(function ()
+    { 
+        $("#item_v1r").keyup(function ()
+        {
+            var item_v1r = parseFloat($("#item_v1r").val());
+            var item_v2p = parseFloat($("#item_v2p").val());
+            var total = (item_v1r / item_v2p) * 100; 
+
+            $("#item_Avance").val(total.toFixed(1));
+
+            var Meta = parseFloat($("#Meta").val());
+
+            var totalanio = (item_v1r / Meta) * 100;
+
+
+            $("#item_Avanceanio").val(totalanio.toFixed(1));
+             
+        });
+
+        $("#item_Av1r").keyup(function () {
+            var item_v1r = parseFloat($("#item_Av1r").val());
+            var item_v2p = parseFloat($("#item_Av2p").val());
+            var total = (item_v1r / item_v2p) * 100;
+
+            $("#item_AvanceMesRep").val(total.toFixed(1));
+
+        });
+    });
+</script>
+

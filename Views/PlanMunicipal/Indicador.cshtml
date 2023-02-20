@@ -1,0 +1,232 @@
+﻿@model Indicadores.Models.PDM.Tb_Indicador
+
+<script src="~/Scripts/PMD/Tb_Indicador.js"></script>
+
+<div class="row">
+    <div class="col-md-10 ">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Plan Municipal de Desarrollo <small> Indicador</small></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                <form class="form-label-left input_mask">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Unidad responsable</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <select id="idsecretaria" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Eje</label>
+                        <div class="col-md-3 col-sm-3 ">
+                            <select id="Eje" class="form-control" onchange="GetObjetivo(0);"></select>
+                        </div>
+                        <label class="col-form-label col-md-2 col-sm-2 ">Objetivo</label>
+                        <div class="col-md-4 col-sm-4 ">
+                            <select id="idobjetiv" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Indicador</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <input id="indicador" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Definición del indicador</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <input id="descindicador" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Objetivo / Resumen narrativo</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <input id="resumen" class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4 form-group has-feedback">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr class="form-group">
+                                        <th colspan="2">
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Línea Base</label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Valor</label>
+                                        </td>
+                                        <td>
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Año</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control has-feedback-left variacion" onkeypress="return Numeros(event);" id="lineabase" placeholder="">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="aniobase" onkeypress="return anio(event);" maxlength="4" placeholder="">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-7 col-sm-7  form-group has-feedback">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr class="form-group">
+                                        <th style="width:40%">
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Meta</label>
+                                        </th>
+                                        <th style="width:60%">
+                                            <label class="col-form-label col-md-12 col-sm-12 ">Sentido del indicador</label>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control has-feedback-left" onkeypress="return Numeros(event);" id="meta" placeholder="">
+                                        </td>
+                                        <td>
+                                            <select id="idsentido" class="form-control"></select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Frecuencia</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <select id="idfrecuencia" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Medios de Verificación</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <textarea class="form-control" rows="4" id="medioverificacion" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2 col-sm-2 ">Semaforización</label>
+                        <div class="col-md-9 col-sm-9 ">
+                            <table class="table">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col" style="background-color:#77dd77;">Óptimo</th>
+                                        <th scope="col" style="background-color:#fdfd96;">En progreso</th>
+                                        <th scope="col" style="background-color:#ff6961;">En riesgo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            <input type="text" class="form-control" id="verde" readonly="" style="font-size:10px;text-align:center;cursor:no-drop;" value=">=80%">
+                                        </th>
+                                        <td>
+                                            <input type="text" class="form-control" id="amarillo" readonly="" style="font-size:10px;text-align:center;cursor:no-drop;" value=">50% &amp; <80%">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="rojo" readonly="" style="font-size:10px;text-align:center;cursor:no-drop;" value="<=50%">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-5 col-sm-5">
+                            <button type="button" onclick="Back();" class="btn  btn-secondary btn-block mb-4 w-100">Regresar</button>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-5 col-sm-5">
+                            <button type="button" onclick="Valida(0);" class="btn btn-primary w-100">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="text-align:center;">
+                <h5 class="modal-title text-center" id="exampleModalLabel" style="text-align:center;">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="list">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:100%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .my_second_class {
+        width: 1%;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    .form-control {
+        border-radius: 5px;
+    }
+</style>
+
+<div class="modal fade bd-example-modal-lg" id="spiner" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-5x"></span>
+        </div>
+    </div>
+</div> 
+
+<style>
+    .label-align {
+        text-align: left;
+    }
+
+    .has-feedback {
+        background-color: transparent;
+    }
+
+    .col-form-label {
+        background-color: transparent;
+    }
+
+    .col-sm-12 {
+        background-color: transparent;
+    }
+</style>
+
+<script>
+    Catalogos();
+</script>

@@ -1,0 +1,210 @@
+﻿.form-group {
+    border-radius: 7px;
+}
+
+.form-control {
+    border: 1px solid;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+.tabs {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#tab-button {
+    font-size: 11px;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    #tab-button li {
+        display: table-cell;
+        width: 20%;
+    }
+
+        #tab-button li a {
+            display: block;
+            padding: .5em;
+            background: #eee;
+            border: 1px solid #ddd;
+            text-align: center;
+            color: #000;
+            text-decoration: none;
+        }
+
+        #tab-button li:not(:first-child) a {
+            border-left: none;
+        }
+
+        #tab-button li a:hover,
+        #tab-button .is-active a {
+            border-bottom-color: transparent;
+            background: #fff;
+        }
+
+.tab-contents {
+    padding: .5em 2em 1em;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+
+
+.tab-button-outer {
+    display: none;
+}
+
+.tab-contents {
+    margin-top: 20px;
+}
+
+@@media screen and (min-width: 768px) {
+    .tab-button-outer {
+        position: relative;
+        z-index: 2;
+        display: block;
+    }
+
+    .tab-select-outer {
+        display: none;
+    }
+
+    .tab-contents {
+        position: relative;
+        top: -1px;
+        margin-top: 0;
+    }
+}
+
+.my_second_class {
+    width: 1%;
+    word-break: break-word;
+}
+
+.bd-example-modal-lg .modal-dialog {
+    display: table;
+    position: relative;
+    margin: 0 auto;
+    top: calc(50% - 24px);
+}
+
+    .bd-example-modal-lg .modal-dialog .modal-content {
+        background-color: transparent;
+        color: red;
+        font-weight: bold;
+        border: none;
+    }
+
+table.dataTable td {
+    word-break: break-word;
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+.dot {
+    height: 30px;
+    width: 30px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.idcal {
+    width: 9%;
+    text-align: center;
+}
+
+.botones {
+    width: 15%;
+}
+
+.Categ {
+    width: 12%;
+}
+
+.Meta {
+    width: 12%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.activity {
+    width: 40%;
+}
+
+.porcentaje {
+    width: 10%;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+    .overlay a:hover, .overlay a:focus {
+        color: #f1f1f1;
+    }
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
+    padding-right: 0px;
+}
+
+@@media screen and (max-height: 450px) {
+    .overlay a {
+        font-size: 20px;
+    }
+
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}

@@ -1,0 +1,122 @@
+﻿@model  Indicadores.Grupo
+
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.idgrupo)
+     
+    <div class="form-horizontal">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <h3 class="panel-title text-center text-bold " style="margin-right:100px;">Permisos</h3>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group has-success">
+                                        <input id='myInput' onkeyup='searchTable()' type='text' class="form-control" placeholder="Buscar">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group has-success">
+                                        <table class="table" id="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Controlador
+                                                    </th>
+                                                    <th>
+                                                        Vista
+                                                    </th>
+                                                    <th>
+                                                        Permiso
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            @foreach (Recurso recurso in ViewBag.recursos)
+                                            {
+                                                bool isSelected = Model.Recurso.Any(e => e.idrecurso == recurso.idrecurso);
+                                                string checkedProperty = "";
+
+                                                if (isSelected) { checkedProperty = "checked='checked'"; }
+
+                                                <tr>
+                                                    <td>@recurso.controller</td>
+
+                                                    <td>@recurso.action</td>
+
+                                                    <td>
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" class="flat" @checkedProperty name="idRecurso" id="empleados_@recurso.idrecurso" value="@recurso.idrecurso">
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="  col-md-12">
+                                            <input type="submit" value="Guardar" style="width:100%;" class="btn btn-success" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+ 
+}
+ 
+
+@section Scripts
+{    @Scripts.Render("~/bundles/jqueryDatatable")
+<script>
+    function searchTable() {
+        var input, filter, found, table, tr, td, i, j, tname, k;
+
+        tname = "table";
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById(tname);
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (j = 0; j < td.length; j++) {
+                if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    found = true;
+                }
+            }
+            if (found) {
+                tr[i].style.display = "";
+                found = false;
+            } else {
+                if (i > 0) { //this skips the headers
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    </script>
+    
+
+}

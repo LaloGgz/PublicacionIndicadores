@@ -1,0 +1,720 @@
+﻿<script src="~/Scripts/Indicadores/CompletaEditar.js"></script>
+@model Indicadores.Models.Indicador.CalendarioM
+@using Indicadores.Models.Extensions
+<style>
+    .form-group {
+        border-radius: 5px;
+    }
+</style>
+<input type="checkbox" id="porcentaje" hidden="hidden" />
+<input type="hidden" id="hidenporcentaje" value="@Model.porcentaje" />
+
+<input type="hidden" id="idcalendario" value="@Model.idcalendario" />
+<input type="hidden" id="idarbol" value="@Model.idarbol" />
+<input type="hidden" id="idficha" value="@Model.idficha" />
+<div class="container">
+    <div class="col-lg-12">
+        <div class="card" style="background-color:#F7F7F7">
+            <div class="card-header text-center " style="background-color:#e4dcd7;color:484441;">
+                <h1>Ficha</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="  background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Categoría</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="hidden" id="idcategoria" value="@Model.idcategoria" />
+                            <select class="form-control" id="dropcategoria" disabled></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <input type="hidden" id="idSecretaria" value="@Model.idsecretaria" />
+                        <label class="label">Secretaría</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <div class="form-group">
+                            <select class="form-control" id="Scretaria2" onchange="GetDire2();" disabled></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-3" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label" id="direccion">Unidad Responsable</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="hidden" value="@Model.iddireccion" id="idDireccion2" />
+                            <select class="form-control" id="idDireccion" disabled></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-4" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Eje estratégico</label>
+                    </div>
+                    <div class="col-md-4 col-sm-4  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="hidden" value="@Model.ideje" id="ideje" />
+                            <select class="form-control" id="Eje" onchange="GetObjetivo();" disabled></select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-4 pb-4" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Objetivo estratégico</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3  form-group has-feedback">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  form-group has-feedback">
+                                <input type="hidden" id="idobjetiv2" value="@Model.idobjetiv" />
+                                <select class="form-control" id="idobjetiv" onchange="descobj();" disabled></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  form-group has-feedback">
+                                <div id="descobjetivo" style="text-align: center;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Programa presupuestario</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <input type="text" class="form-control" id="progmpresup" value="@Model.progmpresup" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Nombre del Indicador / Actividad</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <input type="text" class="form-control" id="nombindi" value="@Model.nombindi" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-4" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Definición del indicador</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <textarea class="form-control" id="descindicador" rows="3">@Model.descindicador</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Nivel de Objetivo</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="hidden" value="@Model.idnivelobj" id="idnivelobj2" />
+                            <select class="form-control" id="idnivelobj" disabled></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-4" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Objetivo / Resumen narrativo</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <textarea class="form-control" id="obj_resnarr" rows="3">@Model.obj_resnarr</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-3" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Método de cálculo</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="hidden" value="@Model.idmetcal" id="idmetcal2" />
+                            <select class="form-control" id="idmetcal" onchange="tipocalculo()" disabled></select>
+                            <label class="label ml-3 pt-2" style="font-weight:bold;color:black;" id="lbltipocalculo"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-3" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Variables</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <div class="col-md-6 col-sm-6  form-group has-feedback">
+                            <label class="label">Variable 1</label>
+                            <textarea class="form-control" id="variable1" rows="4" style="font-size:10px;">@Model.variable1</textarea>
+                        </div>
+                        <div class="col-md-6 col-sm-6  form-group has-feedback">
+                            <label class="label">Variable 2</label>
+                            <textarea class="form-control" id="variable2" rows="4" style="font-size:10px;">@Model.variable2</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Tipo de indicador</label>
+                    </div>
+                    <div class="col-md-4 col-sm-4  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="hidden" value="@Model.idtipoind" id="idtipoind2" />
+                            <select class="form-control" id="idtipoind" disabled></select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Dimensión del indicador</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="hidden" value="@Model.iddimensind" id="iddimensind2" />
+                            <select class="form-control" id="iddimensind" disabled></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                        <label class="label">Frecuencia de medición</label>
+                    </div>
+                    <div class="col-md-9 col-sm-9  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="hidden" value="@Model.idfrecuencia" id="idfrecuencia2" />
+                            <select class="form-control" id="idfrecuencia" disabled></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                        <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title="Ejemplo: Porcentaje de árboles plantados.  Unidad de medida real: árboles">
+                            Unidad de medida derivada
+                            <strong><a href="#/question-circle"><i class="fa fa-question-circle" style="color:red;"></i></a></strong>
+                        </span>
+                    </div>
+                    <div class="col-md-4 col-sm-4  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="text" class="form-control text-center" maxlength="100" id="unidadmedidavalor" value="@Model.unidadmedidavalor" />
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-2 text-center  form-group has-feedback ml-2 pt-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                        <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title="Ejemplo: Llegar al 100% de la meta implica plantar 120 árboles, por lo tanto se agrega 120 en este espacio">
+                            Meta en cantidad
+                            <strong><a href="#/question-circle"><i class="fa fa-question-circle" style="color:red;"></i></a></strong>
+                        </span>
+                    </div>
+                    <div class="col-md-3 col-sm-3  form-group has-feedback">
+                        <div class="form-group">
+                            <input type="text" class="form-control text-center meses" maxlength="100" id="metavalor" value="@Model.metavalor" />
+                        </div>
+                    </div>
+                </div>
+
+                <input type="checkbox" id="porcentaje" hidden="hidden" />
+                @*<div class="row">
+            <div class="col-md-12 col-sm-12 text-center  form-group has-feedback ml-2 pt-2">
+                <div class="row text-center">
+                    <div class="col-md-3 text-center form-group has-feedback pt-2 pb-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                        Unidad de medida porcentual
+                    </div>
+                    <div class="col-md-3 text-center form-group has-feedback pt-2 pb-2" style=" background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                        <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title="Ejemplo: Se planean plantar 120 árboles, llegar a ello significa cumplir con el 100%, por lo tanto se agrega 100% en este campo">
+                            Meta porcentual
+                            <strong><a href="#/question-circle"><i class="fa fa-question-circle" style="color:red;"></i></a></strong>
+                        </span>
+                    </div>
+                    <div class="col-md-3 text-center form-group has-feedback pt-2 pb-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                        <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title="Ejemplo: Porcentaje de árboles plantados.  Unidad de medida real: árboles">
+                            Unidad de medida derivada
+                            <strong><a href="#/question-circle"><i class="fa fa-question-circle" style="color:red;"></i></a></strong>
+                        </span>
+                    </div>
+                    <div class="col-md-3 text-center form-group has-feedback pt-2 pb-2" style="background-color:#e4dcd7;color:#484441;font-weight:bold;">
+                        <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title="Ejemplo: Llegar al 100% de la meta implica plantar 120 árboles, por lo tanto se agrega 120 en este espacio">
+                            Meta en cantidad
+                            <strong><a href="#/question-circle"><i class="fa fa-question-circle" style="color:red;"></i></a></strong>
+                        </span>
+                    </div>
+
+                    <input type="checkbox" id="porcentaje" hidden="hidden" />
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <input type="text" class="form-control text-center" readonly id="unidadmedida" value="@Model.unidadmedida" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control text-center" onkeypress="return valideKey(event);" id="metainstitu" value="@Model.metainstitu" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control text-center" id="unidadmedidavalor" value="@Model.unidadmedidavalor" />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control text-center meses" maxlength="4" id="metavalor" value="@Model.metavalor" />
+                    </div>
+                </div>
+            </div>
+        </div>*@
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <table class="table text-break text-center table-bordered">
+                            <tr style="background-color:#e4dcd7;color:484441;">
+                                <td colspan=" 4">
+                                    Calendarización de actividades
+                                    <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title='La "meta en cantidad" se prorratea en los siguientes meses de acuerdo a la frecuencia de medición. En el caso que la meta sea porcentual se agrega la meta en porcentaje.'>
+
+                                        <strong><a href="#/question-circle"><i class="fa fa-question-circle" style="color:red;"></i></a></strong>
+                                    </span>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Enero</label>
+                                        <input type="text" class="form-control meses En" id="Enero" value="@Model.Enero" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Febrero</label>
+                                        <input type="text" class="form-control meses Fb" id="Febrero" value="@Model.Febrero" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Marzo</label>
+                                        <input type="text" class="form-control meses Mz" id="Marzo" value="@Model.Marzo" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Abril:</label>
+                                        <input type="text" class="form-control meses Ab" id="Abril" value="@Model.Abril" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Mayo</label>
+                                        <input type="text" class="form-control meses My" id="Mayo" value="@Model.Mayo" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Junio</label>
+                                        <input type="text" class="form-control meses Jn" id="Junio" value="@Model.Junio" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Julio</label>
+                                        <input type="text" class="form-control meses Jl" id="Julio" value="@Model.Julio" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Agosto:</label>
+                                        <input type="text" class="form-control meses Ag" id="Agosto" value="@Model.Agosto" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Septiembre</label>
+                                        <input type="text" class="form-control meses Sp" id="Septiembre" value="@Model.Septiembre" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Octubre</label>
+                                        <input type="text" class="form-control meses Oc" id="Octubre" value="@Model.Octubre" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Noviembre</label>
+                                        <input type="text" class="form-control meses Nv" id="Noviembre" value="@Model.Noviembre" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Diciembre:</label>
+                                        <input type="text" class="form-control meses Dc" id="Diciembre" value="@Model.Diciembre" onkeypress="return valideKey(event);" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Medios de verificación:</label>
+                            <textarea class="form-control" id="mediosverificacion" rows="2">@Model.mediosverificacion</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Monto solicitado:</label>
+                            <input type="text" class="form-control" id="montosolicitado" value="@Model.montosolicitado" />
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+
+                                <input type="text" class="form-control" id="montosolicitado" value="@Model.montosolicitado" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="ppactivo" style="display:none;">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Supuestos:</label>
+                            <textarea class="form-control" id="Supuestos" rows="2">@Model.Supuestos</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="display:none;">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Unidad Administrativa ejecutora:</label>
+                        <input type="hidden" value="@Model.UnidadAdmnEje" id="UnidadAdmnEje2" />
+                        <select class="form-control" id="UnidadAdmnEje"></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 text-center  form-group has-feedback ml-2 pt-2">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 text-center  form-group has-feedback  pt-1" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                                Línea base
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr class="form-group" style="background-color:#e4dcd7;color:#484441;font-weight:bold;font-size:12px;">
+                                        <th>
+                                            ¿El indicador es nuevo?
+                                        </th>
+                                        <th>
+                                            <input class="form-group radio" type="radio" disabled name="nuevoindicador" id="radiosi" value="si">
+                                            <label style="padding:0px 10px 0px 0px">
+                                                Si
+                                            </label>
+                                            <input class="form-group radio" type="radio" disabled name="nuevoindicador" id="radiono" value="no">
+                                            <label>
+                                                No
+                                            </label>
+                                        </th>
+                                    </tr>
+                                    <tr class="form-group" style="background-color:#e4dcd7;color:484441;font-weight:bold;font-size:12px;">
+                                        @*<th scope="col">
+                                    Valor porcentual
+                                    <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title='Ejemplo: Supongamos que el punto de partida de este indicador fue en el año 2022 con un resultado final de 120 "x", lo cual representó un 90% de avance. Por lo tanto, aqui se agrega el 90%. '>
+                                        <strong>
+                                            <a href="#/question-circle"><i class="fa fa-question-circle" style="color:red;"></i></a>
+                                        </strong>
+                                    </span>
+                                </th>*@
+                                        <th scope="col">
+                                            Valor
+                                            <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title='Ejemplo: Supongamos que el punto de partida de este indicador fue en el año 2022 con un resultado final de 120 "x", lo cual representó un 90% de avance. Por lo tanto, aqui se agrega el 120. '>
+                                                <strong>
+                                                    <a href="#/question-circle"><i class="fa fa-question-circle" style="color:red;"></i></a>
+                                                </strong>
+                                            </span>
+                                        </th>
+                                        <th scope="col">
+                                            Año
+                                            <span class="label label-default" id="btnefecto" data-toggle="tooltip" data-placement="top" title='Ejemplo: Supongamos que el punto de partida de este indicador fue en el año 2022 con un resultado final de 120 "x", lo cual representó un 90% de avance. Por lo tanto, aqui se agrega el 2022. '>
+                                                <strong>
+                                                    <a href="#/question-circle"><i class="fa fa-question-circle" style="color:red;"></i></a>
+                                                </strong>
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        @*<th scope="row">
+                                    <input type="text" class="form-control" onkeypress="return valideKey(event);" id="valor" style="font-size:10px;text-align:center;" value="@Model.valor" />
+                                </th>*@
+                                        <th scope="row">
+                                            <input type="text" class="form-control" id="valorcant" style="font-size:10px;text-align:center;" value="@Model.valorcant" onkeypress="return valideKey(event);" />
+                                        </th>
+                                        <td>
+                                            <input type="text" class="form-control" id="anio" style="font-size:10px;text-align:center;" value="@Model.anio" onkeypress="return valideKey(event);" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 text-center  form-group has-feedback ml-2 pt-2">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 text-center  form-group has-feedback  pt-1" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                                Sentido del indicador
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" value="@Model.idsentido" id="idsentido2" />
+                                <select class="form-control" id="idsentido" style="min-width: 100%" disabled></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center  form-group has-feedback ml-2 pt-2">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 text-center  form-group has-feedback  pt-1" style="background-color:#e4dcd7;color:484441;font-weight:bold;">
+                                Semaforización
+                            </div>
+                        </div>
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="background-color:#77dd77;">Verde</th>
+                                        <th scope="col" style="background-color:#fdfd96;">Amarillo</th>
+                                        <th scope="col" style="background-color:#ff6961;">Rojo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">
+                                            <input type="text" class="form-control" id="verde" readonly style="font-size:10px;text-align:center;cursor:no-drop;" value=">=80%" />
+                                        </th>
+                                        <td>
+                                            <input type="text" class="form-control" id="amarillo" readonly style="font-size:10px;text-align:center;cursor:no-drop;" value=">50% & <80%" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" id="rojo" readonly style="font-size:10px;text-align:center;cursor:no-drop;" value="<=50%" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 text-center">
+                       
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <a>
+                            <button id="btnback" type="button" class="btn btn-secondary btn-block mb-4">
+                                Regresar
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                       
+                    </div>
+                    @*<div class="col-md-4 col-sm-4 text-center">
+                <button type="button" onclick="Valida(1);" class="btn btn-success btn-block mb-4">
+                    Enviar
+                </button>
+            </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center" style="text-align:center;">
+                <h5 class="modal-title text-center" id="exampleModalLabel" style="text-align:center;">Mensaje</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="list">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:100%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .my_second_class {
+        width: 1%;
+        word-break: break-word;
+    }
+
+    .bd-example-modal-lg .modal-dialog {
+        display: table;
+        position: relative;
+        margin: 0 auto;
+        top: calc(50% - 24px);
+    }
+
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            color: red;
+            font-weight: bold;
+            border: none;
+        }
+
+    table.dataTable td {
+        word-break: break-word;
+    }
+
+    .form-control {
+        border-radius: 5px;
+    }
+</style>
+
+<div class="modal fade bd-example-modal-lg" id="spiner" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-5x"></span>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+
+
+    <script>
+        $(document).ready(function ()
+        {
+            var valorcant = $("#valorcant").val();
+            if (valorcant == "-") {
+                $('#valorcant').attr('disabled', 'disabled');
+                $('#radiosi').attr('checked', 'true');
+            }
+            else {
+                $('#radiono').attr('checked', 'true');
+                $('#valorcant').removeAttr('disabled');
+            }
+            $(".form-control").prop("readonly", true);
+            var dropcategoria = $("#idcategoria").val();
+            var pathserver = window.location.pathname;
+
+
+            if (pathserver.includes("Indicadores")) {
+
+                pathserver = "/Indicadores";
+            }
+            else {
+                pathserver = "";
+            }
+
+            $("#btnback").click(function ()
+            {
+                if (dropcategoria == 2)
+                { 
+                    var idarbol = $("#idarbol").val();
+                    path = pathserver + "/Home/ArbolFicha?idarbol=" + idarbol + "&idcategoria=" + dropcategoria + "";
+                     window.location = path;  
+                }
+                else
+                {
+                    path = pathserver + "/Calendario/Lista";
+                    window.location = path;
+                }
+
+            });
+
+            if (dropcategoria == 2)
+            {
+                $("#direccion").html("Unidad Administrativa Ejecutora:");
+                $("#btnguardar").hide();
+                $("#ppactivo").show();
+            }
+
+            Catalogos();
+            var porcentaje = $("#hidenporcentaje").val();
+            if (porcentaje == "value") {
+                $("#metavalor").val($("#metavalor").val() + "%")
+                $("#Enero").val($("#Enero").val() + "%")
+                $("#Febrero").val($("#Febrero").val() + "%")
+                $("#Marzo").val($("#Marzo").val() + "%")
+                $("#Abril").val($("#Abril").val() + "%")
+                $("#Mayo").val($("#Mayo").val() + "%")
+                $("#Junio").val($("#Junio").val() + "%")
+                $("#Julio").val($("#Julio").val() + "%")
+                $("#Agosto").val($("#Agosto").val() + "%")
+                $("#Septiembre").val($("#Septiembre").val() + "%")
+                $("#Octubre").val($("#Octubre").val() + "%")
+                $("#Noviembre").val($("#Noviembre").val() + "%")
+                $("#Diciembre").val($("#Diciembre").val() + "%")
+
+                $('#porcentaje').prop('checked', true);
+            }
+            else
+            {
+
+                var valormeta = $("#metavalor").val();
+
+                valormeta = parseFloat(valormeta.replace(/,/g, ""));
+                $("#metavalor").val(valormeta.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+
+                let meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+                 
+                for (var i = 0; i < meses.length; i++)
+                {
+                    var textbox = $("#" + meses[i]).val().replace(/,/g, "");
+
+                    if (Number.isNaN(textbox) || textbox == "NaN" || textbox == "" || textbox == "null")
+                    {
+                        textbox = "0";
+                        $("#" + this.id).val(textbox);
+                    }
+                    else {
+                        textbox = parseFloat($("#" + meses[i]).val().replace(/,/g, ""));
+                        $("#" +  meses[i]).val(textbox.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    }
+
+                    $("#" + meses[i]).val();
+                 //   console.log(meses[i]); 
+                }
+            }
+            $(".meses").keyup(function () {
+                var valormeta = $("#metavalor").val();
+
+                if (valormeta.includes("%"))
+                {
+                    $('#porcentaje').prop('checked', true);
+                }
+
+                else {
+                    $('#porcentaje').prop('checked', false);
+                    var textbox = parseFloat($("#" + this.id).val().replace(/,/g, ""));
+                    if (Number.isNaN(textbox) || textbox == "NaN" || textbox == "" || textbox == "null") {
+                        textbox = "0";
+                        $("#" + this.id).val(textbox);
+                    }
+                    else {
+                        $("#" + this.id).val(textbox.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+
+        function valideKey(evt) {
+
+            // code is the decimal ASCII representation of the pressed key.
+            var code = (evt.which) ? evt.which : evt.keyCode;
+
+            if (code == 8 || code == 37) { // backspace.
+                return true;
+            }
+            else if (code >= 48 && code <= 57) { // is a number.
+                return true;
+            }
+            else { // other keys.
+                return false;
+            }
+        }
+    </script>
+}

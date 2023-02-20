@@ -1,0 +1,231 @@
+﻿@model IEnumerable<Indicadores.Models.PostgresSql.Tablas.CalendarioModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FichaModel.progmpresup)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ojb_EstratModel.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.enero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.febrero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.marzo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.abril)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mayo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.junio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.julio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.agosto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.septiembre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.octubre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.noviembre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diciembre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.montosoli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecharegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idestaus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idusuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.actividad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.programapresu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unidadmedida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.metainstitucional)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.meta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.medioverificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unidadmedidameta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.activo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idsecretaria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.iddireccion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.porcentaje)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.idarbol)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.padre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cambio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orden)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.folio)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FichaModel.progmpresup)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ojb_EstratModel.descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.enero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.febrero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.marzo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.abril)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mayo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.junio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.julio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.agosto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.septiembre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.octubre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.noviembre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.diciembre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.montosoli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecharegistro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idestaus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idusuario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.actividad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.programapresu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unidadmedida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.metainstitucional)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.meta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.medioverificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unidadmedidameta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.activo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idsecretaria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.iddireccion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.porcentaje)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.idarbol)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.padre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cambio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.orden)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.folio)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.idcalendario }) |
+            @Html.ActionLink("Details", "Details", new { id=item.idcalendario }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.idcalendario })
+        </td>
+    </tr>
+}
+
+</table>

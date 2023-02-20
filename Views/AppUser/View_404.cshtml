@@ -1,0 +1,60 @@
+﻿@model Indicadores.Models.ModelViews.LoginModel
+@{
+    Layout = null;
+}
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gobierno Municipal de Monterrey</title>
+
+    <link href="~/css/style2.css" rel="stylesheet" />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Login On Webapp Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <!--web-fonts-->
+    <link href='//fonts.googleapis.com/css?family=Nunito:400,700,300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Raleway:400,100,200,500,600,700,800,900' rel='stylesheet' type='text/css'>
+
+</head>
+<body style=" font-family:  'Helvetica Neue' sans-serif;">
+    <input type="hidden" id="Error" value="@ViewBag.Error" />
+
+    <input type="hidden" id="Msj" value="@ViewBag.Msj" />
+
+    <div class="main">
+        <div style="text-align:center; width: 50%;-webkit-border-radius: 2px;-moz-border-radius: 2px;margin: 2em auto 0;position: relative;padding-right:1%;">
+            <h1 style="font-size:30px;">Secretaría Ejecutiva </h1>
+            <h2>
+                Portal Interno de Procesos Documentados
+            </h2>
+        </div>
+        <div class="mail-section" style="background: rgb(9,8,15);
+background: linear-gradient(90deg, rgba(9,8,15,0.7651435574229692) 0%, rgba(46,46,59,0.5438550420168067) 25%, rgba(11,17,18,0.87718837535014) 52%, rgba(62,78,82,0.6110819327731092) 75%, rgba(27,37,41,0.8099614845938375) 100%); -moz-background-size: cover;
+    background-size: 100% 100%;">
+            <div class="mail-form">
+                 
+                <div class="col-md-offset-2 col-md-10" style="margin-top:20px;color:red;">
+                 <p>  @ViewBag.msj</p>
+                </div>
+
+                <div class="col-md-offset-2 col-md-10" style="margin-top:20px;color:red;">
+                    <a class="btn btn-success" href="@Url.Action("Login", "AppUser")" style="color:red;font-weight:bold;">Regresar al login</a>
+                </div> 
+
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy2022 todos los derechos reservados  </p>
+    </div>
+
+</body>
+</html>

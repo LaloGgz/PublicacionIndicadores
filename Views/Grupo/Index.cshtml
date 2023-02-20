@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Indicadores.Models.PostgresSql.Tablas.GrupoModel>
+
+
+@{
+    @Styles.Render("~/Content/jqueryDatatable")
+}
+<div class="form-horizontal">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <a href="@Url.Action("Create", "Grupo")" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Nuevo" style="max-width:100%;width:100%;font-weight:bold;">
+                                    Nuevo
+                                </a>
+                            </div>
+                            <div class="col-sm-9">
+                                <h3 class="panel-title text-center text-bold " style="margin-right:100px;">Permisos</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group has-success">
+                                    <table class="table" id="table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                  Descripción
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayNameFor(model => model.activo)
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.descripcion)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.activo)
+                                                </td>
+                                                <td> 
+                                                    <a href="@Url.Action("Edit",new { id=item.idgrupo })" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                     
+                                                    <a href="@Url.Action("Permisos", new { id = item.idgrupo})" class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top" title="Permisos"> <i class="fa fa-unlock-alt"></i></a>
+
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryDatatable")
+
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable(
+            {
+                "stateSave": true,
+                "aaSorting": [[1, "desc"]],
+                "language":
+                    {
+                        "url": "@Url.Content("~/Scripts/Datatable/datatable.spanish.js")"
+                    },
+                "aoColumns": [
+                    null, null, null
+                ],
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+                }
+            });
+
+        });
+
+
+
+    </script>
+}
